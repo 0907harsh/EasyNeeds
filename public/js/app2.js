@@ -1,6 +1,3 @@
-console.log('Client side javascript loaded')
-
-
 // fetch('http://localhost:3000/weathr?address=!').then((response)=>{
 //   response.json().then((data)=>{
 //       if(data.error){
