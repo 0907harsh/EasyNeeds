@@ -61,7 +61,8 @@ app.get('/weather',(req,res)=>{
              return res.send({error:error.message})
             }
             res.send({
-                forecast:Forecastdata.current.temp_c,
+                forecast:Forecastdata.forecast,
+                current:Forecastdata.current.temp_c,
                 location,
                 address:req.query.address
             })
