@@ -29,7 +29,7 @@ weatherForm.addEventListener('submit',(e)=>{
             }
             else{
                 loationpara.textContent='Location'+data.location
-                forecastpara.textContent=`Forecast<br/>Temp:`+sdata.forecast
+                forecastpara.textContent=`Forecast Temp:`+data.forecast
             }
         })
      })
