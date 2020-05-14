@@ -6,6 +6,7 @@ const geocode=require('./utils/geocode.js')
 const forecast=require('./utils/weather-api.js')
 
 const app = express()
+const port = process.env.PORT|| 3000
 //Defne path for Express config
 const viewsPath=path.join(__dirname,'../templates/views')
 const partialsPath=path.join(__dirname,'../templates/partials')
@@ -45,7 +46,7 @@ app.get('/help',(req,res)=>{
         name:'harsh gupta'
     })
 })
-app.get('/weathr',(req,res)=>{
+app.get('/weather',(req,res)=>{
     if(!req.query.address){
         return res.send({
             error:'No address provided'
@@ -94,6 +95,6 @@ app.get('*',(req,res)=>{
         name:'Harsh Gupta'
     })
 })
-app.listen(3000,()=>{
-    console.log('Server is up on port 3000')
+app.listen(port,()=>{
+    console.log('Server is up on port '+port)
 })
