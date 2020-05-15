@@ -53,10 +53,10 @@ weatherForm.addEventListener('submit',(e)=>{
                     document.getElementById('imageBox').src = data.icon;
                 }
                 else{
-                    currentpara.textContent='Current Temp(in Celcius): '+(data.current_temp+2)+"\nFeels like : " + data.feelslike_c 
+                    currentpara.textContent='Current Temp(in Celcius): '+(data.current_temp)+"\nFeels like : " + data.feelslike_c 
                    document.getElementById('imageBox').src = data.icon;
                 }
-                forecastpara.textContent='Today\'s forecast : '+data.forecast.forecastday[0].day.condition.text              
+                forecastpara.textContent='Today\'s forecast : '+data.forecast
             }
         })
      })

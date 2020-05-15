@@ -16,9 +16,7 @@ const geocode = (address, callback)=>{
                     longitude:response.body.features[0].center[0],
                     place:response.body.features[0].place_name
                 })
-                const data=response.body
-                const dataJSON=JSON.stringify(data)
-                fs.writeFileSync('geocoding.json',dataJSON)
+              
              }
          }
     })

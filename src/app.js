@@ -3,7 +3,7 @@ const express=require('express')
 const hbs=require('hbs')
 const rp=require('request-promise')
 const geocode=require('./utils/geocode.js')
-const forecast=require('./utils/weather-api.js')
+const forecast=require('./utils/openweather.js')
 
 const app = express()
 const port = process.env.PORT|| 3000
@@ -61,13 +61,13 @@ app.get('/weather',(req,res)=>{
              return res.send({error:error.message})
             }
             res.send({
-                forecast:Forecastdata.forecast,
-                current_temp:Forecastdata.current.temp_c,
-                is_day:Forecastdata.current.is_day,
-                feelslike_c:Forecastdata.current.feelslike_c,
+                forecast:Forecastdata.forecast[0].temp.max,
+                current_temp:Forecastdata.current.temp-273,
+                is_day:1,
+                feelslike_c:Forecastdata.current.feels_like-273,
                 location,
-                icon:Forecastdata.current.condition.icon,
-                current_text:Forecastdata.current.condition.text,
+                icon:'',
+                current_text:Forecastdata.current.humidity,
                 address:req.query.address
             })
         })
