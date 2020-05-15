@@ -24,6 +24,7 @@ weatherForm.addEventListener('submit',(e)=>{
     loationpara.textContent='Loading'
     currentpara.textContent=''
     forecastpara.textContent='Please wait'
+    document.getElementById('imageBox').src ='';
     fetch('weather?address='+location).then((response)=>{
         response.json().then((data)=>{
             if(data.error){
@@ -33,7 +34,15 @@ weatherForm.addEventListener('submit',(e)=>{
             }
             else{
                 loationpara.textContent='Location : '+data.location
-                currentpara.textContent='Current Temp(in Celcius): '+data.current
+                let isday=data.is_day
+                if(isday===1){
+                currentpara.textContent='Current Temp(in Celcius): '+(data.current_temp-2)+'\n\tFeels like : ' + data.feelslike_c 
+                document.getElementById('imageBox').src = data.icon;
+                }
+                else{
+                currentpara.textContent='Current Temp(in Celcius): '+(data.current_temp+2)+'\n\tFeels like : ' + data.feelslike_c 
+                document.getElementById('imageBox').src = data.icon;
+                }
                 forecastpara.textContent=data.forecast.forecastday[0].day.condition.text              
             }
         })

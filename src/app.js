@@ -62,8 +62,11 @@ app.get('/weather',(req,res)=>{
             }
             res.send({
                 forecast:Forecastdata.forecast,
-                current:Forecastdata.current.temp_c,
+                current_temp:Forecastdata.current.temp_c,
+                is_day:Forecastdata.current.is_day,
+                feelslike_c:Forecastdata.current.feelslike_c,
                 location,
+                icon:Forecastdata.current.condition.icon,
                 address:req.query.address
             })
         })

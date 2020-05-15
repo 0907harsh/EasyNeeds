@@ -9,6 +9,9 @@ body {
     flex-direction: column;
     min-height:100vh;
 }
+img{
+    display:inline-block;
+}
 
 .main-content{
     flex-grow: 1;
