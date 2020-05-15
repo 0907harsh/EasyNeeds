@@ -13,6 +13,11 @@ img{
     display:inline-block;
 }
 
+pre{
+    font-family:Arial, sans-serif;
+    
+}
+
 .main-content{
     flex-grow: 1;
 }

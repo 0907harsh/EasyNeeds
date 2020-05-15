@@ -67,6 +67,7 @@ app.get('/weather',(req,res)=>{
                 feelslike_c:Forecastdata.current.feelslike_c,
                 location,
                 icon:Forecastdata.current.condition.icon,
+                current_text:Forecastdata.current.condition.text,
                 address:req.query.address
             })
         })
