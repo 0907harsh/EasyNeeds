@@ -34,7 +34,7 @@ weatherForm.addEventListener('submit',(e)=>{
             }
             else{
                 let isday=data.is_day
-                var d = new Date();
+                var d = new Date(data.timestamp*1000);
                 var weekday = new Array(7);
                 weekday[0] = "Sunday";
                 weekday[1] = "Monday";
@@ -47,7 +47,7 @@ weatherForm.addEventListener('submit',(e)=>{
                 var time = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
                 var dateTime = date+' '+time;
                 var n = weekday[d.getDay()];
-                loationpara.textContent='Location : '+data.location+'\n'+n+'\n'+data.current_text;
+                loationpara.textContent='Location : '+data.location+'\n'+n + '(Last Updated : '+ dateTime+')\n'+data.current_text ;
                 if(isday===1){
                     currentpara.textContent='Current Temp(in Celcius): '+(data.current_temp-2)+"\nFeels like : " + data.feelslike_c 
                     document.getElementById('imageBox').src = data.icon;

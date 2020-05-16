@@ -26,7 +26,7 @@ app.use(express.static(path.join(__dirname,'../public')))
 app.get('',(req,res)=>{
     res.render('index',{
         title:'weather',
-        name:'harsh gupta'
+        name:'Harsh Gupta'
     })
 })
 
@@ -34,7 +34,7 @@ app.get('',(req,res)=>{
 app.get('/about',(req,res)=>{
     res.render('about',{
         title:'about',
-        name:'harsh gupta'
+        name:'Harsh Gupta'
     })
 })
 
@@ -43,7 +43,7 @@ app.get('/help',(req,res)=>{
     res.render('help',{
         message:'This is help message.....',
         title:'help',
-        name:'harsh gupta'
+        name:'Harsh Gupta'
     })
 })
 app.get('/weather',(req,res)=>{
@@ -61,13 +61,14 @@ app.get('/weather',(req,res)=>{
              return res.send({error:error.message})
             }
             res.send({
-                forecast:Forecastdata.forecast[0].temp.max,
-                current_temp:Forecastdata.current.temp-273,
+                forecast:Forecastdata.current.weather[0].description,
+                current_temp:(Forecastdata.current.temp-273.15).toFixed(2),
                 is_day:1,
-                feelslike_c:Forecastdata.current.feels_like-273,
+                feelslike_c:(Forecastdata.current.feels_like-273.15).toFixed(2),
                 location,
-                icon:'',
-                current_text:Forecastdata.current.humidity,
+                icon:'http://openweathermap.org/img/wn/'+Forecastdata.current.weather[0].icon+'@2x.png',
+                timestamp:Forecastdata.current.dt,
+                current_text:Forecastdata.current.weather[0].main,
                 address:req.query.address
             })
         })

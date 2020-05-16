@@ -11,7 +11,6 @@ const forecast = (latitude,longitude, callback)=>{
                 callback('Unable to get weather location for given area.Try another search',{})
             }
             else{
-                console.log(body.current)
                 callback(undefined,{
                     current:body.current,
                     location:body.timezone,
