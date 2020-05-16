@@ -50,11 +50,11 @@ weatherForm.addEventListener('submit',(e)=>{
                 var n = weekday[d.getDay()];
                 loationpara.textContent='Location : '+data.location+'\n'+n + '(Last Updated : '+ dateTime+')\n'+data.current_text ;
                 if(isday===1){
-                    currentpara.textContent='Current Temp(in Celcius): '+(data.current_temp-2)+"\nFeels like : " + data.feelslike_c 
+                    currentpara.textContent='Current Temp(in C): '+(data.current_temp-2)+"\nFeels like : " + data.feelslike_c 
                     document.getElementById('imageBox').src = data.icon;
                 }
                 else{
-                    currentpara.textContent='Current Temp(in Celcius): '+(data.current_temp)+"\nFeels like : " + data.feelslike_c 
+                    currentpara.textContent='Current Temp(in C): '+(data.current_temp)+"\nFeels like : " + data.feelslike_c 
                    document.getElementById('imageBox').src = data.icon;
                 }
                 forecastpara.textContent='Today\'s forecast : '+data.forecast
