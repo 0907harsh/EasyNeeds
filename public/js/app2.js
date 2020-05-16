@@ -18,6 +18,7 @@ const forecastpara=document.querySelector('#forecastpara')
 const datepara=document.querySelector('#datepara')
 
 
+
 weatherForm.addEventListener('submit',(e)=>{
     e.preventDefault()
     const location =search.value

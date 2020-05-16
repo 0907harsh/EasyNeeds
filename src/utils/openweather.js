@@ -8,7 +8,7 @@ const forecast = (latitude,longitude, callback)=>{
             callback('Unable to connect . Please check your network connection and try again',{})
         }else{
             if(body.cod==='404'){
-                callback('Unable to get weather location for given area.Try another search',{})
+                callback('Unable to get weather for given area.Try another search',{})
             }
             else{
                 callback(undefined,{

@@ -1,13 +1,15 @@
 body {
     color:#333333;
     font-family:arial;
-    max-width:650px;
     margin: 0 auto;
     padding:0 60px;
 
     display:flex;
     flex-direction: column;
     min-height:100vh;
+}
+.back_color{
+    background-color: aqua;
 }
 img{
     display:inline-block;
