@@ -26,7 +26,8 @@ app.use(express.static(path.join(__dirname,'../public')))
 app.get('',(req,res)=>{
     res.render('index',{
         title:'weather',
-        name:'Harsh Gupta'
+        name:'Harsh Gupta',
+        activeHome:'uk-active'
     })
 })
 
@@ -34,7 +35,8 @@ app.get('',(req,res)=>{
 app.get('/about',(req,res)=>{
     res.render('about',{
         title:'about',
-        name:'Harsh Gupta'
+        name:'Harsh Gupta',
+        activeAbout:'uk-active'
     })
 })
 
@@ -43,7 +45,8 @@ app.get('/help',(req,res)=>{
     res.render('help',{
         message:'This is help message.....',
         title:'help',
-        name:'Harsh Gupta'
+        name:'Harsh Gupta',
+        activeHelp:'uk-active'
     })
 })
 app.get('/weather',(req,res)=>{
