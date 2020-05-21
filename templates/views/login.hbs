@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>THs is my webpage</title>
+		<link rel="icon" href="/img/weather.png">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="css/uikit.min.css" />
+		<link rel="stylesheet" href="/css/styles.css">
+		<script src="js/uikit.min.js"></script>
+		<script src="js/uikit-icons.min.js"></script>
+        
+	</head>
+	<body>
+		<div class="main-content">
+			{{>header}}		
+			<p>Use this site to get your weather</p>
+			<form action="login.hbs" method="POST">
+				<label for="Username">Username : </label><input id="Username" type="text/plain" placeholder="username"/>
+				<label for="Password">Username : </label><input id="Password" type="password" placeholder="password"/>
+				<button >Submit</button>
+			</form>
+			<pre id="locationpara"> </pre>
+			<img style="vertical-align:middle;" src="" id="imageBox"/><pre style="vertical-align:middle; display:inline;" id="currentpara"></pre>
+			<p id="forecastpara"></p>
+		</div>
+		
+		
+		{{>footer}}
+		<script src="/socket.io/socket.io.js"></script>
+		<script src="/js/login.js"></script>
+	</body>
+</html>	
+		

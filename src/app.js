@@ -1,11 +1,17 @@
 const path=require('path')
+const http=require('http')
 const express=require('express')
 const hbs=require('hbs')
+require('./db/mongoose')
+const USER=require('./models/user')
 const rp=require('request-promise')
 const geocode=require('./utils/geocode.js')
 const forecast=require('./utils/openweather.js')
+const socketio=require('socket.io')
 
-const app = express()
+const app=express()
+const server=http.createServer(app)
+const io=socketio(server)
 const port = process.env.PORT|| 3000
 //Defne path for Express config
 const viewsPath=path.join(__dirname,'../templates/views')
@@ -21,6 +27,9 @@ hbs.registerPartials(partialsPath)
 
 //Setup static directory to serve
 app.use(express.static(path.join(__dirname,'../public')))
+io.on('connection',(socket)=>{
+    console.log('New Connection Detected')
+})
 
 //root or homepage setup
 app.get('',(req,res)=>{
@@ -49,6 +58,7 @@ app.get('/help',(req,res)=>{
         activeHelp:'uk-active'
     })
 })
+
 app.get('/weather',(req,res)=>{
     if(!req.query.address){
         return res.send({
@@ -97,6 +107,14 @@ app.get('/help/*',(req,res)=>{
     })
 })
 
+app.get('/login',(req,res)=>{
+    res.render('login',{
+        title:'login',
+        message:'Please Login',
+        name:'Harsh Gupta'
+    })
+})
+
 app.get('*',(req,res)=>{
     res.render('error404',{
         title:404,
@@ -104,6 +122,6 @@ app.get('*',(req,res)=>{
         name:'Harsh Gupta'
     })
 })
-app.listen(port,()=>{
+server.listen(port,()=>{
     console.log('Server is up on port '+port)
 })
