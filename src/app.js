@@ -1,5 +1,6 @@
 const path=require('path')
-require('dotenv').config({path: __dirname + '/.env'})
+const dotenv=require('dotenv')
+const result=dotenv.config({path:'./config/.env'})
 const http=require('http')
 const express=require('express')
 const hbs=require('hbs')

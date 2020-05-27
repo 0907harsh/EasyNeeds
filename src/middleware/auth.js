@@ -6,7 +6,7 @@ const USER=require('../models/user')
 const auth = async(req,res,next)=>{
     try{    
         const token=req.cookies.userData.token
-        const ismatch=jwt.verify(token,'YouAreAUser')
+        const ismatch=jwt.verify(token,process.env.JWT_TOKEN)
         const user=await USER.findOne({_id:ismatch._id,'tokens.token':token})
         if(!user){
             throw new Error('New error')
