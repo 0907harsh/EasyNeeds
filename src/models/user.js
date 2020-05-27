@@ -4,9 +4,11 @@ const bcrypt=require('bcryptjs')
 const jwt=require('jsonwebtoken')
 //creating user schema
 const userSchema=new mongoose.Schema({
-    name:{
+    username:{
         type: String,
-        trim:true
+        trim:true,
+        required:true,
+        unique:true
     },
     password:{
         type:String,
@@ -21,7 +23,7 @@ const userSchema=new mongoose.Schema({
     },
     age:{
         type: Number,
-        default:0,
+        default:18,
         validate(value){
             if(value<0){
                 throw new Error('Age must be > 0')
@@ -45,8 +47,8 @@ const userSchema=new mongoose.Schema({
 
 
 //availableo USER
-userSchema.statics.findByCredentials = async(email,password)=>{
-    const user =await USER.findOne({email})
+userSchema.statics.findByCredentials = async(username,password)=>{
+    const user =await USER.findOne({username})
     if(!user){
         throw new Error('Unable to login')
     }

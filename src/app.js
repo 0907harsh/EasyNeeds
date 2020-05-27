@@ -1,4 +1,5 @@
 const path=require('path')
+require('dotenv').config({path: __dirname + '/.env'})
 const http=require('http')
 const express=require('express')
 const hbs=require('hbs')
@@ -8,14 +9,18 @@ const rp=require('request-promise')
 const geocode=require('./utils/geocode.js')
 const forecast=require('./utils/openweather.js')
 const socketio=require('socket.io')
+const auth=require('./middleware/auth')
 
 const app=express()
 const server=http.createServer(app)
 const io=socketio(server)
 const port = process.env.PORT|| 3000
+var cookieParser = require('cookie-parser');
+
 //Defne path for Express config
 const viewsPath=path.join(__dirname,'../templates/views')
 const partialsPath=path.join(__dirname,'../templates/partials')
+
 
 //Setup handlebars engine and viesws locaitons
 app.set('view engine','hbs')
@@ -23,39 +28,44 @@ app.set('views',viewsPath)
 
 //Partials path setup
 hbs.registerPartials(partialsPath)
-
+var TOKEN
 
 //Setup static directory to serve
 app.use(express.static(path.join(__dirname,'../public')))
-io.on('connection',(socket)=>{
-    console.log('New Connection Detected')
-})
+app.use(require("body-parser").json())
+
+app.use(cookieParser());
 
 //root or homepage setup
 app.get('',(req,res)=>{
+    io.on('connection',(socket)=>{
+        socket.emit('isLoggedIn',req.cookies.userData.isLoggedIn)
+    })
     res.render('index',{
-        title:'weather',
+        title:'Homepage',
         name:'Harsh Gupta',
-        activeHome:'uk-active'
+        activeHome:'uk-active', 
     })
 })
 
 // root/about page setup
-app.get('/about',(req,res)=>{
+app.get('/about',auth,(req,res)=>{
     res.render('about',{
-        title:'about',
+        title:req.user.username,
         name:'Harsh Gupta',
-        activeAbout:'uk-active'
+        activeAbout:'uk-active',
+        isLoggedIn:true
     })
 })
 
 // root/help page setup
-app.get('/help',(req,res)=>{
+app.get('/help',auth,(req,res)=>{
     res.render('help',{
         message:'This is help message.....',
-        title:'help',
+        title:req.user.username,
         name:'Harsh Gupta',
-        activeHelp:'uk-active'
+        activeHelp:'uk-active',
+        isLoggedIn:true
     })
 })
 
@@ -99,7 +109,7 @@ app.get('/products',(req,res)=>{
     })
 })//Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
 
-app.get('/help/*',(req,res)=>{
+app.get('/help/*',auth,(req,res)=>{
     res.render('error404',{
         title:'error 404',
         message:'Help article not found',
@@ -107,12 +117,72 @@ app.get('/help/*',(req,res)=>{
     })
 })
 
+app.get('/signup',(req,res)=>{
+    res.render('signup',{
+        title:'hi',
+        message:'Please Login',
+        name:'Harsh Gupta'
+    })
+})
+
+app.post('/signup',async (req,res)=>{
+    const user=new USER(req.body)
+    try{
+        await user.save()
+        // sendWelcomeEmail(user.email,user.name)
+        const token=await user.generateAuthToken()
+        res.clearCookie('userData')
+        res.cookie("userData", {user,token,isLoggedIn:true}); 
+        res.status(201).send({user,token})
+    }catch(e){
+        res.cookie("userData", {isLoggedIn:false}); 
+        res.status(400).send('error')
+    }
+})
+
+app.get('/profile',(req,res)=>{
+     res.render('profile',{
+         title:'profile',
+         message:'You wanted to see your profile here',
+         name:'Harsh Gupta'
+     })
+ })
+
 app.get('/login',(req,res)=>{
+//    console.log('Hi there')
     res.render('login',{
         title:'login',
         message:'Please Login',
         name:'Harsh Gupta'
     })
+})
+
+
+app.post('/login',async(req,res)=>{
+    try{
+        const user= await USER.findByCredentials(req.body.username,req.body.password)
+        const token=await user.generateAuthToken()
+        res.clearCookie('userData')
+        res.cookie("userData", {user,token,isLoggedIn:true});
+        res.status(202).send({user,token})
+    }catch(e){
+        res.cookie("userData", {isLoggedIn:false}); 
+        res.status(500).send({error:'Unable to Login'})
+    }
+})
+
+app.post('/logout',auth,async(req,res)=>{
+    try{
+        req.user.tokens=req.user.tokens.filter((token)=>{
+            return token.token !==req.token
+        })
+        await req.user.save()
+        res.clearCookie('userData')
+        res.cookie("userData", {isLoggedIn:false});
+        res.status(202).send({success:'Logged Out Successfully'})
+    }catch(e){
+        res.status(500).send('errrrrrrrr')
+    }
 })
 
 app.get('*',(req,res)=>{

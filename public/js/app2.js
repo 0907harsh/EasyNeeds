@@ -9,7 +9,7 @@
 //       }
 //   })
 // })
-
+const socket=io()
 const weatherForm=document.querySelector('form')
 const search=document.querySelector('input')
 const loationpara=document.querySelector('#locationpara')
@@ -17,8 +17,39 @@ const currentpara=document.querySelector('#currentpara')
 const forecastpara=document.querySelector('#forecastpara')
 const datepara=document.querySelector('#datepara')
 
+//Hiding Login/SignUp buttons
+socket.on('isLoggedIn',(isLoggedIn)=>{
+    if(!isLoggedIn){
+        // console.log('Why the hell')
+        var all=document.getElementsByClassName('LoginPageButton')
+        for (var i = 0; i <all.length; i++) {
+            all[i].style.display = '';
+          }
+        all=document.getElementsByClassName('SignUpPageButton')
+        for (var i = 0; i <all.length; i++) {
+            all[i].style.display = '';
+          }
+        all=document.getElementsByClassName('MyProfilePageButton')
+        for (var i = 0; i <all.length; i++) {
+            all[i].style.display = 'none';
+          }
+    }
+    if(isLoggedIn){
+        var all=document.getElementsByClassName('LoginPageButton')
+        for (var i = 0; i <all.length; i++) {
+            all[i].style.display = 'none';
+          }
+        all=document.getElementsByClassName('SignUpPageButton')
+        for (var i = 0; i <all.length; i++) {
+            all[i].style.display = 'none';
+          }
+        all=document.getElementsByClassName('MyProfilePageButton')
+        for (var i = 0; i <all.length; i++) {
+            all[i].style.display = '';
+          }
+    }
 
-
+})
 weatherForm.addEventListener('submit',(e)=>{
     e.preventDefault()
     const location =search.value
@@ -62,3 +93,4 @@ weatherForm.addEventListener('submit',(e)=>{
         })
      })
 })
+

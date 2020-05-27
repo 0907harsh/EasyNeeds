@@ -15,10 +15,10 @@
 		<div class="main-content">
 			{{>header}}		
 			<p>Use this site to get your weather</p>
-			<form action="login.hbs" method="POST">
-				<label for="Username">Username : </label><input id="Username" type="text/plain" placeholder="username"/>
-				<label for="Password">Username : </label><input id="Password" type="password" placeholder="password"/>
-				<button >Submit</button>
+			<form>
+				<label for="Username">Username : </label><input id="Username" type="text/plain" placeholder="username"/><br/>
+				<label for="Password">Password : </label><input id="Password" type="password" placeholder="password"/><br/>
+				<button id="SubmitDetails">Submit</button>
 			</form>
 			<pre id="locationpara"> </pre>
 			<img style="vertical-align:middle;" src="" id="imageBox"/><pre style="vertical-align:middle; display:inline;" id="currentpara"></pre>
