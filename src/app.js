@@ -38,8 +38,15 @@ app.use(cookieParser());
 
 //root or homepage setup
 app.get('',(req,res)=>{
+    if(!req.cookies.userData){
+        res.cookie('userData',{isLoggedIn:false})
+    }
     io.on('connection',(socket)=>{
-        socket.emit('isLoggedIn',req.cookies.userData.isLoggedIn)
+        try{
+            socket.emit('isLoggedIn',req.cookies.userData.isLoggedIn)
+        }catch{
+            socket.emit('isLoggedIn',false)
+        }
     })
     res.render('index',{
         title:'Homepage',
