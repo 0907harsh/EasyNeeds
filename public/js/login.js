@@ -27,7 +27,7 @@ document.querySelector('#SubmitDetails').addEventListener('click',async (e)=>{
     })
     const final = response.json()
     if(response.status==202){
-        location.replace('http://localhost:3000/')
+        location.replace('/')
     }
     // console.log()
 })
