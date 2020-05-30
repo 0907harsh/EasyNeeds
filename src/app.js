@@ -10,6 +10,7 @@ const rp=require('request-promise')
 const geocode=require('./utils/geocode.js')
 const forecast=require('./utils/openweather.js')
 const socketio=require('socket.io')
+const {sendWelcomeEmail,DeleteAccounEmail}=require('./sendgrid/account')
 const auth=require('./middleware/auth')
 
 const app=express()
@@ -139,6 +140,7 @@ app.post('/signup',async (req,res)=>{
         await user.save()
         // sendWelcomeEmail(user.email,user.name)
         const token=await user.generateAuthToken()
+        sendWelcomeEmail(user.email,user.username)
         res.clearCookie('userData')
         res.cookie("userData", {user,token,isLoggedIn:true}); 
         res.status(201).send({user,token})
@@ -168,7 +170,7 @@ app.get('/login',(req,res)=>{
 
 app.post('/login',async(req,res)=>{
     try{
-        const user= await USER.findByCredentials(req.body.username,req.body.password)
+        const user= await USER.findByCredentials(req.body.email,req.body.password)
         const token=await user.generateAuthToken()
         res.clearCookie('userData')
         res.cookie("userData", {user,token,isLoggedIn:true});

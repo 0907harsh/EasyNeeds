@@ -10,6 +10,17 @@ const userSchema=new mongoose.Schema({
         required:true,
         unique:true
     },
+    email:{
+        type: String,
+        trim:true,
+        required:true,
+        unique:true,
+        validate(value){
+            if(!validator.isEmail(value)){
+                throw new Error('Email not valid')
+            }
+        }
+    },
     password:{
         type:String,
         required:true,
@@ -47,8 +58,8 @@ const userSchema=new mongoose.Schema({
 
 
 //availableo USER
-userSchema.statics.findByCredentials = async(username,password)=>{
-    const user =await USER.findOne({username})
+userSchema.statics.findByCredentials = async(email,password)=>{
+    const user =await USER.findOne({email})
     if(!user){
         throw new Error('Unable to login')
     }

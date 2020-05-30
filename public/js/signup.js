@@ -6,8 +6,9 @@ document.querySelector('#SubmitDetails').addEventListener('click',async (e)=>{
     e.preventDefault()
     const username=document.querySelector('#Username').value
     const password=document.querySelector('#Password').value
+    const email=document.querySelector('#EmailUser').value
     // socket.emit('DetailSubmit',username,password)
-    var data={username,password}
+    var data={username,email,password}
     const response=await fetch('/signup',{
         method:'POST',
         headers: {

@@ -13,10 +13,10 @@
 const loationpara=document.querySelector('#locationpara')
 document.querySelector('#SubmitDetails').addEventListener('click',async (e)=>{
     e.preventDefault()
-    const username=document.querySelector('#Username').value
+    const email=document.querySelector('#EmailUser').value
     const password=document.querySelector('#Password').value
     // socket.emit('DetailSubmit',username,password)
-    var data={username,password}
+    var data={email,password}
     const response=await fetch('/login',{
         method:'POST',
         headers: {
