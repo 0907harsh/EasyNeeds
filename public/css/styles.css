@@ -1,5 +1,5 @@
 body {
-    color:#333333;
+    color:#212121;
     font-family:arial;
     margin: 0 10px;
     padding:0 10px;
@@ -9,7 +9,7 @@ body {
     min-height:100vh;
 }
 .back_color{
-    background-color: aqua;
+    background-color:rgb(15, 27, 29);
 }
 img{
     display:inline-block;
@@ -41,7 +41,7 @@ h1{
 }
 
 header a{
-    color: #888888;
+    color: #212121;
     margin-right: 16px;
     text-decoration: none;
 }

@@ -6,7 +6,7 @@
     </div> --}}
 
     <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; bottom: #transparent-sticky-navbar" class="back_color">
-			<nav class="uk-navbar-container uk-margin uk-navbar-transparent uk-dark" uk-navbar>
+			<nav class="uk-navbar-container uk-margin uk-navbar-transparent uk-light" uk-navbar>
 				<a class="uk-navbar-item uk-hidden@s" type="button" uk-toggle="target: #offcanvas-nav-primary" uk-navbar-toggle-icon ></a>
 						
 						<div id="offcanvas-nav-primary" uk-offcanvas="overlay: true">
@@ -88,8 +88,9 @@
 					<a href='/login'><button class="uk-button uk-button-primary LoginPageButton" style="display:none; padding:10px;margin: 10px">Login</button></a>
 					<a href='/profile'><button class="uk-button uk-button-primary MyProfilePageButton" style="display:none; padding:10px;margin: 10px">Profile</button> </a>
 				</div>
-				<div class="uk-navbar-right uk-visible@s uk-hidden@m">
-					<button class="uk-button uk-button-primary" style="padding: 10px">Sign In/Login</button>
+				<div class="uk-navbar-right uk-hidden@m">
+					<a href='/profile'><button class="uk-button uk-button-primary MyProfilePageButton" style="display:none; padding:10px;">Profile</button> </a>
+					<a href='/signup'><button class="uk-button uk-button-primary SignUpPageButton" style="padding: 10px">Sign In/Login</button></a>
 				</div>
 				
 			</nav>

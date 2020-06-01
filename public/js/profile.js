@@ -1,3 +1,4 @@
+document.querySelector('#Show_Age').style.width="40px"
 function getCookie(cname) {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
@@ -16,8 +17,11 @@ function getCookie(cname) {
 
 const userData=JSON.parse(getCookie('userData').replace('j:',''))
 if(userData.isLoggedIn){
-    document.querySelector('#Show_Profile').textContent='Username : '+userData.user.username+"\n"+'Age : ' + userData.user.age
-}else{
+    document.querySelector('#Show_Profile').textContent='My Profile'
+    document.querySelector('#Show_Name').value=userData.user.username
+    document.querySelector('#Show_Age').value=userData.user.age
+    document.querySelector('#Show_ID').value=userData.user.email
+  }else{
     document.querySelector('#Show_Profile').textContent='Nothing Here'
 }
 
