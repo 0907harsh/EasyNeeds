@@ -1,6 +1,6 @@
 
 const loationpara=document.querySelector('#locationpara')
-
+const age=document.querySelector('#AgeUser').style.width="40px"
 
 document.querySelector('#SubmitDetails').addEventListener('click',async (e)=>{
     e.preventDefault()

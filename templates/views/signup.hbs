@@ -16,10 +16,10 @@
 			{{>header}}		
 			<p>Signup page</p>
 			<form>
-				<label for="Username">Username : </label><input id="Username" type="text/plain" placeholder="username"/><br/>
-				<label for="Password">Password : </label><input id="Password" type="password" placeholder="password"/><br/>
-				<label for="EmailUser">Email : </label><input id="EmailUser" type="email" placeholder="Email"/><br/>
-				<label for="AgeUser">Age :</label><input id="AgeUser" type="number" placeholder="AgeUser"/><br/>
+				<label for="Username">Username : </label><input id="Username" type="text/plain" placeholder="username" minlength="5" maxlength="12" size="12"/><br/>
+				<label for="Password">Password : </label><input id="Password" type="password" placeholder="password" minlength="6" size="13"/><br/>
+				<label for="EmailUser">Email : </label><input id="EmailUser" type="email" placeholder="Email" size="25"/><br/>
+				<label for="AgeUser">Age :</label><input id="AgeUser" type="number" placeholder="AgeUser" maxlength="3"/><br/>
 				<button id="SubmitDetails">Submit</button>
 			</form>
 			<pre id="locationpara"> </pre>
