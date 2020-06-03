@@ -50,11 +50,11 @@ app.get('',(req,res)=>{
             socket.emit('isLoggedIn',false)
         }
     })
-    res.render('index',{
-        title:'Homepage',
-        name:'Harsh Gupta',
-        activeHome:'uk-active', 
-    })
+        res.render('index',{
+            title:'Homepage',
+            name:'Harsh Gupta',
+            activeHome:'uk-active', 
+        })
 })
 
 // root/about page setup

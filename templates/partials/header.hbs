@@ -1,10 +1,4 @@
-<header>
-    {{!-- <div>
-        <a href="/">Home</a>
-        <a href="/about">About</a>
-        <a href="/help">Help</a>
-    </div> --}}
-
+<header class="uk-animation-fade">
     <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; bottom: #transparent-sticky-navbar" class="back_color">
 			<nav class="uk-navbar-container uk-margin uk-navbar-transparent uk-light" uk-navbar>
 				<a class="uk-navbar-item uk-hidden@s" type="button" uk-toggle="target: #offcanvas-nav-primary" uk-navbar-toggle-icon ></a>
@@ -47,36 +41,21 @@
 							</a>
 							
 						</li>
+						<li class="{{active}}">
+							<a href="#">Other Services</a>
+							<div class="uk-navbar-dropdown">
+								<ul class="uk-nav uk-navbar-dropdown-nav">
+									<li class="uk-active"><a href="#">Active</a></li>
+									<li><a href="#">Item</a></li>
+									<li><a href="#">Item</a></li>
+								</ul>
+							</div>
+						</li>
 						<li class="{{activeHelp}}">
 							<a href="/help">
 							<span class="uk-icon uk-margin-small-right" uk-icon="icon: question"></span>
 							Help</a>
-							<!-- <div class="uk-navbar-dropdown uk-navbar-dropdown-width-2"  uk-drop="boundary: !nav; boundary-align: true; pos: bottom-justify;">
-								<div class="uk-navbar-dropdown-grid uk-child-width-1-2" uk-grid>
-									<div>
-										<ul class="uk-nav uk-navbar-dropdown-nav">
-											<li class="uk-active"><a href="#">Active</a></li>
-											<li><a href="#">Item</a></li>
-											<li class="uk-nav-header">Header</li>
-											<li><a href="#">Item</a></li>
-											<li><a href="#">Item</a></li>
-											<li class="uk-nav-divider"></li>
-											<li><a href="#">Item</a></li>
-										</ul>
-									</div>
-									<div>
-										<ul class="uk-nav uk-navbar-dropdown-nav">
-											<li class="uk-active"><a href="#">Active</a></li>
-											<li><a href="#">Item</a></li>
-											<li class="uk-nav-header">Header</li>
-											<li><a href="#">Item</a></li>
-											<li><a href="#">Item</a></li>
-											<li class="uk-nav-divider"></li>
-											<li><a href="#">Item</a></li>
-										</ul>
-									</div>
-								</div>
-							</div> -->
+							
 						</li>
 						
 					</ul>
