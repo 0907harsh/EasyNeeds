@@ -9,6 +9,7 @@ const USER=require('./models/user')
 const rp=require('request-promise')
 const geocode=require('./utils/geocode.js')
 const forecast=require('./utils/openweather.js')
+const spoonacular=require('./utils/spoonacular.js')
 const socketio=require('socket.io')
 const {sendWelcomeEmail,DeleteAccounEmail}=require('./sendgrid/account')
 const auth=require('./middleware/auth')
@@ -78,6 +79,16 @@ app.get('/help',auth,(req,res)=>{
     })
 })
 
+app.get('/recipe',auth,(req,res)=>{
+    res.render('recipe',{
+        message:'Get worldclass recipes here...',
+        title:req.user.username,
+        name:'Harsh Gupta',
+        activeRecipe:'uk-active',
+        isLoggedIn:true
+    })
+})
+
 app.get('/weather',(req,res)=>{
     if(!req.query.address){
         return res.send({
@@ -106,6 +117,27 @@ app.get('/weather',(req,res)=>{
         })
      })
 })
+
+app.post('/recipe',(req,res)=>{
+    if(!req.body){
+        return res.send({
+            error:'No address provided'
+        })
+    }
+    // console.log(req.body.queries,req.body.numberq)
+    spoonacular(req.body.queries,req.body.numberq , (error,recipes) => {
+        if(error){
+            console.log('ERROR')
+            return res.send({error:error.message})
+         }
+        //  console.log(recipes.recipes)
+         res.send({
+            recipes:recipes.recipes
+         })
+     })
+    
+})
+
 
 app.get('/products',(req,res)=>{
     if(!req.query.search){
