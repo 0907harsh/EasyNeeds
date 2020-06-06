@@ -103,12 +103,12 @@ var defunctDomains = [
   
           formatedText += "<div class='dish-image-div'><a " + " href='" + href + "' target='_blank'><img class='dish-image' style='inline' width='80' src='" + thumbnail + "' alt='recipe picture, link to recipe page'></a></div>";
           formatedText += "<div " + "class='dish-title-div'><a href='" + href + "' target='_blank'>" + recipe.title + "</a></div>";
-          formatedText += "<div class='dish-ingredients-div'>Main ingredients: " + recipe.readyInMinutes + "</div>";
+          formatedText += "<div class='dish-ingredients-div'>Cooking Time: " + recipe.readyInMinutes + "</div>";
         }
       );
   
       if (siteCount > 0) {
-        forecastpara.innerHTML=formatedText;
+        loationpara.innerHTML=formatedText;
       }
       else {
         setNotFoundMessages();

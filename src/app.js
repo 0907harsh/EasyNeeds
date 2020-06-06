@@ -227,6 +227,14 @@ app.post('/logout',auth,async(req,res)=>{
     }
 })
 
+app.get('/playfield',(req,res)=>{
+    res.render('playfield',{
+        title:404,
+        message:'Page not found',
+        name:'Harsh Gupta'
+    })
+})
+
 app.get('*',(req,res)=>{
     res.render('error404',{
         title:404,
