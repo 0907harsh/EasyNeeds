@@ -38,7 +38,12 @@ h1{
     font-size:64px;
     margin-bottom: 16px;
 }
-
+.lk-below {
+    position: relative; 
+    left: 0px; 
+    top: 0px; 
+    z-index: -1;
+}
 header a{
     color: #212121;
     margin-right: 16px;

@@ -16,11 +16,8 @@
 		<div class="main-content">
 			{{>header}}		
 			<p>Use this site to get your weather</p>
-			<form autocomplete="off">
-				
-				<div class="autocomplete">
-					<input id="inputLocation" type="" placeholder="location" maxlength="100" size="50" onchange="sanitizeInput(this);"/>
-				</div>
+			<form autocomplete="on">
+					<input id="inputLocation" class="uk-width-1-2" type="" placeholder="location" maxlength="100" onchange="sanitizeInput(this);"/>
 				<button id="submitform">Search</button>
 			</form>
 			<pre id="locationpara"> </pre>
