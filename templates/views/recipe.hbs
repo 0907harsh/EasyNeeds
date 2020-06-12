@@ -17,7 +17,7 @@
 				<p>Use this site to get Recipe</p>
 				<form id="query-form">
 						<label for="ingredients">Ingredients (commas seperated):</label><input class="textfield uk-width-1-1@m" id="ingredients" type="text" name="ingredients" placeholder="e.g. beef, potato (optional)" onChange="sanitizeInput(this);" />
-						<label for="contains">Dish Name Contains (no commas):</label><input class="textfield uk-width-1-1@m" id="contains" type="text" name="contains" placeholder="e.g. spaghetti (optional)" onChange="sanitizeInput(this);" /></div>
+						<label for="contains">Number of Dishes:</label><input class="textfield uk-width-1-1@m" id="contains" type="text" name="contains" placeholder="e.g. 5,10,20 etc..." onChange="sanitizeInput(this);" /></div>
 						<br />
 						<div class="uk-width-1-2@s">
 						<button class="uk-width-1-5 uk-width-1-5@s uk-width-1-6@l" id="resetButton" style="margin:10px;" onClick="this.form.reset();">Reset</button>
@@ -27,13 +27,14 @@
 				<pre id="locationpara"> </pre>
 				<pre style="vertical-align:middle; display:inline;" id="currentpara"></pre>
 				<pre id="forecastpara"></pre>
-				<h5 uk-scrollspy="cls: uk-animation-fade; delay: 500; repeat: true">User Task API(Coming Soon)<a href="">Here</a></h4>
-				<h5 uk-scrollspy="cls: uk-animation-fade; delay: 500; repeat: true">My own Live Chat App(No sign Up required For now)<a href="https://harshnodechatapp.herokuapp.com/">Here</a></h4>
+			<h5 uk-scrollspy="cls: uk-animation-fade; delay: 500; repeat: true" style=" position: relative; left: 0px; top: 0px; z-index: -1;">User Task API(Coming Soon)<a href="">Here</a></h4>
+			<h5 uk-scrollspy="cls: uk-animation-fade; delay: 500; repeat: true" style=" position: relative; left: 0px; top: 0px; z-index: -1;">My own Live Chat App(No sign Up required For now)<a href="https://harshnodechatapp.herokuapp.com/">Here</a></h4>
 			
 		</div>
 		{{>footer}}
 		<script src="/js/sanitize.js"></script>
 		<script src="/js/recipe.js"></script>
-
+		<script src="/js/getCookie.js"></script>
+		<script src="/js/LoginButton.js"></script>
 	</body>
 </html>

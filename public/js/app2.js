@@ -17,55 +17,6 @@ const currentpara=document.querySelector('#currentpara')
 const forecastpara=document.querySelector('#forecastpara')
 const datepara=document.querySelector('#datepara')
 
-function getCookie(cname) {
-    var name = cname + "=";
-    var decodedCookie = decodeURIComponent(document.cookie);
-    var ca = decodedCookie.split(';');
-    for(var i = 0; i <ca.length; i++) {
-      var c = ca[i];
-      while (c.charAt(0) == ' ') {
-        c = c.substring(1);
-      }
-      if (c.indexOf(name) == 0) {
-        return c.substring(name.length, c.length);
-      }
-    }
-    return "";
-  }
-
-//Hiding Login/SignUp buttons
-socket.on('isLoggedIn',(isLoggedIn)=>{
-    if(!isLoggedIn){
-        // console.log('Why the hell')
-        var all=document.getElementsByClassName('LoginPageButton')
-        for (var i = 0; i <all.length; i++) {
-            all[i].style.display = '';
-          }
-        all=document.getElementsByClassName('SignUpPageButton')
-        for (var i = 0; i <all.length; i++) {
-            all[i].style.display = '';
-          }
-        all=document.getElementsByClassName('MyProfilePageButton')
-        for (var i = 0; i <all.length; i++) {
-            all[i].style.display = 'none';
-          }
-    }
-    if(isLoggedIn){
-        var all=document.getElementsByClassName('LoginPageButton')
-        for (var i = 0; i <all.length; i++) {
-            all[i].style.display = 'none';
-          }
-        all=document.getElementsByClassName('SignUpPageButton')
-        for (var i = 0; i <all.length; i++) {
-            all[i].style.display = 'none';
-          }
-        all=document.getElementsByClassName('MyProfilePageButton')
-        for (var i = 0; i <all.length; i++) {
-            all[i].style.display = '';
-          }
-    }
-
-})
 weatherForm.addEventListener('submit',(e)=>{
     e.preventDefault()
     // console.log('SEcond')
