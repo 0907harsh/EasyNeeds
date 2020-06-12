@@ -6,6 +6,7 @@ const express=require('express')
 const hbs=require('hbs')
 require('./db/mongoose')
 const USER=require('./models/user')
+const LocationSearched=require('./models/searchedLocation')
 const rp=require('request-promise')
 const geocode=require('./utils/geocode.js')
 const forecast=require('./utils/openweather.js')
@@ -89,11 +90,19 @@ app.get('/recipe',auth,(req,res)=>{
     })
 })
 
-app.get('/weather',(req,res)=>{
+app.get('/weather',async (req,res)=>{
     if(!req.query.address){
         return res.send({
             error:'No address provided'
         })
+    }
+    const query=await LocationSearched.findOne({location:req.query.address})
+    if(!query){
+    const newSearch=new LocationSearched({location:req.query.address,timesSearched:1})
+    await newSearch.save()
+    }else{
+        query.timesSearched+=1
+        await query.save()
     }
     geocode(req.query.address,(error,{latitude,longitude,place:location}={})=>{
         if(error){
@@ -135,7 +144,7 @@ app.post('/recipe',(req,res)=>{
             recipes:recipes.recipes
          })
      })
-    
+     
 })
 
 
