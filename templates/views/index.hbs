@@ -16,9 +16,32 @@
 		<div class="main-content">
 			{{>header}}		
 			<p>Use this site to get your weather</p>
-			<form autocomplete="on">
-					<input id="inputLocation" class="uk-width-1-2" type="" placeholder="location" maxlength="100" onchange="sanitizeInput(this);"/>
-				<button id="submitform">Search</button>
+			<form autocomplete="off">
+					<input list="Autocompleter" id="inputLocation" class="uk-width-1-2" type="" placeholder="location" maxlength="100" onchange="sanitizeInput(this);"/>
+					<datalist class="scrollable" id="Autocompleter">
+						<option>Miami</option>
+						<option>Delhi</option>
+						<option>Arctic Ocean</option>
+						<option>Alasks</option>
+						<option>Florida</option>
+						<option>Miami</option>
+						<option>Delhi</option>
+						<option>Miami</option>
+						<option>Delhi</option>
+						<option>Arctic Ocean</option>
+						<option>Alasks</option>
+						<option>Florida</option>
+						<option>Miami</option>
+						<option>Delhi</option>
+						<option>Miami</option>
+						<option>Delhi</option>
+						<option>Arctic Ocean</option>
+						<option>Alasks</option>
+						<option>Florida</option>
+						<option>Miami</option>
+						<option>Delhi</option>
+					</datalist>
+					<button id="submitform">Search</button>
 			</form>
 			<pre id="locationpara"> </pre>
 			<img style="vertical-align:middle;" src="" id="imageBox"/><pre style="vertical-align:middle; display:inline;" id="currentpara"></pre>

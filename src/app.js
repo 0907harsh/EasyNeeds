@@ -46,6 +46,11 @@ app.get('',(req,res)=>{
         res.cookie('userData',{isLoggedIn:false})
     }
     io.on('connection',(socket)=>{
+        socket.on('getoptions',async(searchCriteria,fn)=>{
+            let re = new RegExp("^"+searchCriteria, "gi");
+            const LocationOptions= await LocationSearched.find({location: re})
+            fn(LocationOptions)
+       })
         try{
             socket.emit('isLoggedIn',req.cookies.userData.isLoggedIn)
         }catch{
@@ -57,7 +62,10 @@ app.get('',(req,res)=>{
             name:'Harsh Gupta',
             activeHome:'uk-active', 
         })
-})
+    
+ })
+
+ 
 
 // root/about page setup
 app.get('/about',auth,(req,res)=>{

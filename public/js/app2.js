@@ -16,6 +16,7 @@ const loationpara=document.querySelector('#locationpara')
 const currentpara=document.querySelector('#currentpara')
 const forecastpara=document.querySelector('#forecastpara')
 const datepara=document.querySelector('#datepara')
+const datalist=document.querySelector('#Autocompleter')
 
 weatherForm.addEventListener('submit',(e)=>{
     e.preventDefault()
@@ -60,5 +61,16 @@ weatherForm.addEventListener('submit',(e)=>{
             }
         })
      })
+})
+
+search.addEventListener('keyup',async(e)=>{
+    datalist.innerHTML=''
+    if(search.value){
+        socket.emit('getoptions',search.value,(results)=>{
+            results.forEach((element) => {
+                datalist.innerHTML+=`<option>${element.location}</option>`
+            });
+        })
+    }
 })
 
