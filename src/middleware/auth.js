@@ -15,7 +15,9 @@ const auth = async(req,res,next)=>{
         req.user=user
         next()
     }catch(e){
-        res.status(401).send({error: 'Please authenticate'})
+        res.writeHead(302, { "Location": "http://" + req.headers['host'] + "/Accessdenied"}).end();
+        // res.status(401).send({error: 'Please authenticate'})
+        
     }
     
 }

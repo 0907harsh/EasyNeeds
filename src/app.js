@@ -20,6 +20,7 @@ const server=http.createServer(app)
 const io=socketio(server)
 const port = process.env.PORT|| 3000
 var cookieParser = require('cookie-parser');
+const adminauth = require('./middleware/adminauth')
 
 //Defne path for Express config
 const viewsPath=path.join(__dirname,'../templates/views')
@@ -47,9 +48,15 @@ app.get('',(req,res)=>{
     }
     io.on('connection',(socket)=>{
         socket.on('getoptions',async(searchCriteria,fn)=>{
-            let re = new RegExp("^"+searchCriteria, "gi");
-            const LocationOptions= await LocationSearched.find({location: re})
-            fn(LocationOptions)
+            let re = new RegExp("["+searchCriteria+"]", "gi");
+            console.log(re)
+            try{
+                const LocationOptions= await LocationSearched.find({location: re})
+                fn(LocationOptions)
+            }catch{
+                fn('')
+            }
+            
        })
         try{
             socket.emit('isLoggedIn',req.cookies.userData.isLoggedIn)
@@ -248,6 +255,14 @@ app.get('/playfield',(req,res)=>{
     res.render('playfield',{
         title:404,
         message:'Page not found',
+        name:'Harsh Gupta'
+    })
+})
+
+app.get('/Accessdenied',(req,res)=>{
+    res.render('accessDenied',{
+        title:403,
+        message:'Access Denied',
         name:'Harsh Gupta'
     })
 })

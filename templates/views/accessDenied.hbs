@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Access Denied</title>
+		<link rel="icon" href="/img/weather.png">
+		
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="css/uikit.min.css" />
+		<link rel="stylesheet" href="/css/styles.css">
+		<script src="js/uikit.min.js"></script>
+		<script src="js/uikit-icons.min.js"></script>
+		<script src="/js/app2.js"></script>
+	</head>
+	<body>
+		<div class="main-content">
+			{{>header}}		
+			<p>{{message}}</p>
+            <h4>Login Required <br>
+                You will be redirected shortly to the homepage.
+                If not redirected click <a href="/">here</a>
+            </h4>
+		</div>
+		
+        {{>footer}}	
+	</body>
+    <script>
+        setTimeout(()=>{
+            location.replace('/')
+        },3000)
+    </script>
+	<script src="/js/getCookie.js"></script>
+	<script src="/js/LoginButton.js"></script>
+</html>
