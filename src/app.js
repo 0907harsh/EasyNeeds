@@ -5,6 +5,8 @@ const http=require('http')
 const express=require('express')
 const hbs=require('hbs')
 require('./db/mongoose')
+const multer=require('multer')
+const sharp=require('sharp')
 const USER=require('./models/user')
 const LocationSearched=require('./models/searchedLocation')
 const rp=require('request-promise')
@@ -43,7 +45,9 @@ app.use(cookieParser());
 
 //root or homepage setup
 app.get('',(req,res)=>{
+    // console.log(req.cookies.userData)
     if(!req.cookies.userData){
+        // console.log(req.cookies.userData)
         res.cookie('userData',{isLoggedIn:false})
     }
     io.on('connection',(socket)=>{
@@ -174,13 +178,6 @@ app.get('/products',(req,res)=>{
     })
 })//Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
 
-app.get('/help/*',auth,(req,res)=>{
-    res.render('error404',{
-        title:'error 404',
-        message:'Help article not found',
-        name:'Harsh Gupta'
-    })
-})
 
 app.get('/signup',(req,res)=>{
     res.render('signup',{
@@ -198,7 +195,7 @@ app.post('/signup',async (req,res)=>{
         const token=await user.generateAuthToken()
         sendWelcomeEmail(user.email,user.username)
         res.clearCookie('userData')
-        res.cookie("userData", {user,token,isLoggedIn:true}); 
+        res.cookie("userData", {user,token,isLoggedIn:true},{maxAge: 9000000}); 
         res.status(201).send({user,token})
     }catch(e){
         res.cookie("userData", {isLoggedIn:false}); 
@@ -226,15 +223,66 @@ app.get('/login',(req,res)=>{
 
 app.post('/login',async(req,res)=>{
     try{
+        
         const user= await USER.findByCredentials(req.body.email,req.body.password)
+       
         const token=await user.generateAuthToken()
         res.clearCookie('userData')
-        res.cookie("userData", {user,token,isLoggedIn:true});
+        // console.log(req.cookies)
+        res.cookie("userData", {user,token,isLoggedIn:true},{maxAge: 9000000});
+        
         res.status(202).send({user,token})
+        
     }catch(e){
         res.cookie("userData", {isLoggedIn:false}); 
         res.status(500).send({error:'Unable to Login'})
     }
+})
+
+
+var uploads=multer({
+    limits:{
+        fileSize:1000000
+    },
+    fileFilter(req,file,cb){
+        // You can always pass an error if something goes wrong:
+        if(!file.originalname.match(/\.(jpg|jpeg|png)$/gi)){
+            cb(new Error('Please upload images'))
+        }
+        // To accept the file pass `true`, like so:
+        cb(undefined, true)
+    }
+})
+
+app.get('/avatars',auth,(req,res)=>{
+    res.render('playtar',{
+        title:"Avatar",
+        message:'Avatar Upload',
+        name:'Harsh Gupta'
+    })
+})
+
+app.post('/me/avatars',auth,uploads.single('avatar'),async (req,res)=>{
+    // req.user.avatar=req.file.buffer
+    const buffer=await sharp(req.file.buffer).resize({width:250,height:250}).png().toBuffer()
+    req.user.avatar=buffer
+    await req.user.save()
+    // console.log( buffer)
+    // console.log(req.user._id)
+    res.status(202).send({data : buffer})
+},(error,req,res,next)=>{
+    console.log("ERROR")
+    res.status(400).send({error:error.message})
+    
+})
+
+
+app.delete('/me/avatars',auth,async (req,res)=>{
+    req.user.avatar=undefined
+    await req.user.save()
+    res.send()
+},(error,req,res,next)=>{
+    res.status(400).send({error:error.message})
 })
 
 app.post('/logout',auth,async(req,res)=>{
@@ -251,13 +299,7 @@ app.post('/logout',auth,async(req,res)=>{
     }
 })
 
-app.get('/playfield',(req,res)=>{
-    res.render('playfield',{
-        title:404,
-        message:'Page not found',
-        name:'Harsh Gupta'
-    })
-})
+
 
 app.get('/Accessdenied',(req,res)=>{
     res.render('accessDenied',{
@@ -274,6 +316,7 @@ app.get('*',(req,res)=>{
         name:'Harsh Gupta'
     })
 })
+
 server.listen(port,()=>{
     console.log('Server is up on port '+port)
 })

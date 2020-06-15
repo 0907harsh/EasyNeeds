@@ -5,6 +5,7 @@ const USER=require('../models/user')
 
 const auth = async(req,res,next)=>{
     try{    
+        // console.log(req)
         const token=req.cookies.userData.token
         const ismatch=jwt.verify(token,process.env.JWT_TOKEN)
         const user=await USER.findOne({_id:ismatch._id,'tokens.token':token})
@@ -13,6 +14,7 @@ const auth = async(req,res,next)=>{
         }
         req.token=token
         req.user=user
+        // console.log(req)
         next()
     }catch(e){
         res.writeHead(302, { "Location": "http://" + req.headers['host'] + "/Accessdenied"}).end();

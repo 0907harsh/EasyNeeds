@@ -17,6 +17,7 @@ document.querySelector('#SubmitDetails').addEventListener('click',async (e)=>{
     const password=document.querySelector('#Password').value
     // socket.emit('DetailSubmit',username,password)
     var data={email,password}
+    // console.log(data)
     const response=await fetch('/login',{
         method:'POST',
         headers: {
@@ -25,9 +26,12 @@ document.querySelector('#SubmitDetails').addEventListener('click',async (e)=>{
           },
         body: JSON.stringify(data)
     })
+    
     const final = response.json()
+    // console.log(response.body)
     if(response.status==202){
         location.replace('/')
+        // console.log(response.status)
     }
     // console.log()
 })

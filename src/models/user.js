@@ -46,7 +46,11 @@ const userSchema=new mongoose.Schema({
             type:String,
             required:true
         }
-    }]
+    }],
+    avatar:{
+        type:Buffer,
+        default:null
+    }
 },{
     timestamps:true
 })
@@ -61,10 +65,12 @@ const userSchema=new mongoose.Schema({
 userSchema.statics.findByCredentials = async(email,password)=>{
     const user =await USER.findOne({email})
     if(!user){
+        // console.log("no user found")
         throw new Error('Unable to login')
     }
     const ismatch=await bcrypt.compare(password,user.password)
     if(!ismatch){
+        // console.log("Incorrect credentals")
         throw new Error('Unable to login')
     }
     return user
@@ -84,6 +90,7 @@ userSchema.methods.toJSON=function(){
     const userPublic = user.toObject()
     delete userPublic.password
     delete userPublic.tokens
+    delete userPublic.avatar
     return userPublic
 }
 
