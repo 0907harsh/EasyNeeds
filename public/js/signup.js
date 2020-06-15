@@ -20,7 +20,7 @@ document.querySelector('#SubmitDetails').addEventListener('click',async (e)=>{
     })
     const final = response.json()
     if(response.status==201){
-        location.replace('/playfield')
+        location.replace('/avatars')
     }
     // console.log()
 })
