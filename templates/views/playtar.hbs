@@ -17,15 +17,13 @@
 				<form >
 					{{!-- action="/USERS/me/avatars" enctype="multipart/form-data" method="POST">  --}}
 						
-						<img id="Previewer" src="/img/default_profile_pic.png" width="250px" height="250px" alt="Uploaded Images" class="uk-background  uk-align-center" uk-img/>
-						<input  class="uk-align-center" type="file" name="avatar" id="myfile" style="display: flex;" required /> <br> 
+						<img id="Previewer" src="/img/default_profile_pic.png" width="250px" height="250px" alt="Uploaded Images" class="uk-background" uk-img/>
+						<input type="file" name="avatar" id="myfile" style="display: flex;" required /> <br> 
 				
 				</form> 
-				<input  class="uk-width-1-4" style="display: inline;"  type="button" value="Skip" href='/profile'>
-				
-				<input  class="uk-width-1-4" style="display: inline;"  type="submit" value="Upload Image" name="submit" id="imageAdder">  
-				
-				<input  class="uk-width-1-3 uk-align-center" style="display: inline;"  type="button" value="Next" href='/' >
+				<a id="SkipButton" class="uk-button uk-button-secondary" href='/profile'>Skip</a>
+				<button type="submit" name="submit" id="imageAdder"> Upload Image </button>
+				<a id="NextButton" class="uk-button uk-button-primary" >Next</a>
 
 			</div>	
 			<pre id="locationpara"> </pre>

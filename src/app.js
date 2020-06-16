@@ -53,7 +53,7 @@ app.get('',(req,res)=>{
     io.on('connection',(socket)=>{
         socket.on('getoptions',async(searchCriteria,fn)=>{
             let re = new RegExp("["+searchCriteria+"]", "gi");
-            console.log(re)
+            // console.log(re)
             try{
                 const LocationOptions= await LocationSearched.find({location: re})
                 fn(LocationOptions)

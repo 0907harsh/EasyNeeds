@@ -1,6 +1,9 @@
 const fileinput=document.querySelector('#myfile')
 const imageAdder=document.querySelector('#imageAdder')
 const imageViewer = document.querySelector('#Previewer')
+const skipButton = document.querySelector('#SkipButton')
+const nextButton = document.querySelector('#NextButton')
+
 
 imageAdder.addEventListener('click',async (e)=>{
     e.preventDefault()
@@ -17,6 +20,9 @@ imageAdder.addEventListener('click',async (e)=>{
         method: 'POST',
         body: formData,
     })
+
+    skipButton.href='#'
+    nextButton.href='/profile'
     const final=await response.json()
     var d=final.data.data.toString().split(',')
     
