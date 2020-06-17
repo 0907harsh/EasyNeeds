@@ -12,22 +12,27 @@
 	<body>
 		<div class="main-content">
 			{{>header}}
-			<div>	
-				<div>Upload Profile Picture: </div>
+			<div class="uk-container uk-text-center">	
+				<div><strong> Profile Picture:</strong> </div>
 				<form >
 					{{!-- action="/USERS/me/avatars" enctype="multipart/form-data" method="POST">  --}}
 						
-						<img id="Previewer" src="/img/default_profile_pic.png" width="250px" height="250px" alt="Uploaded Images" class="uk-background" uk-img/>
-						<input type="file" name="avatar" id="myfile" style="display: flex;" required /> <br> 
-				
+						<img style="z-index:auto" id="Previewer" src="/img/default_profile_pic.png" width="250px" height="250px" alt="Uploaded Images" class="uk-background" uk-img/>
+						 <div class="uk-margin" uk-margin>
+							<div uk-form-custom="target: true">
+								<input type="file"  name="avatar" id="myfile">
+								<input class="uk-input uk-form-width-medium" type="text" placeholder="Select file" disabled>
+							</div>
+						</div>
+
 				</form> 
 				<a id="SkipButton" class="uk-button uk-button-secondary" href='/profile'>Skip</a>
 				<button type="submit" name="submit" id="imageAdder"> Upload Image </button>
 				<a id="NextButton" class="uk-button uk-button-primary" >Next</a>
-
+				<pre id="locationpara"> </pre>
+				<p id="forecastpara"></p>	
 			</div>	
-			<pre id="locationpara"> </pre>
-			<p id="forecastpara"></p>			
+					
 		</div>
 		{{>footer}}
 		<script src="/js/uikit.min.js"></script>

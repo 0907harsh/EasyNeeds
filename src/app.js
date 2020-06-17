@@ -195,7 +195,7 @@ app.post('/signup',async (req,res)=>{
         const token=await user.generateAuthToken()
         sendWelcomeEmail(user.email,user.username)
         res.clearCookie('userData')
-        res.cookie("userData", {user,token,isLoggedIn:true},{maxAge: 9000000}); 
+        res.cookie("userData", {user,token,isLoggedIn:true},{maxAge: 900000000}); 
         res.status(201).send({user,token})
     }catch(e){
         res.cookie("userData", {isLoggedIn:false}); 
@@ -229,7 +229,7 @@ app.post('/login',async(req,res)=>{
         const token=await user.generateAuthToken()
         res.clearCookie('userData')
         // console.log(req.cookies)
-        res.cookie("userData", {user,token,isLoggedIn:true},{maxAge: 9000000});
+        res.cookie("userData", {user,token,isLoggedIn:true},{maxAge: 900000000});
         
         res.status(202).send({user,token})
         

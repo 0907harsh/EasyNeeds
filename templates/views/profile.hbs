@@ -14,15 +14,44 @@
 	<body>
 		<div class="main-content">
 			{{>header}}		
-			<h3 id="Show_Profile"></h3>
-			<pre>
-			<label>Name  : </label><input id="Show_Name" type="text/plain" placeholder="Name" maxlength="14" size="12"><br>
-			<label>Age     : </label><input id="Show_Age" type="number" placeholder="Age" maxlength="3"><br>
-			<label>Email  : </label><input id="Show_ID" type="email" placeholder="Email" size="25"><br>
-			<button id="UpdateProfile" class="uk-buttton" disabled>Save Changes</button>
-			</pre>
-			<button id="UpdateProfile" class="uk-buttton">Update</button>
-			<button id="LogoutButton" class="uk-buttton">Logout</button>
+			<div class="uk-container uk-text-center">
+				<h3 id="Show_Profile"></h3>
+				<div>
+					{{!-- <label for="Show_Name" class="">Name  : </label> <input  id="Show_Name" type="text/plain" placeholder="Name" maxlength="14" size="12"><br> --}}
+					{{!-- <label for="Show_Age">Age     : </label><input  id="Show_Age" type="number" placeholder="Age" maxlength="3"><br> --}}
+					{{!-- <label for="Show_ID">Email  : </label>  <input  id="Show_ID" type="email" placeholder="Email" size="25"><br> --}}
+					
+				</div>
+			</div>
+				<div class="uk-grid-small" uk-grid>
+					<div class="uk-width-1-2@s" style="padding-left: 40px;">
+						<div class="uk-width-1-1">
+							<label for="Show_Name" class="uk-width-1-4@s">Name</label>
+							<input  id="Show_Name" class="uk-width-3-4@s" type="text/plain" placeholder="Name" maxlength="14" size="12">
+						</div>
+						<div class="uk-width-1-1">
+							<label for="Show_Age" class="uk-width-1-1 uk-width-1-4@s">Age</label>
+							<input  id="Show_Age"  class="uk-width-1-1 uk-width-3-4@s"type="number" placeholder="Age" maxlength="3">
+						</div>
+						<div class="uk-width-1-1">
+							<label for="Show_ID" class="uk-width-1-4@s">Email</label>
+							<input  id="Show_ID"  class="uk-width-3-4@s" type="email" placeholder="Email" size="25">
+						</div>
+						<button id="UpdateProfile" class="uk-buttton" disabled> Save Changes</button>
+					</div>
+					<div class="uk-width-1-2@s"> 
+						<img style="z-index:auto" id="Previewer" src="/img/default_profile_pic.png" width="250px" height="250px" alt="Uploaded Images" class="uk-background" uk-img/>
+						 <div class="uk-margin" uk-margin>
+							<div uk-form-custom="target: true">
+								<input type="file"  name="avatar" id="myfile">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="uk-text-center">
+				<button id="UpdateProfile" class="uk-buttton">Update</button>
+				<button id="LogoutButton" class="uk-buttton">Logout</button>
+				</div>
 		</div>
 	
         
