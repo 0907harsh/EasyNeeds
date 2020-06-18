@@ -1,3 +1,8 @@
+const socket2=io()
+socket2.emit('getCookie')
+socket2.on('recieveCookie',(cookies)=>{
+    console.log(cookies)
+})
 var getCookie=function getCookie(cname) {
   var name = cname + "=";
   var decodedCookie = decodeURIComponent(document.cookie);
