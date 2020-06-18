@@ -41,6 +41,7 @@ var TOKEN
 //Setup static directory to serve
 app.use(express.static(path.join(__dirname,'../public')))
 app.use(require("body-parser").json())
+// app.use(function(request, response){ if(!request.secure){ response.redirect("https://" + request.headers.host + request.url); } });
 
 app.use(cookieParser());
 
@@ -82,6 +83,7 @@ app.get('',(req,res)=>{
 
 // root/about page setup
 app.get('/about',auth,(req,res)=>{
+    if(!req.secure){ res.redirect("https://" + req.headers.host + req.url); }
     res.render('about',{
         title:req.user.username,
         name:'Harsh Gupta',
@@ -92,6 +94,7 @@ app.get('/about',auth,(req,res)=>{
 
 // root/help page setup
 app.get('/help',auth,(req,res)=>{
+    if(!req.secure){ res.redirect("https://" + req.headers.host + req.url); }
     res.render('help',{
         message:'This is help message.....',
         title:req.user.username,
@@ -102,6 +105,7 @@ app.get('/help',auth,(req,res)=>{
 })
 
 app.get('/recipe',auth,(req,res)=>{
+    if(!req.secure){ res.redirect("https://" + req.headers.host + req.url); }
     res.render('recipe',{
         message:'Get worldclass recipes here...',
         title:req.user.username,
