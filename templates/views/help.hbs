@@ -8,22 +8,47 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="css/uikit.min.css" />
 		<link rel="stylesheet" href="/css/styles.css">
-		<script src="js/uikit.min.js"></script>
-		<script src="js/uikit-icons.min.js"></script>
-		<script src="/js/app.js"></script>
+		
 	</head>
 	<body>
 		<div class="main-content">
 			{{>header}}	<!--partials calling-->	
 			<div class="uk-container uk-text-center">
-				<p>{{message}}</p><!--accessing obect passed to the file-->
-
+				<div class="uk-alert-primary" uk-alert>
+					<a class="uk-alert-close" uk-close></a>
+					<p>Some Frequently asked Questions</p>
+				</div>
+				<!--accessing obect passed to the file-->
+				<ul uk-accordion>
+					<li class="uk-open">
+						<a class="uk-accordion-title" href="#">Who are you</a>
+						<div class="uk-accordion-content">
+							<p>A curious student</p>
+						</div>
+					</li>
+					<li>
+						<a class="uk-accordion-title" href="#">What is this?</a>
+						<div class="uk-accordion-content">
+							<p>My favourite Hobby</p>
+						</div>
+					</li>
+					<li>
+						<a class="uk-accordion-title" href="#">Any other task that you have done!</a>
+						<div class="uk-accordion-content">
+							<p>A live-Chat App , A task-rest API , Maps Support</p>
+						</div>
+					</li>
+				</ul>
+				
+				<p>{{message}}</p>
 			</div>
-			
 		</div>
 		
 		{{>footer}}	
+		<script src="js/uikit.min.js"></script>
+		<script src="js/uikit-icons.min.js"></script>
+		<script src="/js/getCookie.js"></script>
+		<script src="/js/LoginButton.js"></script>
 	</body>
-	<script src="/js/getCookie.js"></script>
-	<script src="/js/LoginButton.js"></script>
+	
 </html>

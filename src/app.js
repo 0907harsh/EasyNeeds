@@ -16,6 +16,7 @@ const spoonacular=require('./utils/spoonacular.js')
 const socketio=require('socket.io')
 const {sendWelcomeEmail,DeleteAccounEmail}=require('./sendgrid/account')
 const auth=require('./middleware/auth')
+const localforage=require('localforage')
 
 const app=express()
 const server=http.createServer(app)
@@ -68,6 +69,7 @@ app.get('',(req,res)=>{
             socket.emit('isLoggedIn',false)
         }
     })
+    res.setHeader("Content-Security-Policy", "script-src 'self'" )
         res.render('index',{
             title:'Homepage',
             name:'Harsh Gupta',
@@ -110,6 +112,7 @@ app.get('/recipe',auth,(req,res)=>{
 })
 
 app.get('/weather',async (req,res)=>{
+    
     if(!req.query.address){
         return res.send({
             error:'No address provided'
@@ -255,21 +258,40 @@ var uploads=multer({
 })
 
 app.get('/avatars',auth,(req,res)=>{
+    
     res.render('playtar',{
         title:"Avatar",
         message:'Avatar Upload',
         name:'Harsh Gupta'
     })
+    
+})
+
+app.post('/me/getavatars',auth,async (req,res)=>{
+    try{
+        // console.log(req.user.avatar)
+        res.status(202).send({data:req.user.avatar})
+    }catch{
+        // console.log('Error')
+        res.status(404).send('')
+    }
 })
 
 app.post('/me/avatars',auth,uploads.single('avatar'),async (req,res)=>{
     // req.user.avatar=req.file.buffer
-    const buffer=await sharp(req.file.buffer).resize({width:250,height:250}).png().toBuffer()
-    req.user.avatar=buffer
-    await req.user.save()
-    // console.log( buffer)
-    // console.log(req.user._id)
-    res.status(202).send({data : buffer})
+        const buffer=await sharp(req.file.buffer).resize({width:250,height:250}).png().toBuffer()
+        req.user.avatar=buffer
+        await req.user.save()
+        // console.log( buffer)
+        // console.log(req.user._id)
+        localforage.setItem('key', 'value').then(function () {
+            return localforage.getItem('key');
+        }).then(function (value) {
+            console.log('we got our value')
+        }).catch(function (err) {
+            console.log('Erorr')
+        });
+        res.status(202).send({data : buffer})
 },(error,req,res,next)=>{
     console.log("ERROR")
     res.status(400).send({error:error.message})
@@ -302,6 +324,7 @@ app.post('/logout',auth,async(req,res)=>{
 
 
 app.get('/Accessdenied',(req,res)=>{
+    res.setHeader('Strict-Transport-Security', 'max-age=500000; includeSubDomains')
     res.render('accessDenied',{
         title:403,
         message:'Access Denied',

@@ -30,8 +30,11 @@ document.querySelector('#SubmitDetails').addEventListener('click',async (e)=>{
     const final = response.json()
     // console.log(response.body)
     if(response.status==202){
+        loationpara.innerHTML="<div class=\"uk-alert-success\" uk-alert><a class=\"uk-alert-close\" uk-close></a><p>Success.New Account Created</p></div>"  
         location.replace('/')
         // console.log(response.status)
+    }else{
+        loationpara.innerHTML="<div class=\"uk-alert-danger\" uk-alert><a class=\"uk-alert-close\" uk-close></a><p>Invalid Credentials. Please Try Again</p></div>"  
     }
     // console.log()
 })

@@ -7,21 +7,24 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="css/uikit.min.css" />
 		<link rel="stylesheet" href="/css/styles.css">
-		<script src="js/uikit.min.js"></script>
-		<script src="js/uikit-icons.min.js"></script>
+		
         
 	</head>
 	<body>
 		<div class="main-content">
 			{{>header}}	
 			<div class="uk-container uk-text-center">
-				<p>Use this site to get your weather</p>
-				<form class="uk-flex uk-flex-center@m uk-flex-left">
-					<label for="EmailUser">Email : </label><input id="EmailUser" type="email" placeholder="Email" size="25"  onchange="sanitizeInput(this);" uk-tooltip="title: Must be a valid Email; pos: right;duration: 500;delay: 200"/><br/>
-					<br/>
+				<p><strong>Your Login Credentials</strong> </p>
+				<form>
+					<div class="uk-width-1-1">
+						<label for="EmailUser" class="uk-width-1-6">Email : </label>
+						<input id="EmailUser" type="email" placeholder="Email" size="25"  onchange="sanitizeInput(this);" uk-tooltip="title: Must be a valid Email; pos: right;duration: 500;delay: 200"/><br/>
+					</div><br/>
 					<label for="Password">Password : </label><input id="Password" type="password" placeholder="password" minlength="6" maxlength="10"  onchange="sanitizeInput(this);" /><br/>
+					<br/>
 					<button id="SubmitDetails">Submit</button>
 				</form>
+
 				<pre id="locationpara"> </pre>
 				<img style="vertical-align:middle;" src="" id="imageBox"/><pre style="vertical-align:middle; display:inline;" id="currentpara"></pre>
 				<p id="forecastpara"></p>
@@ -30,6 +33,8 @@
 		
 		
 		{{>footer}}
+		<script src="js/uikit.min.js"></script>
+		<script src="js/uikit-icons.min.js"></script>
 		<script src="/js/sanitize.js"></script>
 		<script src="/js/login.js"></script>
 	</body>
