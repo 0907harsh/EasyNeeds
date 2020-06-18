@@ -83,7 +83,7 @@ app.get('',(req,res)=>{
 
 // root/about page setup
 app.get('/about',auth,(req,res)=>{
-    if(!req.secure){ res.redirect("https://" + req.headers.host + req.url); }
+    // if(!req.secure){ res.redirect("https://" + req.headers.host + req.url); }
     res.render('about',{
         title:req.user.username,
         name:'Harsh Gupta',
@@ -94,7 +94,7 @@ app.get('/about',auth,(req,res)=>{
 
 // root/help page setup
 app.get('/help',auth,(req,res)=>{
-    if(!req.secure){ res.redirect("https://" + req.headers.host + req.url); }
+    // if(!req.secure){ res.redirect("https://" + req.headers.host + req.url); }
     res.render('help',{
         message:'This is help message.....',
         title:req.user.username,
@@ -105,7 +105,7 @@ app.get('/help',auth,(req,res)=>{
 })
 
 app.get('/recipe',auth,(req,res)=>{
-    if(!req.secure){ res.redirect("https://" + req.headers.host + req.url); }
+    // if(!req.secure){ res.redirect("https://" + req.headers.host + req.url); }
     res.render('recipe',{
         message:'Get worldclass recipes here...',
         title:req.user.username,
@@ -187,7 +187,7 @@ app.get('/products',(req,res)=>{
 
 
 app.get('/signup',(req,res)=>{
-    if(!req.secure){ res.redirect("https://" + req.headers.host + req.url); }
+    // if(!req.secure){ res.redirect("https://" + req.headers.host + req.url); }
     res.render('signup',{
         title:'hi',
         message:'Please Login',
@@ -212,7 +212,7 @@ app.post('/signup',async (req,res)=>{
 })
 
 app.get('/profile',(req,res)=>{
-    if(!req.secure){ res.redirect("https://" + req.headers.host + req.url); } 
+    // if(!req.secure){ res.redirect("https://" + req.headers.host + req.url); } 
     res.render('profile',{
          title:'profile',
          message:'You wanted to see your profile here',
@@ -222,7 +222,7 @@ app.get('/profile',(req,res)=>{
 
 app.get('/login',(req,res)=>{
 //    console.log('Hi there')
-   if(!req.secure){ res.redirect("https://" + req.headers.host + req.url); } 
+//    if(!req.secure){ res.redirect("https://" + req.headers.host + req.url); } 
     res.render('login',{
         title:'login',
         message:'Please Login',
