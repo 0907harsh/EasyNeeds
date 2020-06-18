@@ -187,6 +187,7 @@ app.get('/products',(req,res)=>{
 
 
 app.get('/signup',(req,res)=>{
+    if(!req.secure){ res.redirect("https://" + req.headers.host + req.url); }
     res.render('signup',{
         title:'hi',
         message:'Please Login',
@@ -211,7 +212,8 @@ app.post('/signup',async (req,res)=>{
 })
 
 app.get('/profile',(req,res)=>{
-     res.render('profile',{
+    if(!req.secure){ res.redirect("https://" + req.headers.host + req.url); } 
+    res.render('profile',{
          title:'profile',
          message:'You wanted to see your profile here',
          name:'Harsh Gupta'
@@ -220,6 +222,7 @@ app.get('/profile',(req,res)=>{
 
 app.get('/login',(req,res)=>{
 //    console.log('Hi there')
+   if(!req.secure){ res.redirect("https://" + req.headers.host + req.url); } 
     res.render('login',{
         title:'login',
         message:'Please Login',
