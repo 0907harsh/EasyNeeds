@@ -29,7 +29,7 @@ weatherForm.addEventListener('submit',(e)=>{
     fetch('weather?address='+location).then((response)=>{
         response.json().then((data)=>{
             if(data.error){
-                loationpara.innerHTML="<div class=\"uk-alert-danger\" uk-alert><a class=\"uk-alert-close\" uk-close></a><p>Location Not Found.Try Another Search</p></div>"  
+                loationpara.innerHTML="<div style=\"z-index: 0\" class=\"uk-alert-danger\" uk-alert><a class=\"uk-alert-close\" uk-close></a><p>Location Not Found.Try Another Search</p></div>"  
                 currentpara.textContent=''
                 forecastpara.textContent=''
             }

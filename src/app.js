@@ -160,7 +160,7 @@ app.post('/recipe',(req,res)=>{
             return res.send({error:error.message})
          }
         //  console.log(recipes.recipes)
-         res.send({
+         res.send({  
             recipes:recipes.recipes
          })
      })

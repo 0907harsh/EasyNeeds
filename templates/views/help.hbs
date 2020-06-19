@@ -11,9 +11,10 @@
 		
 	</head>
 	<body>
+		{{>header}}	<!--partials calling-->	
 		<div class="main-content">
-			{{>header}}	<!--partials calling-->	
-			<div class="uk-container uk-text-center">
+			
+			<div style="z-index : 0" class="uk-container uk-text-center">
 				<div class="uk-alert-primary" uk-alert>
 					<a class="uk-alert-close" uk-close></a>
 					<p>Some Frequently asked Questions</p>
@@ -50,6 +51,7 @@
 		<script src="/socket.io/socket.io.js"></script>
 		<script src="/js/getCookie.js"></script>
 		<script src="/js/LoginButton.js"></script>
+		
 	</body>
 	
 </html>
