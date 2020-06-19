@@ -1,6 +1,6 @@
 //Hiding Login/SignUp buttons
-var LoginButton=function LoginButton() {
-  var cookieUser = JSON.parse(getCookie("userData").replace('j:{', '{'));
+var LoginButton=async function LoginButton() {
+  var cookieUser = JSON.parse((await getCookie("userData")).replace('j:{', '{'));
   var isLoggedIn = cookieUser.isLoggedIn;
   // console.log($isLogged)
   if (!isLoggedIn) {

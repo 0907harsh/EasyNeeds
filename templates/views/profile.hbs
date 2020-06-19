@@ -23,7 +23,7 @@
 				</div>
 			</div>
 				<div class="uk-grid-small uk-height-match" uk-grid>
-					<div class="uk-width-1-2@s uk-flex uk-flex-right@s"> 
+					<div class="uk-width-1-2@s uk-flex uk-flex-center uk-flex-right@s"> 
 						<img style="z-index:auto" id="Previewer" src="/img/default_profile_pic.png" width="250px" height="250px" alt="Uploaded Images" class="uk-background" uk-img/>
 						 <div class="uk-margin" uk-margin>
 							<div uk-form-custom="target: true">
@@ -33,21 +33,21 @@
 					</div>
 					<div class="uk-width-1-2@s" style="padding-left: 40px;padding-top:20px; ">
 						<div class="uk-width-1-1" uk-grid>
-							<label for="Show_Name" class="uk-width-1-6@s">Name</label>
-							<input id="Show_Name" type="text/plain" placeholder="Name" maxlength="14" size="12" disabled>
+							<label for="Show_Name" class="uk-width-1-3 uk-width-1-4@m uk-width-1-6@l">Name</label>
+							<input id="Show_Name"  type="text/plain" placeholder="Name" maxlength="14" size="12" disabled>
 						</div>
 						<br/>
 						<div class="uk-width-1-1" uk-grid>
-							<label for="Show_Age" class="uk-width-1-1 uk-width-1-6@s">Age</label>
+							<label for="Show_Age" class="uk-width-1-3 uk-width-1-4@m uk-width-1-6@l">Age</label>
 							<input  id="Show_Age" type="number" placeholder="Age" maxlength="3" disabled>
 						</div>
 						<br/>
 						<div class="uk-width-1-1" uk-grid>
-							<label for="Show_ID" class="uk-width-1-6@s">Email</label>
-							<input  id="Show_ID" type="email" placeholder="Email" size="25" disabled>
+							<label for="Show_ID" class="uk-width-1-3 uk-width-1-4@m uk-width-1-6@l" >Email</label>
+							<input  id="Show_ID"  type="email" placeholder="Email" size="25" disabled>
 						</div>
 						<br/>
-						<button id="UpdateProfile" class="uk-buttton" disabled> Save Changes</button>
+						<button id="UpdateProfile" class="uk-buttton uk-flex uk-flex-center" disabled> Save Changes</button>
 					</div>
 				</div>
 				<br/>
@@ -62,6 +62,7 @@
 	   <script src="js/uikit.min.js"></script>
 		<script src="js/uikit-icons.min.js"></script>
 		<script src="/js/showimages.js"></script>
+		<script src="/js/getCookie.js"></script>
         <script src="/js/profile.js"></script>
 	</body>
 </html>

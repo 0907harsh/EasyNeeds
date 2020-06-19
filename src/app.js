@@ -59,14 +59,11 @@ app.get('',(req,res)=>{
                 fn(LocationOptions)
             }catch{
                 fn('')
-            }
-            
+            }  
        })
-        try{
-            socket.emit('isLoggedIn',req.cookies.userData.isLoggedIn)
-        }catch{
-            socket.emit('isLoggedIn',false)
-        }
+       socket.on('getCookie',()=>{
+           console.log(req.cookies)
+       })
     })
         res.render('index',{
             title:'Homepage',
@@ -97,6 +94,10 @@ app.get('/help',auth,(req,res)=>{
         activeHelp:'uk-active',
         isLoggedIn:true
     })
+})
+
+app.post('/serveCookie',auth,(req,res)=>{
+    res.status(202).send(req.cookies)
 })
 
 app.get('/recipe',auth,(req,res)=>{
@@ -260,6 +261,16 @@ app.get('/avatars',auth,(req,res)=>{
         message:'Avatar Upload',
         name:'Harsh Gupta'
     })
+})
+
+app.post('/me/getavatars',auth,async (req,res)=>{
+    try{
+        // console.log(req.user.avatar)
+        res.status(202).send({data:req.user.avatar})
+    }catch{
+        // console.log('Error')
+        res.status(404).send('')
+    }
 })
 
 app.post('/me/avatars',auth,uploads.single('avatar'),async (req,res)=>{

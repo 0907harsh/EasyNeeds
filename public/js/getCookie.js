@@ -1,12 +1,15 @@
-const socket2=io()
-socket2.emit('getCookie')
-socket2.on('recieveCookie',(cookies)=>{
-    console.log(cookies)
-})
-var getCookie=function getCookie(cname) {
+
+var getCookie=async function getCookie(cname) {
   var name = cname + "=";
-  var decodedCookie = decodeURIComponent(document.cookie);
-  var ca = decodedCookie.split(';');
+  
+  const response =await fetch('/serveCookie',{
+      method:'POST'
+  })
+  const res=await response.json()
+  var decodedCookies=JSON.stringify(res.userData)
+  decodedCookies="userData=j:"+decodedCookies
+  var ca = decodedCookies.split(';');
+  decodedCookies=""
   for (var i = 0; i < ca.length; i++) {
     var c = ca[i];
     while (c.charAt(0) == ' ') {
