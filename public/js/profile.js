@@ -3,7 +3,7 @@ document.querySelector('#Show_Age').style.width="40px"
 var userData
 window.addEventListener('load',async (e)=>{ 
   userData=JSON.parse((await getCookie('userData')).replace('j:',''))
-  console.log(userData)
+  // console.log(userData)
   if(userData.isLoggedIn){
       document.querySelector('#Show_Profile').textContent='My Profile'
       document.querySelector('#Show_Name').value=userData.user.username

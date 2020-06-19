@@ -96,7 +96,7 @@ app.get('/help',auth,(req,res)=>{
     })
 })
 
-app.post('/serveCookie',auth,(req,res)=>{
+app.post('/serveCookie',(req,res)=>{
     res.status(202).send(req.cookies)
 })
 
