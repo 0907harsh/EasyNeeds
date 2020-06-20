@@ -19,9 +19,9 @@
 				<form>
 					<div class="uk-width-1-1">
 						<label for="EmailUser" class="uk-width-1-6">Email : </label>
-						<input id="EmailUser" type="email" placeholder="Email" size="25"  onchange="sanitizeInput(this);" uk-tooltip="title: Must be a valid Email; pos: right;duration: 500;delay: 200"/><br/>
+						<input id="EmailUser" type="email" placeholder="Email" size="25"  onchange="sanitizeInput(this);" uk-tooltip="title: Must be a valid Email; pos: right;duration: 500;delay: 200" autocomplete="username"/><br/>
 					</div><br/>
-					<label for="Password">Password : </label><input id="Password" type="password" placeholder="password" minlength="6" maxlength="10"  onchange="sanitizeInput(this);" /><br/>
+					<label for="Password">Password : </label><input id="Password" type="password" placeholder="password" minlength="6" maxlength="10"  onchange="sanitizeInput(this);" autocomplete="current-password" /><br/>
 					<br/>
 					<button id="SubmitDetails">Submit</button>
 				</form>
@@ -38,6 +38,8 @@
 		<script src="js/uikit-icons.min.js"></script>
 		<script src="/js/sanitize.js"></script>
 		<script src="/js/login.js"></script>
+		<script src="/js/getCookie.js"></script>
+		<script src="/js/LoginButton.js"></script>
 	</body>
 </html>	
 		

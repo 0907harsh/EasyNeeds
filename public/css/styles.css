@@ -6,7 +6,7 @@ body {
     display:flex;
     flex-direction: column;
     min-height:100vh;
-    z-index:0
+    z-index: inherit 0;
 }
 .back_color{
     background-color:rgb(15, 27, 29);

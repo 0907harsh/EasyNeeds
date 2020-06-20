@@ -7,15 +7,13 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="css/uikit.min.css" />
 		<link rel="stylesheet" href="/css/styles.css">
-		<link rel="stylesheet" href="/css/autocomplete.css">
 		
 		<script src="js/uikit.min.js"></script>
 		<script src="js/uikit-icons.min.js"></script>
 	</head>
 	<body>
 		{{>header}}	
-		<div class="main-content ">
-				
+		<div class="main-content">		
 			<div class="uk-container uk-text-center">
 				<p>Use this site to get your Weather</p>
 				<form autocomplete="off">
@@ -40,13 +38,18 @@
 				<p id="forecastpara"></p>
 			</div>
 		</div>
+		<div style="padding: 0px" class="uk-alert-danger uk-text-center" uk-alert><a class="uk-alert-close" uk-close></a>
+			<p ><h4><strong>Disclaimer</strong> :</h4>
+			This site uses Cookie to enhance your expirience<button class="uk-alert-button">Ok</button></p>
+		</div>  
+              
 		{{>footer}}
-		
 		<script src="/js/sanitize.js"></script>
 		<script src="/socket.io/socket.io.js"></script>
 		<script src="/js/getCookie.js"></script>
 		<script src="/js/LoginButton.js"></script>
 		<script src="/js/app2.js"></script>
-
+		<script src="https://cdn.rawgit.com/mozilla/localForage/master/dist/localforage.js"></script>
+		
 	</body>
 </html>

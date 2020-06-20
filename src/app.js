@@ -16,6 +16,7 @@ const spoonacular=require('./utils/spoonacular.js')
 const socketio=require('socket.io')
 const {sendWelcomeEmail,DeleteAccounEmail}=require('./sendgrid/account')
 const auth=require('./middleware/auth')
+const localforage=require('localforage')
 
 const app=express()
 const server=http.createServer(app)
@@ -48,7 +49,7 @@ app.get('',(req,res)=>{
     // console.log(req.cookies.userData)
     if(!req.cookies.userData){
         // console.log(req.cookies.userData)
-        res.cookie('userData',{isLoggedIn:false})
+        res.cookie('userData',{isLoggedIn:false},{httpOnly:true})
     }
     io.on('connection',(socket)=>{
         socket.on('getoptions',async(searchCriteria,fn)=>{
@@ -70,7 +71,7 @@ app.get('',(req,res)=>{
             name:'Harsh Gupta',
             activeHome:'uk-active', 
         })
-    
+        
  })
 
  
@@ -98,6 +99,10 @@ app.get('/help',auth,(req,res)=>{
 
 app.post('/serveCookie',(req,res)=>{
     res.status(202).send(req.cookies)
+})
+
+app.post('/loginstatus',(req,res)=>{
+    res.status(202).send(req.cookies.userData.isLoggedIn)
 })
 
 app.get('/recipe',auth,(req,res)=>{
@@ -195,11 +200,11 @@ app.post('/signup',async (req,res)=>{
         // sendWelcomeEmail(user.email,user.name)
         const token=await user.generateAuthToken()
         sendWelcomeEmail(user.email,user.username)
-        res.clearCookie('userData')
-        res.cookie("userData", {user,token,isLoggedIn:true},{maxAge: 900000000}); 
+        res.clearCookie('userData',{httpOnly:true})
+        res.cookie("userData", {user,token,isLoggedIn:true},{maxAge: 900000000,httpOnly:true}); 
         res.status(201).send({user,token})
     }catch(e){
-        res.cookie("userData", {isLoggedIn:false}); 
+        res.cookie("userData", {isLoggedIn:false},{httpOnly:true}); 
         res.status(400).send('error')
     }
 })
@@ -228,14 +233,14 @@ app.post('/login',async(req,res)=>{
         const user= await USER.findByCredentials(req.body.email,req.body.password)
        
         const token=await user.generateAuthToken()
-        res.clearCookie('userData')
+        res.clearCookie('userData',{httpOnly:true})
         // console.log(req.cookies)
-        res.cookie("userData", {user,token,isLoggedIn:true},{maxAge: 900000000});
+        res.cookie("userData", {user,token,isLoggedIn:true},{maxAge: 900000000,httpOnly:true});
         
         res.status(202).send({user,token})
         
     }catch(e){
-        res.cookie("userData", {isLoggedIn:false}); 
+        res.cookie("userData", {isLoggedIn:false},{httpOnly:true}); 
         res.status(500).send({error:'Unable to Login'})
     }
 })
