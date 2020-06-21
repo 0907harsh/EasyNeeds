@@ -38,9 +38,9 @@
 				<p id="forecastpara"></p>
 			</div>
 		</div>
-		<div style="padding: 0px" class="uk-alert-danger uk-text-center" uk-alert><a class="uk-alert-close" uk-close></a>
-			<p ><h4><strong>Disclaimer</strong> :</h4>
-			This site uses Cookie to enhance your expirience<button class="uk-alert-button">Ok</button></p>
+		<div id="CookieDisclaimer" style="padding: 0px;display:none;" class="uk-alert-danger uk-text-center"  uk-alert><a class="uk-alert-close" uk-close></a>
+			<p style="margin:0px" ><h4><strong>Disclaimer</strong> :<span class="uk-badge" style="margin:10px;background-color:red">Important</span></h4>
+			This site uses Cookie to enhance your expirience<button id="CookieDisclaimerAccepted" class="uk-alert-button" uk-toggle="target: #CookieDisclaimer; animation: uk-animation-fade" style="margin:10px;background-color:lightpink;color:black">Ok</button></p>
 		</div>  
               
 		{{>footer}}
@@ -50,6 +50,18 @@
 		<script src="/js/LoginButton.js"></script>
 		<script src="/js/app2.js"></script>
 		<script src="https://cdn.rawgit.com/mozilla/localForage/master/dist/localforage.js"></script>
-		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+		<script>
+			var myString   = "https://www.titanesmedellin.com/";
+			var myPassword = "myPassword";
+
+			// PROCESS
+			var encrypted = CryptoJS.AES.encrypt(myString, process.env.JWT_TOKEN);
+			var decrypted = CryptoJS.AES.decrypt(encrypted, process.env.JWT_TOKEN);
+			console.log(encrypted.toString())
+			console.log(decrypted.toString(CryptoJS.enc.Utf8));
+
+
+		</script>
 	</body>
 </html>

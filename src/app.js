@@ -101,6 +101,16 @@ app.post('/serveCookie',(req,res)=>{
     res.status(202).send(req.cookies)
 })
 
+app.get('/tos',(req,res)=>{
+    res.render('texttospeech',{
+        message:'This is help message.....',
+        title:'Hi',
+        name:'Harsh Gupta',
+        activeHelp:'uk-active',
+        isLoggedIn:true
+    })
+})
+
 app.post('/loginstatus',(req,res)=>{
     res.status(202).send(req.cookies.userData.isLoggedIn)
 })

@@ -17,6 +17,8 @@ const currentpara=document.querySelector('#currentpara')
 const forecastpara=document.querySelector('#forecastpara')
 const datepara=document.querySelector('#datepara')
 const datalist=document.querySelector('#Autocompleter')
+const acceptedDisclaimer = document.querySelector('#CookieDisclaimerAccepted')
+
 
 weatherForm.addEventListener('submit',(e)=>{
     e.preventDefault()
@@ -73,4 +75,41 @@ search.addEventListener('keyup',async(e)=>{
         })
     }
 })
+
+var isacceptedDisclaimer = gettingCookie("isacceptedDisclaimer");
+if(isacceptedDisclaimer==""){
+    // console.log("Not set")
+    document.querySelector('#CookieDisclaimer').style.display=''
+}
+acceptedDisclaimer.addEventListener('click',(e)=>{
+    e.preventDefault()
+    console.log('already set')
+    settingCookie('isacceptedDisclaimer','true',7)
+    document.querySelector('#CookieDisclaimer').style.display='none'
+})
+
+function settingCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  }
+
+function gettingCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+
+
 

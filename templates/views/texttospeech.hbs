@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>ToS Page</title>
+		<link rel="icon" href="/img/weather.png">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="css/uikit.min.css" />
+		<link rel="stylesheet" href="/css/styles.css">
+		
+	</head>
+	<body>
+		{{>header}}	
+		<div class="main-content">
+			
+			<div class="uk-container uk-text-center">
+				<p>Text to Speech Converter</p>
+				<form>
+					<pre>
+					<label for="Username">Text :  </label><input id="Username" type="textarea" placeholder="username" minlength="5" onchange="sanitizeInput(this);" uk-tooltip="title: Text to Convert to Speech; pos: right;duration: 500;delay: 200"/><br/>
+					<button id="SubmitDetails">Convert</button>
+					</pre>
+					
+				</form>
+				<pre id="locationpara"> </pre>
+				<img style="vertical-align:middle;" src="" id="imageBox"/><pre style="vertical-align:middle; display:inline;" id="currentpara"></pre>
+				<p id="forecastpara"></p>
+			</div>
+		</div>
+		
+		
+		{{>footer}}
+		<script src="js/uikit.min.js"></script>
+		<script src="js/uikit-icons.min.js"></script>
+		<script src="/js/sanitize.js"></script>
+		<script src="/socket.io/socket.io.js"></script>
+		<script src="/js/textToSpeech.js"></script>
+		<script src="/js/LoginButton.js"></script>
+	</body>
+</html>	
+		
