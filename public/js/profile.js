@@ -1,4 +1,39 @@
 document.querySelector('#Show_Age').style.width="40px"
+const updateClick = document.querySelector('#UpdateProfile')
+const changeSaver = document.querySelector('#changeSaver')
+const newPassword = document.querySelector('#newPassword')
+const newuserName = document.querySelector('#Show_Name')
+const newAge = document.querySelector('#Show_Age')
+const newID = document.querySelector('#Show_ID')
+
+
+updateClick.addEventListener('click',(e)=>{
+    e.preventDefault()
+    changeSaver.removeAttribute('disabled')
+    updateClick.setAttribute('disabled',null)
+    setTimeout(()=>{
+        updateClick.removeAttribute('disabled')
+    },2000)
+    
+    console.log('It ran')
+    
+})
+
+changeSaver.addEventListener('click',(e)=>{
+    e.preventDefault()
+    const data={username:newuserName.value,age:newAge.value,email:newID.value}
+    console.log(data)
+    fetch('/profile',{
+        method:'POST',
+        headers: {
+            'Content-Type': 'application/json'
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+          },
+        body: JSON.stringify(data)
+    })
+})
+
+
 
 var userData
 window.addEventListener('load',async (e)=>{ 

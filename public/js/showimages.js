@@ -21,6 +21,5 @@ window.onload = (event) => {
         showImage.src="data:image/png;base64," + d;
     }).catch((error)=>{
         // console.log('Erorr')
-    })
-    
+    })  
 }

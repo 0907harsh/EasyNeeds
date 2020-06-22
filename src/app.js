@@ -255,6 +255,24 @@ app.post('/login',async(req,res)=>{
     }
 })
 
+app.patch('/profile',auth,async(req,res)=>{
+    const updates=Object.keys(req.body)
+    const allowedUpdates = ['name','email','password','age','avatar']
+    const isValid=updates.every((update)=>allowedUpdates.includes(update))
+    if(!isValid){
+        return res.status(400).send({error:'Invalid updates'})
+    }
+    try{
+        // BYpasses middleware 
+        // const user=await USER.findByIdAndUpdate(req.params.id,req.body,{new:true,runValidators :true})
+        updates.forEach((update)=> req.user[update]=req.body[update])
+        await req.user.save()
+        res.status(200).send(req.user) 
+    }catch(e){
+        res.status(400).send(e)
+    }
+})
+
 
 var uploads=multer({
     limits:{
