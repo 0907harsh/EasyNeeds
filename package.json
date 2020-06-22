@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/app.js",
-    "dev": "nodemon src/app.js -e js,hbs"
+    "dev": "nodemon src/app.js -e js,hbs",
+    "wjsxtojs" : "npx babel --watch public/js/jsx --out-dir public/js/",
+    "jsxtojs" : "npx babel public/js/jsx --out-dir public/js/"
   },
   "keywords": [],
   "author": "Harsh Gupta <2000harshgupta@gmail.com>",
@@ -30,6 +32,10 @@
     "validator": "^13.1.1"
   },
   "devDependencies": {
+    "@babel/cli": "^7.10.3",
+    "@babel/core": "^7.10.3",
+    "@babel/preset-react": "^7.10.1",
+    "babel-preset-react-app": "^9.1.2",
     "nodemon": "^2.0.4"
   },
   "repository": "git@github.com:0907harsh/node-weather-website.git"

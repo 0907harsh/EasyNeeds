@@ -19,7 +19,6 @@ const datepara=document.querySelector('#datepara')
 const datalist=document.querySelector('#Autocompleter')
 const acceptedDisclaimer = document.querySelector('#CookieDisclaimerAccepted')
 
-
 weatherForm.addEventListener('submit',(e)=>{
     e.preventDefault()
     // console.log('SEcond')

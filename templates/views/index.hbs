@@ -17,8 +17,7 @@
 			<div class="uk-container uk-text-center">
 				<p>Use this site to get your Weather</p>
 				<form autocomplete="off">
-					<a href="" uk-search-icon></a>
-						<input list="Autocompleter" id="inputLocation" class="uk-width-1-2" type="" placeholder="location" maxlength="100" onchange="sanitizeInput(this);"/>
+					<input list="Autocompleter" id="inputLocation" class="uk-width-1-2" type="" placeholder="location" maxlength="100" onchange="sanitizeInput(this);"/>
 						<datalist class="scrollable" id="Autocompleter">
 							<option>Miami</option>
 							<option>Delhi</option>
@@ -39,6 +38,7 @@
 				<p id="forecastpara"></p>
 			</div>
 		</div>
+		<div id="like_button_container"></div>
 		<div id="CookieDisclaimer" style="padding: 0px;display:none;" class="uk-alert-danger uk-text-center"  uk-alert><a class="uk-alert-close" uk-close></a>
 			<p style="margin:0px" ><h4><strong>Disclaimer</strong> :<span class="uk-badge" style="margin:10px;background-color:red">Important</span></h4>
 			This site uses Cookie to enhance your expirience<button id="CookieDisclaimerAccepted" class="uk-alert-button" uk-toggle="target: #CookieDisclaimer; animation: uk-animation-fade" style="margin:10px;background-color:lightpink;color:black">Ok</button></p>
@@ -57,12 +57,15 @@
 			var myPassword = "myPassword";
 
 			// PROCESS
-			var encrypted = CryptoJS.AES.encrypt(myString, process.env.JWT_TOKEN);
-			var decrypted = CryptoJS.AES.decrypt(encrypted, process.env.JWT_TOKEN);
+			var encrypted = CryptoJS.AES.encrypt(myString,'sssssssss');
+			var decrypted = CryptoJS.AES.decrypt(encrypted,'sssssssss');
 			console.log(encrypted.toString())
 			console.log(decrypted.toString(CryptoJS.enc.Utf8));
 
 
 		</script>
+		<script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script>
+		<script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin></script>
+		<script src="/js/jsx.js"></script>
 	</body>
 </html>
