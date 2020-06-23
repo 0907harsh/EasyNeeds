@@ -41,17 +41,17 @@ hbs.registerPartials(partialsPath)
 //Setup static directory to serve
 app.use(express.static(path.join(__dirname,'../public')))
 app.use(require("body-parser").json())
-app.use(compression(compression({ filter: shouldCompress })))
-function shouldCompress (req, res) {
-    console.log('Passed from here')
-    if (req.headers['x-no-compression']) {
-      // don't compress responses with this request header
-      return false
-    }
+// app.use(compression(compression({ filter: shouldCompress })))
+// function shouldCompress (req, res) {
+//     console.log('Passed from here')
+//     if (req.headers['x-no-compression']) {
+//       // don't compress responses with this request header
+//       return false
+//     }
    
-    // fallback to standard filter function
-    return compression.filter(req, res)
-  }
+//     // fallback to standard filter function
+//     return compression.filter(req, res)
+//   }
 app.use(cookieParser());
 
 //root or homepage setup
