@@ -142,9 +142,9 @@ app.get('/weather',async (req,res)=>{
             error:'No address provided'
         })
     }
-    const query=await LocationSearched.findOne({location:req.query.address})
+    const query=await LocationSearched.findOne({location:req.query.address.toLowerCase()})
     if(!query){
-    const newSearch=new LocationSearched({location:req.query.address,timesSearched:1})
+    const newSearch=new LocationSearched({location:req.query.address.toLowerCase(),timesSearched:1})
     await newSearch.save()
     }else{
         query.timesSearched+=1

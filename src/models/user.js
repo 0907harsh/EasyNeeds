@@ -109,10 +109,6 @@ userSchema.pre('remove',async function(next){
     next()//to be given at the end
 })
 
-
 const USER=mongoose.model('USERS',userSchema)
-
-
-
 
 module.exports = USER
