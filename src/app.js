@@ -17,6 +17,7 @@ const socketio=require('socket.io')
 const {sendWelcomeEmail,DeleteAccounEmail}=require('./sendgrid/account')
 const auth=require('./middleware/auth')
 const localforage=require('localforage')
+var compression = require('compression')
 
 const app=express()
 const server=http.createServer(app)
@@ -36,16 +37,26 @@ app.set('views',viewsPath)
 
 //Partials path setup
 hbs.registerPartials(partialsPath)
-var TOKEN
 
 //Setup static directory to serve
 app.use(express.static(path.join(__dirname,'../public')))
 app.use(require("body-parser").json())
-
+app.use(compression(compression({ filter: shouldCompress })))
+function shouldCompress (req, res) {
+    console.log('Passed from here')
+    if (req.headers['x-no-compression']) {
+      // don't compress responses with this request header
+      return false
+    }
+   
+    // fallback to standard filter function
+    return compression.filter(req, res)
+  }
 app.use(cookieParser());
 
 //root or homepage setup
 app.get('',(req,res)=>{
+    // console.log(req.headers)
     // console.log(req.cookies.userData)
     if(!req.cookies.userData){
         // console.log(req.cookies.userData)

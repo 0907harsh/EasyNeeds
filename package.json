@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node src/app.js",
     "dev": "nodemon src/app.js -e js,hbs",
-    "wjsxtojs" : "npx babel --watch public/js/jsx --out-dir public/js/",
-    "jsxtojs" : "npx babel public/js/jsx --out-dir public/js/"
+    "wjsxtojs": "npx babel --watch public/js/jsx --out-dir public/js/",
+    "jsxtojs": "npx babel public/js/jsx --out-dir public/js/"
   },
   "keywords": [],
   "author": "Harsh Gupta <2000harshgupta@gmail.com>",
@@ -16,6 +16,7 @@
     "@sendgrid/mail": "^7.2.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
     "cookie-parser": "^1.4.5",
     "crypto-js": "^4.0.0",
     "dotenv": "^8.2.0",
