@@ -2,6 +2,7 @@ const mongoose=require('mongoose')
 const validator=require('validator')
 const bcrypt=require('bcryptjs')
 const jwt=require('jsonwebtoken')
+
 //creating user schema
 const userSchema=new mongoose.Schema({
     username:{
@@ -54,14 +55,13 @@ const userSchema=new mongoose.Schema({
 },{
     timestamps:true
 })
+
 //Two argument available with midldeware in mongoose
 // pre-before event is done
 // post-after event is done
 
-
-
-
-//availableo USER
+//available on USER
+//fetching a user by its unique email-id
 userSchema.statics.findByCredentials = async(email,password)=>{
     const user =await USER.findOne({email})
     if(!user){
@@ -77,6 +77,7 @@ userSchema.statics.findByCredentials = async(email,password)=>{
 }
 
 //available on user
+//Generating JWT-auth token for the user -session
 userSchema.methods.generateAuthToken=async function(){
     const user=this
     const token = jwt.sign({_id:user.id.toString()},'YouAreAUser')
@@ -85,6 +86,7 @@ userSchema.methods.generateAuthToken=async function(){
     return token
 }
 
+//removing password and avatars from the public user profile so that userdata is safe even if cookies are compromised
 userSchema.methods.toJSON=function(){
     const user=this
     const userPublic = user.toObject()
@@ -96,7 +98,7 @@ userSchema.methods.toJSON=function(){
 
 //hash plain text passowrd before saving
 userSchema.pre('save',async function(next){
-    if(this.isModified('password')){
+    if(this.isModified('password')){  
         this.password=await bcrypt.hash(this.password,8)
     }
     next()//to be given at the end
@@ -109,6 +111,8 @@ userSchema.pre('remove',async function(next){
     next()//to be given at the end
 })
 
+//creating user model with above userScehma
 const USER=mongoose.model('USERS',userSchema)
 
+//exporting user-model created above
 module.exports = USER

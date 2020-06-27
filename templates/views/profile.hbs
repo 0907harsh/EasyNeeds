@@ -8,7 +8,6 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="css/uikit.min.css" />
 		<link rel="stylesheet" href="/css/styles.css">
-		
 	</head> 
 	<body>
 		{{>header}}		
@@ -53,6 +52,7 @@
 				<div class="uk-text-center">
 					<button id="UpdateProfile" class="uk-buttton">Update</button>
 					<button id="LogoutButton" class="uk-buttton">Logout</button>
+					<a class="uk-button uk-button-secondary" href="#" onclick="signOut();">Sign out</a>
 				</div>
 		</div>
 	
@@ -60,9 +60,6 @@
        {{>footer}}
 	   <script src="js/uikit.min.js"></script>
 		<script src="js/uikit-icons.min.js"></script>
-		<script src="/js/showimages.js"></script>
-		{{!-- <script src="/js/getCookie.js"></script> --}}
         <script src="/js/profile.js"></script>
-		{{!-- <script src="/js/LoginButton.js"></script> --}}
 	</body>
 </html>

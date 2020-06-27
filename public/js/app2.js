@@ -27,8 +27,10 @@ weatherForm.addEventListener('submit',(e)=>{
     currentpara.textContent=''
     forecastpara.textContent=''
     document.getElementById('imageBox').src ='';
-    fetch('weather?address='+location).then((response)=>{
+    fetch('/weather?address='+location).then((response)=>{
+      console.log('Kya hua isko')
         response.json().then((data)=>{
+            console.log('Hi there')
             if(data.error){
                 loationpara.innerHTML="<div style=\"z-index: 0\" class=\"uk-alert-danger\" uk-alert><a class=\"uk-alert-close\" uk-close></a><p>Location Not Found.Try Another Search</p></div>"  
                 currentpara.textContent=''
@@ -149,12 +151,9 @@ var LoginButton=async function LoginButton() {
   
   LoginButton()
 
-
-
-
   //santizing input
   function sanitizeInput(element){
-    // console.log(element.value)
+    console.log(element.value)
     var str=element.value;
     str=str.replace(/(<([^>]+)>)/ig,"");
     // str=str.replace(/\/[a-z ]+|\/[A-Z]+|\/[^1-9]+/gim,"");

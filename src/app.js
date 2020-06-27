@@ -17,7 +17,8 @@ const socketio=require('socket.io')
 const {sendWelcomeEmail,DeleteAccounEmail}=require('./sendgrid/account')
 const auth=require('./middleware/auth')
 const localforage=require('localforage')
-var compression = require('compression')
+const {OAuth2Client} = require('google-auth-library');
+const client = new OAuth2Client(process.env.Client_ID);
 
 const app=express()
 const server=http.createServer(app)
@@ -41,6 +42,7 @@ hbs.registerPartials(partialsPath)
 //Setup static directory to serve
 app.use(express.static(path.join(__dirname,'../public')))
 app.use(require("body-parser").json())
+//Tryed using compression but it increased loading time y a large amount . Still in development mode
 // app.use(compression(compression({ filter: shouldCompress })))
 // function shouldCompress (req, res) {
 //     console.log('Passed from here')
@@ -85,8 +87,6 @@ app.get('',(req,res)=>{
         
  })
 
- 
-
 // root/about page setup
 app.get('/about',auth,(req,res)=>{
     res.render('about',{
@@ -108,10 +108,7 @@ app.get('/help',auth,(req,res)=>{
     })
 })
 
-app.post('/serveCookie',(req,res)=>{
-    res.status(202).send(req.cookies)
-})
-
+//text-2-speech converter that is coming soon
 app.get('/tos',(req,res)=>{
     res.render('texttospeech',{
         message:'This is help message.....',
@@ -122,21 +119,78 @@ app.get('/tos',(req,res)=>{
     })
 })
 
-app.post('/loginstatus',(req,res)=>{
-    res.status(202).send(req.cookies.userData.isLoggedIn)
-})
-
+//recipe-engine setup
 app.get('/recipe',auth,(req,res)=>{
     res.render('recipe',{
         message:'Get worldclass recipes here...',
-        title:req.user.username,
+        title:'aaa',
         name:'Harsh Gupta',
         activeRecipe:'uk-active',
         isLoggedIn:true
     })
 })
 
+//products-page setup
+app.get('/products',(req,res)=>{
+    if(!req.query.search){
+        return res.send({
+            error:'You mest provide a search term'
+        })
+    }
+    res.send({
+        products:[]
+    })
+})//Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+
+//Signup page setup
+app.get('/signup',(req,res)=>{
+    res.render('signup',{
+        title:'hi',
+        message:'Please Login',
+        name:'Harsh Gupta'
+    })
+})
+
+//Profile-page setup
+app.get('/profile',(req,res)=>{
+    res.render('profile',{
+        title:'profile',
+        message:'You wanted to see your profile here',
+        name:'Harsh Gupta'
+    })
+})
+
+//Login Page setup
+app.get('/login',(req,res)=>{
+//    console.log('Hi there')
+   res.render('login',{
+       title:'login',
+       message:'Please Login',
+       name:'Harsh Gupta'
+   })
+})
+
+//Profile-pic uploader Page setup
+app.get('/avatars',auth,(req,res)=>{
+    res.render('playtar',{
+        title:"Avatar",
+        message:'Avatar Upload',
+        name:'Harsh Gupta'
+    })
+})
+
+//Page setup for access denied
+app.get('/Accessdenied',(req,res)=>{
+    res.render('accessDenied',{
+        title:403,
+        message:'Access Denied',
+        name:'Harsh Gupta'
+    })
+})
+
+//Weather details fetcher
 app.get('/weather',async (req,res)=>{
+    // console.log('Yahan h nahi aaraha kya')
     if(!req.query.address){
         return res.send({
             error:'No address provided'
@@ -150,14 +204,17 @@ app.get('/weather',async (req,res)=>{
         query.timesSearched+=1
         await query.save()
     }
+    // console.log('JUST BEFoRe GEOCODE')
     geocode(req.query.address,(error,{latitude,longitude,place:location}={})=>{
         if(error){
              return res.send({error})
         }
+        // console.log('JUST BEFoRe forecast')
         forecast(latitude,longitude , (error, Forecastdata) => {
            if(error){
              return res.send({error:error.message})
             }
+            // console.log('JUST BEFoRe send')
             res.send({
                 forecast:Forecastdata.current.weather[0].description,
                 current_temp:(Forecastdata.current.temp-273.15).toFixed(2),
@@ -173,10 +230,26 @@ app.get('/weather',async (req,res)=>{
      })
 })
 
+/*##################################################
+Get requests End here 
+Post Requests Start here
+###################################################*/
+
+//Serving the userDatat Cookie to the front-end
+app.post('/serveCookie',(req,res)=>{
+    res.status(202).send(req.cookies)
+})
+
+//Serving the login Status of the user as true of false to the front end
+app.post('/loginstatus',(req,res)=>{
+    res.status(202).send(req.cookies.userData.isLoggedIn)
+})
+
+//recipe engne backend setup
 app.post('/recipe',(req,res)=>{
     if(!req.body){
         return res.send({
-            error:'No address provided'
+            error:'No Ingredient provided'
         })
     }
     // console.log(req.body.queries,req.body.numberq)
@@ -193,27 +266,7 @@ app.post('/recipe',(req,res)=>{
      
 })
 
-
-app.get('/products',(req,res)=>{
-    if(!req.query.search){
-        return res.send({
-            error:'You mest provide a search term'
-        })
-    }
-    res.send({
-        products:[]
-    })
-})//Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
-
-
-app.get('/signup',(req,res)=>{
-    res.render('signup',{
-        title:'hi',
-        message:'Please Login',
-        name:'Harsh Gupta'
-    })
-})
-
+//Signup page backend Setup
 app.post('/signup',async (req,res)=>{
     const user=new USER(req.body)
     try{
@@ -230,24 +283,7 @@ app.post('/signup',async (req,res)=>{
     }
 })
 
-app.get('/profile',(req,res)=>{
-     res.render('profile',{
-         title:'profile',
-         message:'You wanted to see your profile here',
-         name:'Harsh Gupta'
-     })
- })
-
-app.get('/login',(req,res)=>{
-//    console.log('Hi there')
-    res.render('login',{
-        title:'login',
-        message:'Please Login',
-        name:'Harsh Gupta'
-    })
-})
-
-
+//Logn Page Backend
 app.post('/login',async(req,res)=>{
     try{
         
@@ -266,80 +302,7 @@ app.post('/login',async(req,res)=>{
     }
 })
 
-app.patch('/profile',auth,async(req,res)=>{
-    const updates=Object.keys(req.body)
-    const allowedUpdates = ['name','email','password','age','avatar']
-    const isValid=updates.every((update)=>allowedUpdates.includes(update))
-    if(!isValid){
-        return res.status(400).send({error:'Invalid updates'})
-    }
-    try{
-        // BYpasses middleware 
-        // const user=await USER.findByIdAndUpdate(req.params.id,req.body,{new:true,runValidators :true})
-        updates.forEach((update)=> req.user[update]=req.body[update])
-        await req.user.save()
-        res.status(200).send(req.user) 
-    }catch(e){
-        res.status(400).send(e)
-    }
-})
-
-
-var uploads=multer({
-    limits:{
-        fileSize:1000000
-    },
-    fileFilter(req,file,cb){
-        // You can always pass an error if something goes wrong:
-        if(!file.originalname.match(/\.(jpg|jpeg|png)$/gi)){
-            cb(new Error('Please upload images'))
-        }
-        // To accept the file pass `true`, like so:
-        cb(undefined, true)
-    }
-})
-
-app.get('/avatars',auth,(req,res)=>{
-    res.render('playtar',{
-        title:"Avatar",
-        message:'Avatar Upload',
-        name:'Harsh Gupta'
-    })
-})
-
-app.post('/me/getavatars',auth,async (req,res)=>{
-    try{
-        // console.log(req.user.avatar)
-        res.status(202).send({data:req.user.avatar})
-    }catch{
-        // console.log('Error')
-        res.status(404).send('')
-    }
-})
-
-app.post('/me/avatars',auth,uploads.single('avatar'),async (req,res)=>{
-    // req.user.avatar=req.file.buffer
-    const buffer=await sharp(req.file.buffer).resize({width:250,height:250}).png().toBuffer()
-    req.user.avatar=buffer
-    await req.user.save()
-    // console.log( buffer)
-    // console.log(req.user._id)
-    res.status(202).send({data : buffer})
-},(error,req,res,next)=>{
-    console.log("ERROR")
-    res.status(400).send({error:error.message})
-    
-})
-
-
-app.delete('/me/avatars',auth,async (req,res)=>{
-    req.user.avatar=undefined
-    await req.user.save()
-    res.send()
-},(error,req,res,next)=>{
-    res.status(400).send({error:error.message})
-})
-
+//Logout Button Configuration
 app.post('/logout',auth,async(req,res)=>{
     try{
         req.user.tokens=req.user.tokens.filter((token)=>{
@@ -354,16 +317,124 @@ app.post('/logout',auth,async(req,res)=>{
     }
 })
 
-
-
-app.get('/Accessdenied',(req,res)=>{
-    res.render('accessDenied',{
-        title:403,
-        message:'Access Denied',
-        name:'Harsh Gupta'
-    })
+//Profile Page Back-End
+app.patch('/profile',auth,async(req,res)=>{
+    // console.log(req.body)
+    const updates=Object.keys(req.body)
+    const allowedUpdates = ['name','email','password','age','avatar']
+    // console.log(updates)
+    const isValid=updates.every((update)=>allowedUpdates.includes(update))
+    if(!isValid){
+        return res.status(400).send({error:'Invalid updates'})
+    }
+    try{
+        // BYpasses middleware 
+        // const user=await USER.findByIdAndUpdate(req.params.id,req.body,{new:true,runValidators :true})
+        updates.forEach((update)=> {
+            // console.log(req.body[update])
+            return req.user[update]=req.body[update]
+        })
+        // console.log(req.user)
+        const newLocal = await req.user.save()
+        res.status(200).send(req.user) 
+    }catch(e){
+        console.log('here')
+        res.status(400).send(e)
+    }
 })
 
+//configurng multer
+var uploads=multer({
+    limits:{
+        fileSize:1000000
+    },
+    fileFilter(req,file,cb){
+        // You can always pass an error if something goes wrong:
+        if(!file.originalname.match(/\.(jpg|jpeg|png)$/gi)){
+            cb(new Error('Please upload images'))
+        }
+        // To accept the file pass `true`, like so:
+        cb(undefined, true)
+    }
+})
+
+//Profile-Pic sender from backend
+app.post('/me/getavatars',auth,async (req,res)=>{
+    try{
+        // console.log(req.user.avatar)
+        res.status(202).send({data:req.user.avatar})
+    }catch{
+        // console.log('Error')
+        res.status(404).send('')
+    }
+})
+
+//Profile-pic saver
+app.post('/me/avatars',auth,uploads.single('avatar'),async (req,res)=>{
+    // req.user.avatar=req.file.buffer
+    const buffer=await sharp(req.file.buffer).resize({width:250,height:250}).png().toBuffer()
+    req.user.avatar=buffer
+    await req.user.save()
+    // console.log( buffer)
+    // console.log(req.user._id)
+    res.status(202).send({data : buffer})
+},(error,req,res,next)=>{
+    console.log("ERROR")
+    res.status(400).send({error:error.message})
+    
+})
+
+//Profile-pic deleter(Not configured Yet)
+app.delete('/me/avatars',auth,async (req,res)=>{
+    req.user.avatar=undefined
+    await req.user.save()
+    res.send()
+},(error,req,res,next)=>{
+    res.status(400).send({error:error.message})
+})
+
+//Not working Yet GOOGLE SIGN IN
+app.post('/checkGoogleId_Token',async(req,res)=>{
+    const token=req.query.id_token
+    console.log('token',token)
+    async function verify() {
+        console.log('inside verify')
+        const ticket = await client.verifyIdToken({
+            idToken: token,
+            audience: process.env.Client_ID,  // Specify the CLIENT_ID of the app that accesses the backend
+            // Or, if multiple clients access the backend:
+            //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
+        });
+        console.log(ticket)
+        const payload = ticket.getPayload();
+        const userid = payload['sub'];
+        var data=await JSON.stringify({username:payload['name'],email:payload['email'],password:'123456789',age:payload['18']})
+        console.log(data)
+        const response=await fetch('/signup',{
+            method:'POST',
+            headers: {
+                'Content-Type': 'application/json'
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+              },
+            body: data
+        }).json()
+        console.log(response)
+        if(response.status==201){
+            res.send('User authenticated')
+        }else{
+            res.send('Error')
+        }
+        // If request specified a G Suite domain:
+        // const domain = payload['hd'];
+      }
+    verify().catch(console.error);  
+})
+
+//#######################################################
+//Post requests end here
+//Error 404 page setup
+//#######################################################
+//Error-404 page setup
 app.get('*',(req,res)=>{
     res.render('error404',{
         title:404,
@@ -372,6 +443,7 @@ app.get('*',(req,res)=>{
     })
 })
 
+//Strting up and listenng on the server (Development port:3000)
 server.listen(port,()=>{
     console.log('Server is up on port '+port)
 })

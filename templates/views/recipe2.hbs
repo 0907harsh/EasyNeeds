@@ -1,59 +1,29 @@
-<!doctype html>
-
-<!-- Web page "Kitchen Blue"     -->
-<!-- Created by Harrison Kong    -->
-<!-- Copyright (C) Coursera 2020 -->
-
-<html lang="en">
-
+<!DOCTYPE html>
+<html>
 <head>
-
+<title>Facebook Login JavaScript Example</title>
 <meta charset="UTF-8">
-<link rel="FaviconIcon" href="favicon.ico" type="image/x-icon">
-<link rel="shortcut icon" href="favicon.ico?v=2">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta http-equiv=“Pragma” content=”no-cache”>
-<meta http-equiv=“Expires” content=”-1″>
-<meta http-equiv=“CACHE-CONTROL” content=”NO-CACHE”>
-<!-- CSS Stylesheets -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-<link rel="stylesheet" href="css/kitchenblue.css?v=1">
-
-<title>Kitchen Blue?</title>
-
 </head>
-
 <body>
+<script>
+ {
 
-<img class="hero" src="images/banner.jpg" alt="banner">
+  const data={age:20,password:'PrdisNew'}
+  console.log(data.password)
+  fetch('/profile',{
+    method: 'PATCH',
+    headers: {
+     'Content-Type': 'application/json'
+    // 'Content-Type': 'application/x-www-form-urlencoded',
+   },
+   body:JSON.stringify(data)
+  }).then((response)=>{
+    console.log(response.status)
+  })
+  }
+</script>
 
-<h1 class='section-heading'>Kitchen Blue?</h1>
-<h2 class='section-subheading'>Recipe Search by Ingredients</h2>
-<p><code class="copyright-text">Powered by <a href="http://www.recipepuppy.com/about/api/" target= "_blank">🐶 Recipe Puppy</a></code></p>
-
-<div class="section-description">
-
-  <p class="section-subheading">
-    
-  </p>
-
-
+//  The JS SDK Login Button 
 
 </body>
-
-<footer>
-  <div class="section-divider"><img src="images/infinity-line.png"></div>
-
-  <br />
-  <p><code class="copyright-text">Search powered by <a href="http://www.recipepuppy.com/about/api/" target= "_blank">🐶 Recipe Puppy</a></code></p>
-
-  <code class="copyright-text">Crafted with ❤️ at <a href="https://coursera.org/" target= "_blank">Coursera</a></code>
-
-</footer>
-
-<!-- JQuery Scripts -->
-<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-<!-- Our codes -->
-<script src="js/kitchenblue.js?v=1"></script>
-
 </html>

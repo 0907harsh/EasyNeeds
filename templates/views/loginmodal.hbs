@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>0907Harsh</title>
+		<link rel="icon" href="/img/weather.png">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="css/uikit.min.css" />
+		<link rel="stylesheet" href="/css/styles.css">
+	</head>
+	<body>
+		{{>header}}	
+		<div class="main-content">		
+			<a class="uk-button uk-button-primary" style="padding:0px 20px 0px 20px" href="#modal-overflow" uk-toggle> Login</a>
+
+            <div id="modal-overflow" uk-modal="bg-close:false">
+				<div class="uk-modal-dialog uk-margin-auto-vertical">
+                    
+					<button class="uk-modal-close-outside uk-close-large" type="button" uk-close></button>
+
+					<div class="uk-modal-header">
+						<ul class="uk-flex uk-flex-center" uk-tab="connect:.loginSwitcher">
+                            <li><a href="#">Login</a></li>
+                            <li><a href="#">Signup</a></li>
+                            <li id="PasswordFacebookSignup" style="display: none;"><a href="#">Create New Password</a></li>
+                        </ul>
+					</div>
+
+					<div class="uk-modal-body" uk-overflow-auto>
+                        <ul class="loginSwitcher uk-switcher uk-margin">
+                            <li>
+                                <div class="uk-container uk-text-center">
+                                    <div onLogin="checkLoginState();" class="fb-login-button" data-size="large" data-button-type="continue_with" data-layout="rounded" data-auto-logout-link="true" data-use-continue-as="true" data-width=""  data-scope="public_profile, email"></div>
+                                    <h4 class="uk-align-center">Or</h4>
+                                    <p><strong>Your Login Credentials</strong> </p>
+                                    <form>
+                                        <input id="EmailUserLogin" type="email" placeholder="Email" size="25"  onchange="sanitizeInput(this);" uk-tooltip="title: Must be a valid Email; pos: right;duration: 500;delay: 200" autocomplete="email"/><br/>
+                                        <input id="PasswordLogin" type="password" placeholder="password" size="25"  minlength="6" maxlength="10"  onchange="sanitizeInput(this);" uk-tooltip="title: Must be Atleast 8 characters long; pos: right;duration: 500;delay: 200"  autocomplete="current-password" /><br/>
+                                        <br/>
+                                        <button id="SubmitDetailsLogin">Submit</button>
+                                        {{!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> --}}
+                                    </form>
+                                    <pre id="locationpara"> </pre>
+                                </div>
+                            </li>
+                            <li>
+								<div class="uk-container uk-text-center">
+									<div onLogin="checkLoginState();" class="fb-login-button" data-size="large" data-button-type="continue_with" data-layout="rounded" data-auto-logout-link="true" data-use-continue-as="true" data-width=""  data-scope="public_profile, email"></div>
+									<h4 class="uk-align-center">Or</h4>
+									<form>
+										<div class="uk-grid-row-collapse uk-flex-center" uk-grid>
+												<label class="uk-text-center@s uk-width-1-3 uk-width-1-4@m" for="Username">Username   </label> <input class="uk-width-1-2 uk-width-2-3@s uk-width-3-4@m" id="Username" type="text/plain" placeholder="username" minlength="5" maxlength="12" size="12" onchange="sanitizeInput(this);" uk-tooltip="title: Must Be unique; pos: right;duration: 500;delay: 200" autocomplete="username"/>
+												<label class="uk-text-center@s uk-width-1-3 uk-width-1-4@m" for="EmailUser">Email   </label> <input class="uk-width-1-2 uk-width-2-3@s uk-width-3-4@m" id="EmailUser" type="email" placeholder="Email" size="25" onchange="sanitizeInput(this);" uk-tooltip="title: Email-Verification will be done; pos: right;duration: 500;delay: 200" autocomplete="email" /><br/>
+												<label class="uk-text-center@s uk-width-1-3 uk-width-1-4@m" for="AgeUser">Age  </label> <input class="uk-width-1-2 uk-width-2-3@s uk-width-3-4@m" id="AgeUser" type="number" placeholder="AgeUser" maxlength="3" onchange="sanitizeInput(this);" uk-tooltip="title: >18; pos: right;duration: 500;delay: 200"/><br/>
+												<label class="uk-text-center@s uk-width-1-3 uk-width-1-4@m" for="Password">Password  </label> <input class="uk-width-1-2 uk-width-2-3@s uk-width-3-4@m" id="Password" type="password" placeholder="password" minlength="6" size="13" maxlength="14" onchange="sanitizeInput(this);" uk-tooltip="title: Must contain atleast 8 characters; pos: right;duration: 500;delay: 200" autocomplete="new-password"/>
+										</div>
+										<div style="margin-top: 20px;">
+											<button id="SubmitDetailsSignUp">Submit</button>   Already a member , <a href="/login">Login</a>
+										</div>
+										
+									</form>
+									<pre id="locationpara"> </pre>
+									<img style="vertical-align:middle;" src="" id="imageBox"/><pre style="vertical-align:middle; display:inline;" id="currentpara"></pre>
+									<p id="forecastpara"></p>
+								</div>
+							</li>
+                            <li>
+								 <input id="PasswordCreationFacebook" type="password" placeholder="password" size="25"  minlength="6" maxlength="10"  onchange="sanitizeInput(this);" uk-tooltip="title: Must be Atleast 8 characters long; pos: right;duration: 500;delay: 200"  autocomplete="current-password" /><br/>
+							</li>
+                        </ul>
+						
+					</div>
+
+					<div class="uk-modal-footer uk-text-right">
+					</div>
+
+				</div>
+			</div>
+		</div>
+              
+		{{>footer}}
+		<script src="js/uikit.min.js"></script>
+		<script src="js/uikit-icons.min.js"></script>
+		<script src="/socket.io/socket.io.js"></script>
+        <script src="/js/loginmodal.js"></script>
+	</body>
+</html>

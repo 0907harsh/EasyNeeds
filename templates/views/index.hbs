@@ -208,14 +208,11 @@
 		<script>
 			var myString   = "https://www.titanesmedellin.com/";
 			var myPassword = "myPassword";
-
 			// PROCESS
 			var encrypted = CryptoJS.AES.encrypt(myString,'sssssssss');
 			var decrypted = CryptoJS.AES.decrypt(encrypted,'sssssssss');
 			console.log(encrypted.toString())
 			console.log(decrypted.toString(CryptoJS.enc.Utf8));
-
-
 		</script>
 		{{!-- <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/prop-types/15.6.1/prop-types.min.js"></script>  --}}
 		

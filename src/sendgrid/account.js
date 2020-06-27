@@ -9,7 +9,7 @@ const sendWelcomeEmail=async(email,username)=>{
         to:email,
         from: '2000harshgupta@gmail.com',
         subject:'Thanks for joining :)',
-        text: `Welcome to the app.${username},Let me know your hopes wth this application`, 
+        text: `Welcome to the app.${username},Let me know your hopes wth this application. We love to hear from our users so feel free to give any suggestion you like or wanna get implented n our small little startup`, 
     })
 }
 

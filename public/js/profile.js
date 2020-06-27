@@ -7,6 +7,7 @@ const newAge = document.querySelector('#Show_Age')
 const newID = document.querySelector('#Show_ID')
 
 
+//Enabling the updation of user profile changer and save button
 updateClick.addEventListener('click',(e)=>{
     e.preventDefault()
     changeSaver.removeAttribute('disabled')
@@ -19,6 +20,7 @@ updateClick.addEventListener('click',(e)=>{
     
 })
 
+//updatng changes made to profile in the database
 changeSaver.addEventListener('click',(e)=>{
     e.preventDefault()
     const data={username:newuserName.value,age:newAge.value,email:newID.value}
@@ -34,7 +36,7 @@ changeSaver.addEventListener('click',(e)=>{
 })
 
 
-
+//Fetching and showing user Profile from server or cookie
 var userData
 window.addEventListener('load',async (e)=>{ 
   userData=JSON.parse((await getCookie('userData')).replace('j:',''))
@@ -49,7 +51,7 @@ window.addEventListener('load',async (e)=>{
   }
 })
 
-
+//Logout Functionality
 document.querySelector('#LogoutButton').addEventListener('click',async(e)=>{
     var logout
     if(confirm('are you sure')){
@@ -63,6 +65,34 @@ document.querySelector('#LogoutButton').addEventListener('click',async(e)=>{
          }
     }
 })
+
+
+//Showing and fetching user's profile pic
+const showImage=document.querySelector('#Previewer')
+
+window.onload = (event) => {
+//    console.log('1st line')
+    fetch('/me/getavatars',{
+        method:'POST'
+    }).then(async (response)=>{
+
+        // console.log('Hi',response)
+        const final=await response.json()
+        // console.log(final)
+        var d=final.data.data.toString().split(',')
+        // console.log(d)
+        function toBase64(arr) {
+            //arr = new Uint8Array(arr) if it's an ArrayBuffer
+            return btoa(
+            arr.reduce((data, byte) => data + String.fromCharCode(byte), '')
+            );
+        }
+        d=toBase64(d)
+        showImage.src="data:image/png;base64," + d;
+    }).catch((error)=>{
+        // console.log('Erorr')
+    })  
+}
 
 //get Cookie function
 var getCookie=async function getCookie(cname) {
