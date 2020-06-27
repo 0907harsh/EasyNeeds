@@ -10,8 +10,8 @@
 //   })
 // })
 const socket=io()
-const weatherForm=document.querySelector('form')
-const search=document.querySelector('input')
+const weatherForm=document.querySelector('#loacationsearchform')
+const search=document.querySelector('#inputLocation')
 const loationpara=document.querySelector('#locationpara')
 const currentpara=document.querySelector('#currentpara')
 const forecastpara=document.querySelector('#forecastpara')
@@ -28,9 +28,7 @@ weatherForm.addEventListener('submit',(e)=>{
     forecastpara.textContent=''
     document.getElementById('imageBox').src ='';
     fetch('/weather?address='+location).then((response)=>{
-      console.log('Kya hua isko')
         response.json().then((data)=>{
-            console.log('Hi there')
             if(data.error){
                 loationpara.innerHTML="<div style=\"z-index: 0\" class=\"uk-alert-danger\" uk-alert><a class=\"uk-alert-close\" uk-close></a><p>Location Not Found.Try Another Search</p></div>"  
                 currentpara.textContent=''

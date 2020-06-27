@@ -59,6 +59,7 @@ document.querySelector('#LogoutButton').addEventListener('click',async(e)=>{
             method:'POST'
         })
          if(logout.status===202){
+            //  checkLoginState()
              location.replace('/')
          }else{
             alert('Server down .Please try again Later')
@@ -156,4 +157,5 @@ var LoginButton=async function LoginButton() {
   }
   
   LoginButton()
+
   

@@ -1,12 +1,12 @@
-const loationpara=document.querySelector('#locationpara')
+const modalpara=document.querySelector('#modalpara')
 
 function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
-    console.log('statusChangeCallback');
-    console.log(response);                   // The current login status of the person.
+    // console.log('statusChangeCallback');
+    // console.log(response);                   // The current login status of the person.
     if (response.status === 'connected') {   // Logged into your webpage and Facebook.
     testAPI();  
     } else {                                 // Not logged into your webpage or we are unable to tell.
-    document.getElementById('locationpara').innerHTML = 'Please log ' +
+    document.getElementById('modalpara').innerHTML = 'Please log ' +
         'into this webpage.';
     }
 }
@@ -26,8 +26,6 @@ window.fbAsyncInit = function() {
     xfbml      : true,                     // Parse social plugins on this webpage.
     version    : 'v7.0'           // Use this Graph API version for this call.
     });
-
-
     FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
     statusChangeCallback(response);        // Returns the login status.
     });
@@ -48,7 +46,7 @@ function testAPI() {                      // Testing Graph API after login.  See
     FB.api('/me','GET',
         async (response)=>{
         console.log('Successful login for: ' + response.name);
-        document.getElementById('loationpara').innerHTML ='Thanks for logging in, ' + response.name + '!';
+        // document.getElementById('modalpara').innerHTML ='Thanks for logging in, ' + response.name + '!';
         FB.api(`/${response.id}`,'GET',
         {"fields":"email"},async (response2)=>{
             console.log('Saving your dataa to our database')
@@ -58,7 +56,7 @@ function testAPI() {                      // Testing Graph API after login.  See
                 var data={
                     username:response.name,
                     email:response2.email,
-                    password:'FacebookLogin',
+                    password:'PrdisNew',
                     age:18
                 };
                 console.log(data.username,data.email)
@@ -71,7 +69,7 @@ function testAPI() {                      // Testing Graph API after login.  See
                     body: await JSON.stringify(data)
                 }).then(async (res)=>{
                     if(res.status==201){
-                        loationpara.innerHTML="<div style=\"z-ndex: 0\" class=\"uk-alert-success\" uk-alert><a class=\"uk-alert-close\" uk-close></a><p>Success. New Account Created</p></div>"  
+                        modalpara.innerHTML="<div style=\"z-ndex: 0\" class=\"uk-alert-success\" uk-alert><a class=\"uk-alert-close\" uk-close></a><p>Success. New Account Created</p></div>"  
                          await fetch('/profile',{
                                 method: 'PATCH',
                                 headers: {
@@ -84,9 +82,9 @@ function testAPI() {                      // Testing Graph API after login.  See
                             })
                         location.replace('/avatars')
                     }else{
-                        loationpara.innerHTML="<div style=\"z-ndex: 0\" class=\"uk-alert-danger\" uk-alert><a class=\"uk-alert-close\" uk-close></a><p>Invalid Credentials. Please Try Again</p></div>"  
+                        modalpara.innerHTML="<div style=\"z-ndex: 0\" class=\"uk-alert-danger\" uk-alert><a class=\"uk-alert-close\" uk-close></a><p>Invalid Credentials. Please Try Again</p></div>"  
                         console.log(res)
-                        var data2={email:data.email,password:'FacebookLogin'}
+                        var data2={email:data.email,password:'PrdisNew'}
                         console.log(data)
                         const response=await fetch('/login',{
                             method:'POST',
@@ -98,11 +96,11 @@ function testAPI() {                      // Testing Graph API after login.  See
                         })
                         // console.log(response.body)
                         if(response.status==202){
-                            loationpara.innerHTML="<div class=\"uk-alert-success\" uk-alert><a class=\"uk-alert-close\" uk-close></a><p>Success.New Account Created</p></div>"  
+                            modalpara.innerHTML="<div class=\"uk-alert-success\" uk-alert><a class=\"uk-alert-close\" uk-close></a><p>Success.New Account Created</p></div>"  
                             location.replace('/')
                             // console.log(response.status)
                         }else{
-                            loationpara.innerHTML="<div class=\"uk-alert-danger\" uk-alert><a class=\"uk-alert-close\" uk-close></a><p>Invalid Credentials. Please Try Again</p></div>"  
+                            modalpara.innerHTML="<div class=\"uk-alert-danger\" uk-alert><a class=\"uk-alert-close\" uk-close></a><p>Invalid Credentials. Please Try Again</p></div>"  
                         }
                         // console.log()
                    }
@@ -136,11 +134,11 @@ document.querySelector('#SubmitDetailsLogin').addEventListener('click',async (e)
     const final = response.json()
     // console.log(response.body)
     if(response.status==202){
-        loationpara.innerHTML="<div class=\"uk-alert-success\" uk-alert><a class=\"uk-alert-close\" uk-close></a><p>Success.New Account Created</p></div>"  
+        modalpara.innerHTML="<div class=\"uk-alert-success\" uk-alert><a class=\"uk-alert-close\" uk-close></a><p>Success.New Account Created</p></div>"  
         location.replace('/')
         // console.log(response.status)
     }else{
-        loationpara.innerHTML="<div class=\"uk-alert-danger\" uk-alert><a class=\"uk-alert-close\" uk-close></a><p>Invalid Credentials. Please Try Again</p></div>"  
+        modalpara.innerHTML="<div class=\"uk-alert-danger\" uk-alert><a class=\"uk-alert-close\" uk-close></a><p>Invalid Credentials. Please Try Again</p></div>"  
     }
     // console.log()
 })
@@ -165,10 +163,10 @@ document.querySelector('#SubmitDetailsSignUp').addEventListener('click',async (e
     })
     const final = response.json()
     if(response.status==201){
-        loationpara.innerHTML="<div style=\"z-ndex: 0\" class=\"uk-alert-success\" uk-alert><a class=\"uk-alert-close\" uk-close></a><p>Success. New Account Created</p></div>"  
+        modalpara.innerHTML="<div style=\"z-ndex: 0\" class=\"uk-alert-success\" uk-alert><a class=\"uk-alert-close\" uk-close></a><p>Success. New Account Created</p></div>"  
         location.replace('/avatars')
     }else{
-        loationpara.innerHTML="<div style=\"z-ndex: 0\" class=\"uk-alert-danger\" uk-alert><a class=\"uk-alert-close\" uk-close></a><p>Invalid Credentials. Please Try Again</p></div>"  
+        modalpara.innerHTML="<div style=\"z-ndex: 0\" class=\"uk-alert-danger\" uk-alert><a class=\"uk-alert-close\" uk-close></a><p>Invalid Credentials. Please Try Again</p></div>"  
     }
     // console.log()
 })

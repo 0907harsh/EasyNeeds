@@ -10,10 +10,14 @@
 	</head>
 	<body>
 		{{>header}}	
+		{{!-- 
+			Header Ends Here and 
+			Main-content starts here
+		 --}}
 		<div class="main-content">		
 			<div class="uk-container uk-text-center">
 				<p>Use this site to get your Weather</p>
-				<form autocomplete="off">
+				<form id="loacationsearchform" autocomplete="off">
 					<input list="Autocompleter" id="inputLocation" class="uk-width-1-2" type="" placeholder="location" maxlength="100" onchange="sanitizeInput(this);"/>
 						<datalist class="scrollable" id="Autocompleter">
 							<option>Miami</option>
@@ -200,6 +204,7 @@
 		<script src="js/uikit-icons.min.js"></script>
 		<script src="/socket.io/socket.io.js"></script>
 		<script src="/js/app2.js"></script>
+		<script src="/js/loginmodal.js"></script>
 		<script src="https://cdn.rawgit.com/mozilla/localForage/master/dist/localforage.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
 		<script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script>
@@ -211,8 +216,8 @@
 			// PROCESS
 			var encrypted = CryptoJS.AES.encrypt(myString,'sssssssss');
 			var decrypted = CryptoJS.AES.decrypt(encrypted,'sssssssss');
-			console.log(encrypted.toString())
-			console.log(decrypted.toString(CryptoJS.enc.Utf8));
+			//console.log(encrypted.toString())
+			//console.log(decrypted.toString(CryptoJS.enc.Utf8));
 		</script>
 		{{!-- <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/prop-types/15.6.1/prop-types.min.js"></script>  --}}
 		
