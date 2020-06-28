@@ -26,6 +26,7 @@ const io=socketio(server)
 const port = process.env.PORT|| 3000
 var cookieParser = require('cookie-parser');
 const adminauth = require('./middleware/adminauth')
+const loginauth = require('./middleware/loginauth')
 
 //Defne path for Express config
 const viewsPath=path.join(__dirname,'../templates/views')
@@ -132,6 +133,7 @@ app.get('/recipe',auth,(req,res)=>{
 
 //products-page setup
 app.get('/products',(req,res)=>{
+
     if(!req.query.search){
         return res.send({
             error:'You mest provide a search term'
@@ -143,7 +145,8 @@ app.get('/products',(req,res)=>{
 })//Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
 
 //Signup page setup
-app.get('/signup',(req,res)=>{
+app.get('/signup',loginauth,(req,res)=>{
+    // console.log(req.headers)
     res.render('signup',{
         title:'hi',
         message:'Please Login',
@@ -152,7 +155,8 @@ app.get('/signup',(req,res)=>{
 })
 
 //Profile-page setup
-app.get('/profile',(req,res)=>{
+app.get('/profile',loginauth,(req,res)=>{
+    // console.log(req.headers)
     res.render('profile',{
         title:'profile',
         message:'You wanted to see your profile here',
@@ -161,8 +165,8 @@ app.get('/profile',(req,res)=>{
 })
 
 //Login Page setup
-app.get('/login',(req,res)=>{
-//    console.log('Hi there')
+app.get('/login',loginauth,(req,res)=>{
+//    console.log(req.headers)
    res.render('login',{
        title:'login',
        message:'Please Login',
@@ -189,8 +193,8 @@ app.get('/Accessdenied',(req,res)=>{
 })
 
 //Weather details fetcher
-app.get('/weather',async (req,res)=>{
-    // console.log('Yahan h nahi aaraha kya')
+app.get('/weather',adminauth,async (req,res)=>{
+    // console.log(req.headers)
     if(!req.query.address){
         return res.send({
             error:'No address provided'
