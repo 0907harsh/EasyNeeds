@@ -122,7 +122,7 @@ app.get('/tos',(req,res)=>{
 
 //recipe-engine setup
 app.get('/recipe',auth,(req,res)=>{
-    res.render('recipe',{
+    res.render('recipe2',{
         message:'Get worldclass recipes here...',
         title:'aaa',
         name:'Harsh Gupta',
@@ -155,7 +155,7 @@ app.get('/signup',loginauth,(req,res)=>{
 })
 
 //Profile-page setup
-app.get('/profile',loginauth,(req,res)=>{
+app.get('/profile',(req,res)=>{
     // console.log(req.headers)
     res.render('profile',{
         title:'profile',
