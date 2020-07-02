@@ -122,7 +122,7 @@ app.get('/tos',(req,res)=>{
 
 //recipe-engine setup
 app.get('/recipe',auth,(req,res)=>{
-    res.render('recipe2',{
+    res.render('recipe',{
         message:'Get worldclass recipes here...',
         title:'aaa',
         name:'Harsh Gupta',
