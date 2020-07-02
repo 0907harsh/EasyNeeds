@@ -27,20 +27,24 @@ mapShower.addEventListener('click',(e)=>{
 
 //#########################################################
 //Google map suuport starts here
+var latitude=0,longitude=0,accuracy;
 if(!navigator.geolocation){
-  alert('Geolocation is not supportted by your browser')
-}
-var latitude,longitude,accuracy;
+    alert('Geolocation is not supportted by your browser')
+  }
 navigator.geolocation.watchPosition((position)=>{
-  
-  latitude=position.coords.latitude
-  longitude=position.coords.longitude
-  accuracy=position.coords.accuracy
-});
+    
+    latitude=position.coords.latitude
+    longitude=position.coords.longitude
+    accuracy=position.coords.accuracy
+    initMap()
+    // console.log(latitude,longitude)
+  })
+
 
 var markers = [];
 var map;
 function initMap() {
+  // console.log(latitude,longitude)
   map = new google.maps.Map(document.getElementById("map"), {
     center: {
       lat: latitude,
