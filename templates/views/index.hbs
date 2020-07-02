@@ -7,9 +7,20 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="css/uikit.min.css" />
 		<link rel="stylesheet" href="/css/styles.css">
+		<style type="text/css">
+			/* Always set the map height explicitly to define the size of the div
+			* element that contains the map. */
+			#map {
+				height: 500px;
+			}
+
+			/* Optional: Makes the sample page fill the window. */
+			/*html,body { height: 100%; margin: 0; padding: 0; } */
+		</style>
 	</head>
 	<body>
 		{{>header}}	
+		
 		{{!-- 
 			Header Ends Here and 
 			Main-content starts here
@@ -29,16 +40,14 @@
 						</datalist>
 						<button id="submitform">Search</button>
 				</form>
-				<div uk-lightbox>
-					 Support Coming Soon
-					 <a class="uk-button uk-button-default" href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4740.819266853735!2d9.99008871708242!3d53.550454675412404!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x3f9d24afe84a0263!2sRathaus!5e0!3m2!1sde!2sde!4v1499675200938" data-caption="Google Maps" data-type="iframe">Google Maps</a>
-				</div>
+					 <a id="mapShower" class="uk-button uk-button-default" data-caption="Google Maps">Google Maps Support coming Soon</a> 
 
 				<pre id="locationpara"> </pre>
 				<img style="vertical-align:middle;" src="" id="imageBox"/><pre style="vertical-align:middle; display:inline;" id="currentpara"></pre>
 				<p id="forecastpara"></p>
 			</div>
 		</div>
+		<div id="map" style="display:none"></div>
 		<div id="like_button_container"></div>
 		<div id="CookieDisclaimer" style="padding: 0px;display:none;" class="uk-alert-danger uk-text-center"  uk-alert><a class="uk-alert-close" uk-close></a>
 			<p style="margin:0px" ><h4><strong>Disclaimer</strong> :<span class="uk-badge" style="margin:10px;background-color:red">Important</span></h4>
@@ -203,22 +212,24 @@
 		<script src="js/uikit.min.js"></script>
 		<script src="js/uikit-icons.min.js"></script>
 		<script src="/socket.io/socket.io.js"></script>
+		<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzZBCLcIEzFBtEFCKRyWjBPu1AZYmHpU8&callback=initMap&libraries=&v=weekly" defer></script>
 		<script src="/js/app2.js"></script>
 		<script src="/js/loginmodal.js"></script>
-		<script src="https://cdn.rawgit.com/mozilla/localForage/master/dist/localforage.js"></script>
+		{{!-- <script src="https://cdn.rawgit.com/mozilla/localForage/master/dist/localforage.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
 		<script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script>
 		<script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin></script>
 		<script src="/js/jsx.js"></script>
 		<script>
-			var myString   = "https://www.titanesmedellin.com/";
-			var myPassword = "myPassword";
+			// var myString   = "https://www.titanesmedellin.com/";
+			// var myPassword = "myPassword";
 			// PROCESS
-			var encrypted = CryptoJS.AES.encrypt(myString,'sssssssss');
-			var decrypted = CryptoJS.AES.decrypt(encrypted,'sssssssss');
-			//console.log(encrypted.toString())
-			//console.log(decrypted.toString(CryptoJS.enc.Utf8));
-		</script>
+			// var encrypted = CryptoJS.AES.encrypt(myString,'sssssssss');
+			// var decrypted = CryptoJS.AES.decrypt(encrypted,'sssssssss');
+			// console.log(encrypted.toString())
+			// console.log(decrypted.toString(CryptoJS.enc.Utf8));
+		</script> --}}
 		{{!-- <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/prop-types/15.6.1/prop-types.min.js"></script>  --}}
 		
 	    {{!-- <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/react-transition-group/2.2.1/react-transition-group.min.js"></script> 

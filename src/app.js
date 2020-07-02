@@ -148,7 +148,7 @@ app.get('/products',(req,res)=>{
 app.get('/signup',loginauth,(req,res)=>{
     // console.log(req.headers)
     res.render('signup',{
-        title:'hi',
+        title:'SignUp',
         message:'Please Login',
         name:'Harsh Gupta'
     })
@@ -228,7 +228,9 @@ app.get('/weather',adminauth,async (req,res)=>{
                 icon:'http://openweathermap.org/img/wn/'+Forecastdata.current.weather[0].icon+'@2x.png',
                 timestamp:Forecastdata.current.dt,
                 current_text:Forecastdata.current.weather[0].main,
-                address:req.query.address
+                address:req.query.address,
+                latitude,
+                longitude
             })
         })
      })

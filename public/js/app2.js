@@ -18,6 +18,76 @@ const forecastpara=document.querySelector('#forecastpara')
 const datepara=document.querySelector('#datepara')
 const datalist=document.querySelector('#Autocompleter')
 const acceptedDisclaimer = document.querySelector('#CookieDisclaimerAccepted')
+const mapShower= document.querySelector('#mapShower')
+
+mapShower.addEventListener('click',(e)=>{
+    e.preventDefault()
+    document.querySelector('#map').style.display=''
+})
+
+//#########################################################
+//Google map suuport starts here
+if(!navigator.geolocation){
+  alert('Geolocation is not supportted by your browser')
+}
+var latitude,longitude,accuracy;
+navigator.geolocation.watchPosition((position)=>{
+  
+  latitude=position.coords.latitude
+  longitude=position.coords.longitude
+  accuracy=position.coords.accuracy
+});
+
+var markers = [];
+var map;
+function initMap() {
+  map = new google.maps.Map(document.getElementById("map"), {
+    center: {
+      lat: latitude,
+      lng: longitude
+      },
+    zoom: 18
+    });
+  addMarker({
+      lat: latitude,
+      lng: longitude
+      });
+  map.addListener("click", function(event) {
+    addMarker(event.latLng);
+  });
+}
+
+// Adds a marker to the map and push to the array.
+function addMarker(location) {
+var marker = new google.maps.Marker({
+  position: location,
+  map: map
+});
+deleteMarkers()
+markers.push(marker);
+}
+
+// Sets the map on all markers in the array.
+function setMapOnAll(map) {
+for (var i = 0; i < markers.length; i++) {
+  markers[i].setMap(map);
+}
+}
+
+// Removes the markers from the map, but keeps them in the array.
+function clearMarkers() {
+setMapOnAll(null);
+}
+
+// Deletes all markers in the array by removing references to them.
+function deleteMarkers() {
+clearMarkers();
+markers = [];
+}
+
+//Google maps support ends here
+//################################################################
+//weather form support starts here
 
 weatherForm.addEventListener('submit',(e)=>{
     e.preventDefault()
@@ -51,7 +121,7 @@ weatherForm.addEventListener('submit',(e)=>{
                 var n = weekday[d.getDay()];
                 loationpara.textContent='Location : '+data.location+'\n'+n + '(Last Updated : '+ dateTime+')\n'+data.current_text ;
                 if(isday===1){
-                    currentpara.textContent='Current Temp(in C): '+(data.current_temp-2)+"\nFeels like : " + data.feelslike_c 
+                    currentpara.textContent='Current Temp(in C): '+(data.current_temp-2)+"\nFeels like : " + data.feelslike_c
                     document.getElementById('imageBox').src = data.icon;
                 }
                 else{
