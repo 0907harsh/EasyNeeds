@@ -184,6 +184,15 @@ app.get('/avatars',auth,(req,res)=>{
 })
 
 //Page setup for access denied
+app.get('/forgotpassword',(req,res)=>{
+    res.render('forgotpassword',{
+        title:'Password Change Page',
+        message:'Change Your Scurely Password Here',
+        name:'Harsh Gupta'
+    })
+})
+
+//Page setup for access denied
 app.get('/Accessdenied',(req,res)=>{
     res.render('accessDenied',{
         title:403,
@@ -292,9 +301,8 @@ app.post('/signup',async (req,res)=>{
 //Logn Page Backend
 app.post('/login',async(req,res)=>{
     try{
-        
         const user= await USER.findByCredentials(req.body.email,req.body.password)
-       
+        
         const token=await user.generateAuthToken()
         res.clearCookie('userData',{httpOnly:true})
         // console.log(req.cookies)
@@ -327,7 +335,7 @@ app.post('/logout',auth,async(req,res)=>{
 app.patch('/profile',auth,async(req,res)=>{
     // console.log(req.body)
     const updates=Object.keys(req.body)
-    const allowedUpdates = ['name','email','password','age','avatar']
+    const allowedUpdates = ['username','email','password','age','avatar']
     // console.log(updates)
     const isValid=updates.every((update)=>allowedUpdates.includes(update))
     if(!isValid){
@@ -342,6 +350,10 @@ app.patch('/profile',auth,async(req,res)=>{
         })
         // console.log(req.user)
         const newLocal = await req.user.save()
+        res.clearCookie('userData',{httpOnly:true})
+        user=req.user
+        token=req.token
+        res.cookie("userData", {user,token,isLoggedIn:true},{maxAge: 900000000,httpOnly:true});
         res.status(200).send(req.user) 
     }catch(e){
         console.log('here')

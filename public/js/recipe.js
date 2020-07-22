@@ -13,7 +13,7 @@ recipeForm.addEventListener('submit',async (e)=>{
     loationpara.textContent='Loading...'
     currentpara.textContent=''
     forecastpara.textContent=''
-    console.log('query'+query.value,numberq.value)
+    // console.log('query'+query.value,numberq.value)
     const data={
         queries:query.value,
         numberq:numberq.value
@@ -26,7 +26,7 @@ recipeForm.addEventListener('submit',async (e)=>{
           },
         body:await JSON.stringify(data)
     }).then((response)=>{
-       console.log(response)
+      //  console.log(response)
         response.json().then((data)=>{
             formatSearchResults(data)
         })
@@ -68,7 +68,7 @@ var defunctDomains = [
   
     var jsonObject = jsonResults;
     var siteCount = 0;
-    console.log(jsonObject)
+    // console.log(jsonObject)
     if (jsonObject.recipes.length == 0) {
       setNotFoundMessages();
     }

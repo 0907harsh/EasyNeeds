@@ -6,32 +6,40 @@ const newuserName = document.querySelector('#Show_Name')
 const newAge = document.querySelector('#Show_Age')
 const newID = document.querySelector('#Show_ID')
 
+//Forwarding to forgot PAssword Page
+newPassword.addEventListener('click',(e)=>{
+  location.replace('/forgotpassword')
+})
 
 //Enabling the updation of user profile changer and save button
 updateClick.addEventListener('click',(e)=>{
     e.preventDefault()
     changeSaver.removeAttribute('disabled')
     updateClick.setAttribute('disabled',null)
+    newuserName.removeAttribute('disabled')
+    // newPassword.removeAttribute('disabled')
+    newAge.removeAttribute('disabled')
     setTimeout(()=>{
         updateClick.removeAttribute('disabled')
     },2000)
-    
-    console.log('It ran')
-    
 })
 
 //updatng changes made to profile in the database
 changeSaver.addEventListener('click',(e)=>{
     e.preventDefault()
-    const data={username:newuserName.value,age:newAge.value,email:newID.value}
+    const data={username:newuserName.value,age:newAge.value,password:newPassword.value}
     console.log(data)
     fetch('/profile',{
-        method:'POST',
+        method:'PATCH',
         headers: {
             'Content-Type': 'application/json'
             // 'Content-Type': 'application/x-www-form-urlencoded',
           },
         body: JSON.stringify(data)
+    }).then((response)=>{
+      return response.json()
+    }).then((response)=>{
+      console.log(response)
     })
 })
 

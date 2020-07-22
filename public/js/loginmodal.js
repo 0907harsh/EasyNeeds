@@ -1,4 +1,5 @@
 const modalpara=document.querySelector('#modalpara')
+const modalparaSignUp=document.querySelector('#modalparaSignUp')
 
 function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
     // console.log('statusChangeCallback');
@@ -17,7 +18,6 @@ function checkLoginState() {               // Called when a person is finished w
     statusChangeCallback(response);
     });
 }
-
 
 window.fbAsyncInit = function() {
     FB.init({
@@ -116,6 +116,7 @@ function testAPI() {                      // Testing Graph API after login.  See
 
 //Login Switcher
 document.querySelector('#SubmitDetailsLogin').addEventListener('click',async (e)=>{
+    console.log('do i come here')
     e.preventDefault()
     const email=document.querySelector('#EmailUserLogin').value
     const password=document.querySelector('#PasswordLogin').value
@@ -143,7 +144,7 @@ document.querySelector('#SubmitDetailsLogin').addEventListener('click',async (e)
     // console.log()
 })
 
-
+newPasswordcount =0 
 //SignUp
 document.querySelector('#SubmitDetailsSignUp').addEventListener('click',async (e)=>{
     e.preventDefault()
@@ -151,24 +152,80 @@ document.querySelector('#SubmitDetailsSignUp').addEventListener('click',async (e
     const password=document.querySelector('#Password').value
     const email=document.querySelector('#EmailUser').value
     const age=document.querySelector('#AgeUser').value
-    // socket.emit('DetailSubmit',username,password)
-    var data={username,email,password,age}
-    const response=await fetch('/signup',{
-        method:'POST',
-        headers: {
-            'Content-Type': 'application/json'
-            // 'Content-Type': 'application/x-www-form-urlencoded',
-          },
-        body: await JSON.stringify(data)
-    })
-    const final = response.json()
-    if(response.status==201){
-        modalpara.innerHTML="<div style=\"z-ndex: 0\" class=\"uk-alert-success\" uk-alert><a class=\"uk-alert-close\" uk-close></a><p>Success. New Account Created</p></div>"  
-        location.replace('/avatars')
+    console.log(username.length>4)
+    if(newPasswordcount>=3 && username.length>4 && age<18 && email.length>10){
+        // socket.emit('DetailSubmit',username,password)
+        var data={username,email,password,age}
+        const response=await fetch('/signup',{
+            method:'POST',
+            headers: {
+                'Content-Type': 'application/json'
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: await JSON.stringify(data)
+        })
+        const final = response.json()
+        if(response.status==201){
+            modalparaSignUp.innerHTML="<div style=\"z-ndex: 0\" class=\"uk-alert-success\" uk-alert><a class=\"uk-alert-close\" uk-close></a><p>Success. New Account Created</p></div>"  
+            location.replace('/avatars')
+        }else{
+            modalparaSignUp.innerHTML="<div style=\"z-ndex: 0\" class=\"uk-alert-danger\" uk-alert><a class=\"uk-alert-close\" uk-close></a><p>Invalid Credentials. Please Try Again</p></div>"  
+        }
+        // console.log()
+        modalparaSignUp.innerHTML="<div class=\"uk-alert-success\" uk-alert><a class=\"uk-alert-close\" uk-close></a><p>Success.</p></div>"  
+    }else if(username.length<1 || email.length<1 || age.length<1 || password.length<1){
+        modalparaSignUp.innerHTML="<div class=\"uk-alert-danger\" uk-alert><a class=\"uk-alert-close\" uk-close></a><p>Please fill all the fields carefully</p></div>"  
+    }else if(age<18){
+        modalparaSignUp.innerHTML="<div class=\"uk-alert-danger\" uk-alert><a class=\"uk-alert-close\" uk-close></a><p>Age must be greater than 18</p></div>"  
+    }else if(newPasswordcount<3){
+        modalparaSignUp.innerHTML="<div class=\"uk-alert-danger\" uk-alert><a class=\"uk-alert-close\" uk-close></a><p>Please Choose a stronger Password</p></div>"  
     }else{
-        modalpara.innerHTML="<div style=\"z-ndex: 0\" class=\"uk-alert-danger\" uk-alert><a class=\"uk-alert-close\" uk-close></a><p>Invalid Credentials. Please Try Again</p></div>"  
+        modalparaSignUp.innerHTML="<div class=\"uk-alert-danger\" uk-alert><a class=\"uk-alert-close\" uk-close></a><p>Please Fill all necessary fields</p></div>"  
     }
-    // console.log()
+    
+})
+
+function setbagde(element,bgColor,color,text,tooltip){
+    element.style.backgroundColor = bgColor
+    element.style.color = color 
+    element.textContent=text
+    element.setAttribute("uk-tooltip",`title:${tooltip}; pos: top;duration: 500;delay: 200`)
+}
+
+function findPasswordLevel(checkValue,element){
+    var count =0
+    var x=new RegExp("[!@#$%&\^~?]", "gi")
+    var n=new RegExp("[0-9]", "gi")
+    var Caps=new RegExp("[A-Z]", "gi")
+    if(checkValue.length>8){
+            count++
+        if(checkValue.match(x)!==null)
+            count++
+        if(checkValue.match(n)!==null){
+            count++
+        }
+        if(checkValue.match(Caps)!==null){
+            count++
+        }
+    }
+    
+    if(count == 0)
+        setbagde(element,"red","white","Password is very weak","Please include atleast one special character and number(0-9) and be atleast 8 characters long")
+    else if(count == 1)
+        setbagde(element,"yellow","black","Password is weak","Please include atleast one special character and number(0-9)")
+    else if(count == 2)
+        setbagde(element,"green","white","Password is moderate","Please include atleast one Uppercase character and number(0-9)")  
+    else if(count == 3 )
+        setbagde(element,"blue","white","Password is strong","Please include atleast one Uppercase character and number(0-9)")
+    else
+        setbagde(element,"cyan","black","Password is very Strong","Very Strong Password.HElps Preventing Brute Force Attacks")
+    return count
+}
+
+
+document.querySelector('#Password').addEventListener('keyup',(e)=>{
+    e.preventDefault()
+    newPasswordcount = findPasswordLevel(document.querySelector('#Password').value,document.querySelector('#spanPassword'))   
 })
 
 
