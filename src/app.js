@@ -183,8 +183,17 @@ app.get('/avatars',auth,(req,res)=>{
     })
 })
 
-//Page setup for access denied
+//Page setup for password change
 app.get('/forgotpassword',(req,res)=>{
+    res.render('forgotpassword',{
+        title:'Password Change Page',
+        message:'Change Your Scurely Password Here',
+        name:'Harsh Gupta'
+    })
+})
+
+//Page setup for password change
+app.get('/createpassword',(req,res)=>{
     res.render('forgotpassword',{
         title:'Password Change Page',
         message:'Change Your Scurely Password Here',
@@ -315,6 +324,24 @@ app.post('/login',async(req,res)=>{
         res.status(500).send({error:'Unable to Login'})
     }
 })
+
+app.post('/loginfb',async(req,res)=>{
+    try{
+        const user= await USER.findByCredentialsfb(req.body.email)
+        
+        const token=await user.generateAuthToken()
+        res.clearCookie('userData',{httpOnly:true})
+        // console.log(req.cookies)
+        res.cookie("userData", {user,token,isLoggedIn:true},{maxAge: 900000000,httpOnly:true});
+        
+        res.status(202).send({user,token})
+        
+    }catch(e){
+        res.cookie("userData", {isLoggedIn:false},{httpOnly:true}); 
+        res.status(500).send({error:'Unable to Login'})
+    }
+})
+
 
 //Logout Button Configuration
 app.post('/logout',auth,async(req,res)=>{

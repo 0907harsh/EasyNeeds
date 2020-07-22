@@ -80,13 +80,13 @@ function testAPI() {                      // Testing Graph API after login.  See
                             }).then((response)=>{
                                 console.log(response.status)
                             })
-                        location.replace('/avatars')
+                        location.replace('/createpassword')
                     }else{
                         modalpara.innerHTML="<div style=\"z-ndex: 0\" class=\"uk-alert-danger\" uk-alert><a class=\"uk-alert-close\" uk-close></a><p>Invalid Credentials. Please Try Again</p></div>"  
                         console.log(res)
-                        var data2={email:data.email,password:'PrdisNew'}
+                        var data2={email:data.email}
                         console.log(data)
-                        const response=await fetch('/login',{
+                        const response=await fetch('/loginfb',{
                             method:'POST',
                             headers: {
                                 'Content-Type': 'application/json'

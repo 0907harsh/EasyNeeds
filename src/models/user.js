@@ -76,6 +76,17 @@ userSchema.statics.findByCredentials = async(email,password)=>{
     return user
 }
 
+//available on USER
+//fetching a user by its unique email-id
+userSchema.statics.findByCredentialsfb = async(email)=>{
+    const user =await USER.findOne({email})
+    if(!user){
+        // console.log("no user found")
+        throw new Error('Unable to login')
+    }
+    return user
+}
+
 //available on user
 //Generating JWT-auth token for the user -session
 userSchema.methods.generateAuthToken=async function(){
