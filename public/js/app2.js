@@ -25,73 +25,73 @@ mapShower.addEventListener('click',(e)=>{
     document.querySelector('#map').style.display=''
 })
 
-//#########################################################
-//Google map suuport starts here
-var latitude=0,longitude=0,accuracy;
-if(!navigator.geolocation){
-    alert('Geolocation is not supportted by your browser')
-  }
-navigator.geolocation.watchPosition((position)=>{
+// //#########################################################
+// //Google map suuport starts here
+// var latitude=0,longitude=0,accuracy;
+// if(!navigator.geolocation){
+//     alert('Geolocation is not supportted by your browser')
+//   }
+// navigator.geolocation.watchPosition((position)=>{
     
-    latitude=position.coords.latitude
-    longitude=position.coords.longitude
-    accuracy=position.coords.accuracy
-    initMap()
-    // console.log(latitude,longitude)
-  })
+//     latitude=position.coords.latitude
+//     longitude=position.coords.longitude
+//     accuracy=position.coords.accuracy
+//     initMap()
+//     // console.log(latitude,longitude)
+//   })
 
 
-var markers = [];
-var map;
-function initMap() {
-  // console.log(latitude,longitude)
-  map = new google.maps.Map(document.getElementById("map"), {
-    center: {
-      lat: latitude,
-      lng: longitude
-      },
-    zoom: 18
-    });
-  addMarker({
-      lat: latitude,
-      lng: longitude
-      });
-  map.addListener("click", function(event) {
-    addMarker(event.latLng);
-  });
-}
+// var markers = [];
+// var map;
+// function initMap() {
+//   // console.log(latitude,longitude)
+//   map = new google.maps.Map(document.getElementById("map"), {
+//     center: {
+//       lat: latitude,
+//       lng: longitude
+//       },
+//     zoom: 18
+//     });
+//   addMarker({
+//       lat: latitude,
+//       lng: longitude
+//       });
+//   map.addListener("click", function(event) {
+//     addMarker(event.latLng);
+//   });
+// }
 
-// Adds a marker to the map and push to the array.
-function addMarker(location) {
-var marker = new google.maps.Marker({
-  position: location,
-  map: map
-});
-deleteMarkers()
-markers.push(marker);
-}
+// // Adds a marker to the map and push to the array.
+// function addMarker(location) {
+// var marker = new google.maps.Marker({
+//   position: location,
+//   map: map
+// });
+// deleteMarkers()
+// markers.push(marker);
+// }
 
-// Sets the map on all markers in the array.
-function setMapOnAll(map) {
-for (var i = 0; i < markers.length; i++) {
-  markers[i].setMap(map);
-}
-}
+// // Sets the map on all markers in the array.
+// function setMapOnAll(map) {
+// for (var i = 0; i < markers.length; i++) {
+//   markers[i].setMap(map);
+// }
+// }
 
-// Removes the markers from the map, but keeps them in the array.
-function clearMarkers() {
-setMapOnAll(null);
-}
+// // Removes the markers from the map, but keeps them in the array.
+// function clearMarkers() {
+// setMapOnAll(null);
+// }
 
-// Deletes all markers in the array by removing references to them.
-function deleteMarkers() {
-clearMarkers();
-markers = [];
-}
+// // Deletes all markers in the array by removing references to them.
+// function deleteMarkers() {
+// clearMarkers();
+// markers = [];
+// }
 
-//Google maps support ends here
-//################################################################
-//weather form support starts here
+// //Google maps support ends here
+// //################################################################
+// //weather form support starts here
 
 weatherForm.addEventListener('submit',(e)=>{
     e.preventDefault()
