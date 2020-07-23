@@ -5,13 +5,13 @@ async function statusChangeCallback(response) {  // Called with the results from
     // console.log('statusChangeCallback');
     // console.log(response);                   // The current login status of the person.
     if (response.status === 'connected') {   // Logged into your webpage and Facebook.
-        var isLoggedIn =await (await fetch('/loginstatus',{method:'POST'})).json()
-        if (!isLoggedIn) {
-            testAPI()
-        }else{
-            console.log("Already Logged In")
-        }
-   
+        // var isLoggedIn =await (await fetch('/loginstatus',{method:'POST'})).json()
+        // if (!isLoggedIn) {
+        //     testAPI()
+        // }else{
+        //     console.log("Already Logged In")
+        // }
+        testAPI()
     } else {                                 // Not logged into your webpage or we are unable to tell.
     document.getElementById('modalpara').innerHTML = 'Please log ' +
         'into this webpage.';
@@ -31,9 +31,9 @@ window.fbAsyncInit = function() {
     xfbml      : true,                     // Parse social plugins on this webpage.
     version    : 'v7.0'           // Use this Graph API version for this call.
     });
-    FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
-    statusChangeCallback(response);        // Returns the login status.
-    });
+    // FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
+    // statusChangeCallback(response);        // Returns the login status.
+    // });
 };
 
 
