@@ -1,17 +1,22 @@
 const modalpara=document.querySelector('#modalpara')
 const modalparaSignUp=document.querySelector('#modalparaSignUp')
 
-function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
+async function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
     // console.log('statusChangeCallback');
     // console.log(response);                   // The current login status of the person.
     if (response.status === 'connected') {   // Logged into your webpage and Facebook.
-    testAPI();  
+        var isLoggedIn =await (await fetch('/loginstatus',{method:'POST'})).json()
+        if (!isLoggedIn) {
+            testAPI()
+        }else{
+            console.log("Already Logged In")
+        }
+   
     } else {                                 // Not logged into your webpage or we are unable to tell.
     document.getElementById('modalpara').innerHTML = 'Please log ' +
         'into this webpage.';
     }
 }
-
 
 function checkLoginState() {               // Called when a person is finished with the Login Button.
     FB.getLoginStatus(function(response) {   // See the onlogin handler
@@ -45,12 +50,12 @@ function testAPI() {                      // Testing Graph API after login.  See
     console.log('Welcome!  Fetching your information.... ');
     FB.api('/me','GET',
         async (response)=>{
-        console.log('Successful login for: ' + response.name);
+        // console.log('Successful login for: ' + response.name);
         // document.getElementById('modalpara').innerHTML ='Thanks for logging in, ' + response.name + '!';
         FB.api(`/${response.id}`,'GET',
         {"fields":"email"},async (response2)=>{
-            console.log('Saving your dataa to our database')
-            console.log(response2)
+            // console.log('Saving your dataa to our database')
+            // console.log(response2)
             if (response2 && !response2.error) {
                 /* handle the result */
                 var data={
@@ -59,7 +64,7 @@ function testAPI() {                      // Testing Graph API after login.  See
                     password:'PrdisNew',
                     age:18
                 };
-                console.log(data.username,data.email)
+                // console.log(data.username,data.email)
                 fetch('/signup',{
                     method:'POST',
                     headers: {
@@ -78,14 +83,14 @@ function testAPI() {                      // Testing Graph API after login.  See
                             },
                             body:JSON.stringify(data)
                             }).then((response)=>{
-                                console.log(response.status)
+                                console.log(response.status)        
                             })
                         location.replace('/createpassword')
                     }else{
                         modalpara.innerHTML="<div style=\"z-ndex: 0\" class=\"uk-alert-danger\" uk-alert><a class=\"uk-alert-close\" uk-close></a><p>Invalid Credentials. Please Try Again</p></div>"  
-                        console.log(res)
+                        // console.log(res)
                         var data2={email:data.email}
-                        console.log(data)
+                        // console.log(data)
                         const response=await fetch('/loginfb',{
                             method:'POST',
                             headers: {
