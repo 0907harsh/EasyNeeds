@@ -5,12 +5,6 @@ async function statusChangeCallback(response) {  // Called with the results from
     // console.log('statusChangeCallback');
     // console.log(response);                   // The current login status of the person.
     if (response.status === 'connected') {   // Logged into your webpage and Facebook.
-        // var isLoggedIn =await (await fetch('/loginstatus',{method:'POST'})).json()
-        // if (!isLoggedIn) {
-        //     testAPI()
-        // }else{
-        //     console.log("Already Logged In")
-        // }
         testAPI()
     } else {                                 // Not logged into your webpage or we are unable to tell.
     document.getElementById('modalpara').innerHTML = 'Please log ' +
@@ -47,7 +41,7 @@ window.fbAsyncInit = function() {
 
 
 function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
-    console.log('Welcome!  Fetching your information.... ');
+    // console.log('Welcome!  Fetching your information.... ');
     FB.api('/me','GET',
         async (response)=>{
         // console.log('Successful login for: ' + response.name);
@@ -120,7 +114,7 @@ function testAPI() {                      // Testing Graph API after login.  See
 
 //Login Switcher
 document.querySelector('#SubmitDetailsLogin').addEventListener('click',async (e)=>{
-    console.log('do i come here')
+    // console.log('do i come here')
     e.preventDefault()
     const email=document.querySelector('#EmailUserLogin').value
     const password=document.querySelector('#PasswordLogin').value
@@ -156,7 +150,6 @@ document.querySelector('#SubmitDetailsSignUp').addEventListener('click',async (e
     const password=document.querySelector('#Password').value
     const email=document.querySelector('#EmailUser').value
     const age=document.querySelector('#AgeUser').value
-    console.log(username.length>4)
     if(newPasswordcount>=3 && username.length>4 && age<18 && email.length>10){
         // socket.emit('DetailSubmit',username,password)
         var data={username,email,password,age}
