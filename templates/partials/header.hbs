@@ -11,14 +11,17 @@
 										<a href="/about"><span class="uk-margin-small-right" uk-icon="icon: info"></span>About</a>
 									</li>
 									<li class="{{activeRecipe}}">
-										<a href="/recipe"><span class="uk-icon uk-margin-small-right" uk-icon="icon: uikit"></span>Recipe Engigne</a>
+										<a href="/recipe"><span class="uk-icon uk-margin-small-right" uk-icon="icon: uikit"></span>Recipe Engine</a>
+									</li>
+									<li class="live-chat">
+										<a href="https://harshnodechatapp.herokuapp.com/"><span class="uk-icon uk-margin-small-right" uk-icon="icon: comments"></span>Live Chat</a>
 									</li>
 									<li class="uk-nav-header">Creator : Harsh Gupta</li>
 									<li class="uk-nav-divider"></li>
 									<li class="{{activeHelp}}"><a href="/help"><span class="uk-margin-small-right" uk-icon="icon: question"></span> Help</a></li>
 									<li class="SignUpPageButton" style="display:none;"><a href="/signup"><button class="uk-button uk-button-primary" >Sign Up</button></a></li>
 									<li class="LoginPageButton" style="display:none;"><a href='/login'><button class="uk-button uk-button-primary" >Login</button></a></li>
-									<li class="MyProfilePageButton" style="display:none;"><a href='/profile'><button class="uk-button uk-button-primary">Profile</button> </a></li>			
+									<li class="MyProfilePageButton" style="display:none;"><a href='/profile'><button class="uk-button uk-button-primary"><span class="uk-icon uk-margin-small-right" uk-icon="icon: user;ratio: .85"></span>Profile</button> </a></li>			
 								</ul>
 							</div>
 						</div>
@@ -34,18 +37,10 @@
 								Home
 							</a>
 						</li>
-						<li class="{{activeAbout}}">
-							
-							<a href="/about">
-							<span class="uk-icon uk-margin-small-right" uk-icon="icon: info"></span>
-							About
-							</a>
-							
-						</li>
 						<li class="{{activeRecipe}}">
 							<a href="/recipe">
 							<span class="uk-icon uk-margin-small-right" uk-icon="icon: uikit"></span>
-							Recipe Engigne
+							Recipe Engine
 							</a>
 							<div class="uk-navbar-dropdown">
 								<ul class="uk-nav uk-navbar-dropdown-nav">
@@ -54,6 +49,17 @@
 									<li><a href="#">Item</a></li>
 								</ul>
 							</div>
+						</li>
+						<li class="live-chat">
+							<a href="https://harshnodechatapp.herokuapp.com/">
+							<span class="uk-icon uk-margin-small-right" uk-icon="icon: comments"></span>
+							Live Chat</a>
+						</li>
+						<li class="{{activeAbout}}">
+							<a href="/about">
+							<span class="uk-icon uk-margin-small-right" uk-icon="icon: info"></span>
+							About
+							</a>	
 						</li>
 						<li class="{{activeHelp}}">
 							<a href="/help">
@@ -70,7 +76,7 @@
 					{{!-- <a href="/signup"><button class="uk-button uk-button-primary SignUpPageButton" style="display:none; padding: 10px">Sign Up</button></a> --}}
 					{{!-- <a href='/login'><button class="uk-button uk-button-primary LoginPageButton" style="display:none; padding:10px;margin: 10px">Login</button></a> --}}
 					<a class="uk-button uk-button-primary  LoginPageButton" style="display:none; padding:5px 20px 5px 20px" href="#modal-overflow" uk-toggle> Login/SignUp</a>
-					<a href='/profile'><button class="uk-button uk-button-primary MyProfilePageButton" style="display:none; padding:10px;margin: 10px">Profile</button> </a>
+					<a href='/profile'><button class="uk-button uk-button-primary MyProfilePageButton" style="display:none; padding:10px;margin: 10px"><span class="uk-icon uk-margin-small-right" uk-icon="icon: user;ratio: .85"></span>Profile</button> </a>
 				</div>
 				{{!-- <div class="uk-navbar-right uk-hidden@m">
 					<a href='/profile'><button class="uk-button uk-button-primary MyProfilePageButton" style="display:none; padding:10px;">Profile</button> </a>
