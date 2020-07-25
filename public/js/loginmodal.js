@@ -150,7 +150,7 @@ document.querySelector('#SubmitDetailsSignUp').addEventListener('click',async (e
     const password=document.querySelector('#Password').value
     const email=document.querySelector('#EmailUser').value
     const age=document.querySelector('#AgeUser').value
-    if(newPasswordcount>=3 && username.length>4 && age<18 && email.length>10){
+    if(newPasswordcount>=3 && username.length>4 && age>18 && email.length>10){
         // socket.emit('DetailSubmit',username,password)
         var data={username,email,password,age}
         const response=await fetch('/signup',{
