@@ -7,14 +7,17 @@
 							<div class="uk-offcanvas-bar uk-flex uk-flex-column">
 								<ul class="uk-nav uk-nav-primary uk-nav-center uk-margin-auto-vertical">
 									<li class="{{activeHome}}"><a href="/"><span class="uk-margin-small-right" uk-icon="icon: home"></span>Home</a></li>
-									<li class="uk-parent {{activeAbout}}">
-										<a href="/about"><span class="uk-margin-small-right" uk-icon="icon: info"></span>About</a>
+									<li class="uk-parent {{activeSearch}}">
+										<a href="/search"><span class="uk-margin-small-right" uk-icon="icon: search"></span>Search Engine</a>
 									</li>
 									<li class="{{activeRecipe}}">
 										<a href="/recipe"><span class="uk-icon uk-margin-small-right" uk-icon="icon: uikit"></span>Recipe Engine</a>
 									</li>
 									<li class="live-chat">
 										<a href="https://harshnodechatapp.herokuapp.com/"><span class="uk-icon uk-margin-small-right" uk-icon="icon: comments"></span>Live Chat</a>
+									</li>
+									<li class="uk-parent {{activeAbout}}">
+										<a href="/about"><span class="uk-margin-small-right" uk-icon="icon: info"></span>About</a>
 									</li>
 									<li class="uk-nav-header">Creator : Harsh Gupta</li>
 									<li class="uk-nav-divider"></li>
@@ -35,6 +38,12 @@
 							<a href="/">
 								<span class="uk-icon uk-margin-small-right" uk-icon="icon: home"></span>
 								Home
+							</a>
+						</li>
+						<li class="{{activeSearch}}">
+							<a href="/search">
+								<span class="uk-icon uk-margin-small-right" uk-icon="icon: search"></span>
+								Search Engine
 							</a>
 						</li>
 						<li class="{{activeRecipe}}">
@@ -65,12 +74,8 @@
 							<a href="/help">
 							<span class="uk-icon uk-margin-small-right" uk-icon="icon: question"></span>
 							Help</a>
-							
 						</li>
-						
 					</ul>
-
-
 				</div>
 				<div class="uk-navbar-right">
 					{{!-- <a href="/signup"><button class="uk-button uk-button-primary SignUpPageButton" style="display:none; padding: 10px">Sign Up</button></a> --}}

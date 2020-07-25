@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Search Engine</title>
+		<link rel="icon" href="/img/weather.png">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="css/uikit.min.css" />
+	</head>
+	<body>
+		{{>header}}	
+		
+		{{!-- 
+			Header Ends Here and 
+			Main-content starts here
+		 --}}
+		<div class="main-content">		
+			<div class="uk-container uk-text-center">
+				<p>Use this site to fetch your query</p>
+				<form id="searchform" autocomplete="off">
+					<input list="Autocompleter" id="inputSearch" class="uk-width-1-2" type="" placeholder="type your query..." maxlength="100" onchange="sanitizeInput(this);"/>
+						<datalist class="scrollable" id="Autocompleter">
+							<option>McDOnalds</option>
+							<option>America China News</option>
+							<option>Arctic Ocean</option>
+							<option>How to get around yourself in this lockdown</option>
+							<option>Baby boy</option>
+							<option>How are You sweety</option>
+						</datalist>
+						<button id="submitform"><span class="uk-icon uk-margin-small-right" uk-icon="icon: search;ratio: .85"></span>Search</button>
+				</form>
+
+				<pre id="locationpara"> </pre>
+				<pre style="vertical-align:middle; display:inline;" id="currentpara"></pre>
+				<p id="forecastpara"></p>
+			</div>
+		</div>
+        <div class="uk-width-1-1" id="locationpara" uk-grid> </div>
+		<pre id="currentpara"></pre>
+		<pre id="forecastpara"></pre>
+              
+		{{>footer}}
+		<link rel="stylesheet" href="/css/styles.css">
+		<script src="js/uikit.min.js"></script>
+		<script src="js/uikit-icons.min.js"></script>
+		<script src="/js/search.js"></script>
+		<script src="/js/loginmodal.js"></script>
+		
+	</body>
+</html>

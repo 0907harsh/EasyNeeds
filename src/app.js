@@ -12,6 +12,7 @@ const LocationSearched=require('./models/searchedLocation')
 const rp=require('request-promise')
 const geocode=require('./utils/geocode.js')
 const forecast=require('./utils/openweather.js')
+const searchserp=require('./utils/serpscratch.js')
 const spoonacular=require('./utils/spoonacular.js')
 const socketio=require('socket.io')
 const {sendWelcomeEmail,DeleteAccounEmail}=require('./sendgrid/account')
@@ -127,6 +128,16 @@ app.get('/recipe',auth,(req,res)=>{
         title:'aaa',
         name:'Harsh Gupta',
         activeRecipe:'uk-active',
+        isLoggedIn:true
+    })
+})
+
+app.get('/search',(req,res)=>{
+    res.render('search',{
+        message:'Get worldclass recipes here...',
+        title:'aaa',
+        name:'Harsh Gupta',
+        activeSearch:'uk-active',
         isLoggedIn:true
     })
 })
@@ -254,6 +265,29 @@ app.get('/weather',adminauth,async (req,res)=>{
      })
 })
 
+app.get('/searchget',async (req,res)=>{
+    // console.log(req.headers)
+    if(!req.query.query){
+        return res.status(403).send({
+            error:'No query provided'
+        })
+    }
+    // console.log('JUST BEFoRe GEOCODE')
+    searchserp(req.query.query,false,(error,{organic_results,local_results,total_time,ads,related_searches}={})=>{
+        if(error){
+             return res.status(error.code).send({error:error.info})
+        }
+        //Sending Pure Data Back
+        // console.log('From app.js'+organic_results)
+            res.status(200).send({     
+                organic_results:organic_results,
+                local_results:local_results,
+                total_time:total_time,
+                ads:ads,
+                related_searches:related_searches,
+            })
+     })
+})
 /*##################################################
 Get requests End here 
 Post Requests Start here
