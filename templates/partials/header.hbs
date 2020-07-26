@@ -22,8 +22,7 @@
 									<li class="uk-nav-header">Creator : Harsh Gupta</li>
 									<li class="uk-nav-divider"></li>
 									<li class="{{activeHelp}}"><a href="/help"><span class="uk-margin-small-right" uk-icon="icon: question"></span> Help</a></li>
-									<li class="SignUpPageButton" style="display:none;"><a href="/signup"><button class="uk-button uk-button-primary" >Sign Up</button></a></li>
-									<li class="LoginPageButton" style="display:none;"><a href='/login'><button class="uk-button uk-button-primary" >Login</button></a></li>
+									<a class="uk-button uk-button-primary  LoginPageButton" style="display:none; padding:5px 20px 5px 20px" href="#modal-overflow" uk-toggle> Login/SignUp</a>
 									<li class="MyProfilePageButton" style="display:none;"><a href='/profile'><button class="uk-button uk-button-primary"><span class="uk-icon uk-margin-small-right" uk-icon="icon: user;ratio: .85"></span>Profile</button> </a></li>			
 								</ul>
 							</div>
@@ -113,7 +112,7 @@
                                     <p><strong>Your Login Credentials</strong> </p>
                                     <form>
                                         <input id="EmailUserLogin" type="email" placeholder="Email" size="25"  onchange="sanitizeInput(this);" uk-tooltip="title: Must be a valid Email; pos: right;duration: 500;delay: 200" autocomplete="email"/><br/>
-                                        <input id="PasswordLogin" type="password" placeholder="password" size="25"  minlength="6" maxlength="10"  onchange="sanitizeInput(this);" uk-tooltip="title: Must be Atleast 8 characters long; pos: right;duration: 500;delay: 200"  autocomplete="current-password" /><br/>
+                                        <input id="PasswordLogin" type="password" placeholder="password" size="25"  minlength="6" maxlength="14"  onchange="sanitizeInput(this);" uk-tooltip="title: Must be Atleast 8 characters long; pos: right;duration: 500;delay: 200"  autocomplete="current-password" /><br/>
                                         <br/>
                                          &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="SubmitDetailsLogin">Submit</button>&nbsp;&nbsp;<a href="/forgotpassword" target="_blank">Forgot Password</a>
                                         {{!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> --}}
