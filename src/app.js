@@ -132,6 +132,17 @@ app.get('/recipe',auth,(req,res)=>{
     })
 })
 
+//covid-update setup
+app.get('/covidData',(req,res)=>{
+    res.render('covidAPI',{
+        message:'Get Covid Updates Here',
+        title:'Covid Data',
+        name:'Harsh Gupta',
+        activeCovid:'uk-active',
+        isLoggedIn:true
+    })
+})
+
 app.get('/search',(req,res)=>{
     res.render('search',{
         message:'Get worldclass recipes here...',
