@@ -8,15 +8,15 @@ fetch("https://api.covid19api.com/summary", requestOptions)
     .then((result) => {
      const global = result.Global
      const countries = result.Countries
-     document.querySelector('#covid19Global').innerHTML=`<div class="uk-width-1-2@m uk-width-1-2@s uk-width-1-1 uk-text-center"><div class="uk-card uk-card-default"><div class="uk-card-body"><h3 class="uk-card-title"><strong>Global</strong></h3><p>New Confirmed Cases : +${global.NewConfirmed},<br><span  style="color:green;">New Recovered Cases : +${global.NewRecovered} </span> ,<br><span  style="color:red;">New Deaths : +${global.NewDeaths} </span> <br></p><p>Total Confirmed Cases : ${global.TotalConfirmed} ,<br><span  style="color:green;"> Total Recovered : ${global.TotalRecovered} </span>,<br> Total Deaths : ${global.TotalDeaths} <br></p></div></div></div>`
+     document.querySelector('#covid19Global').innerHTML=`<div class="uk-width-1-2@m uk-width-1-2@s uk-width-1-1 uk-text-center"><div class="uk-card uk-card-default"><div class="uk-card-body"><h3 class="uk-card-title"><strong>Global</strong></h3><p>New Confirmed Cases : +${global.NewConfirmed}<span uk-icon="icon: arrow-up; ratio: 1"></span>,<br><span  style="color:green;">New Recovered Cases : +${global.NewRecovered}<span uk-icon="icon: arrow-up; ratio: 1"></span> </span> ,<br><span  style="color:red;">New Deaths : +${global.NewDeaths}<span uk-icon="icon: arrow-up; ratio: 1"></span> </span> <br></p><p>Total Confirmed Cases : ${global.TotalConfirmed} ,<br><span  style="color:green;"> Total Recovered : ${global.TotalRecovered} </span>,<br> Total Deaths : ${global.TotalDeaths} <br></p></div></div></div>`
     //  console.log(global)
      count=1;
      formatedText=`<table class="uk-table uk-table-hover">
                             <caption><h3>Covid-19 Tally</h3></caption>
                             <thead>
                                 <tr>
-                                    <th class="uk-text-center">#</th>
-                                    <th class="uk-text-center">Country</th>
+                                    <th class="uk-table-shrink">#</th>
+                                    <th class="uk-table-expand uk-text-center">Country<span uk-icon="icon: arrow-up; ratio: 1"></span><span uk-icon="icon: arrow-down; ratio: 1"></span></th>
                                     <th class="uk-table-shrink">Total Confirmed</th>
                                     <th class="uk-table-shrink">New Confirmed</th>
                                     <th class="uk-table-shrink">TotalDeaths</th>
