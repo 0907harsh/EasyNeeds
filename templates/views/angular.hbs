@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<body ng-app="myApp" ng-controller="namesCtrl">
+    <form name="LoginAngular">
+        <input id="field1" name="Firstname" ng-model="Firstname" autocomplete="Firstname" required><span style="color:red" ng-show="LoginAngular.Firstname.$dirty && LoginAngular.Firstname.$invalid">Username is invalid</span>  
+        <input id="field2" name="Email" ng-model="Email" autocomplete="Email" type="email" required ><span ng-bind="LoginAngular.Email.$valid"></span>  
+        <input id="field3" name="File" ng-model="File" type="file" required><span ng-bind="LoginAngular.File.$valid"></span>  
+        <input id="field4" name="File2" ng-model="File2" type="file" required> <span ng-bind="LoginAngular.File2.$valid"></span>  
+    </form>
+<p>Click the table headers to change the sorting order:</p>
+
+<div>
+
+<table border="1" width="100%">
+<tr>
+<th ng-click="orderByMe('name')">Name</th>
+<th ng-click="orderByMe('country')">Country</th>
+</tr>
+<tr ng-repeat="x in names | orderBy:myOrderBy">
+<td>{{x.name}}</td>
+<td>{{x.country}}</td>
+</tr>
+</table>
+
+</div>
+
+<script>
+angular.module('myApp', []).controller('namesCtrl', function($scope) {
+    $scope.names = [
+        {name:'Jani',country:'Norway'},
+        {name:'Carl',country:'Sweden'},
+        {name:'Margareth',country:'England'},
+        {name:'Hege',country:'Norway'},
+        {name:'Joe',country:'Denmark'},
+        {name:'Gustav',country:'Sweden'},
+        {name:'Birgit',country:'Denmark'},
+        {name:'Mary',country:'England'},
+        {name:'Kai',country:'Norway'}
+        ];
+    $scope.orderByMe = function(x) {
+        $scope.myOrderBy = x;
+    }
+});
+</script>
+
+</body>
+</html>

@@ -34,7 +34,7 @@ const viewsPath=path.join(__dirname,'../templates/views')
 const partialsPath=path.join(__dirname,'../templates/partials')
 
 
-//Setup handlebars engine and viesws locaitons
+//Setup handlebars engine and viesws locations
 app.set('view engine','hbs')
 app.set('views',viewsPath)
 
@@ -129,6 +129,28 @@ app.get('/recipe',auth,(req,res)=>{
         name:'Harsh Gupta',
         activeRecipe:'uk-active',
         isLoggedIn:true
+    })
+})
+
+//learning-angular setup
+app.get('/angular',(req,res)=>{
+    res.render('angular',{
+        message:'Learning angular here...',
+        title:'Angular',
+        name:'Harsh Gupta',
+        isLoggedIn:true,
+        phones:[
+            {
+              name: 'Nexus S',
+              snippet: 'Fast just got faster with Nexus S.'
+            }, {
+              name: 'Motorola XOOM™ with Wi-Fi',
+              snippet: 'The Next, Next Generation tablet.'
+            }, {
+              name: 'MOTOROLA XOOM™',
+              snippet: 'The Next, Next Generation tablet.'
+            }
+          ]
     })
 })
 

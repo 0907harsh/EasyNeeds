@@ -220,7 +220,6 @@ var LoginButton=async function LoginButton() {
       }
     }
   }
-  
   LoginButton()
 
   //santizing input
@@ -256,7 +255,3 @@ var getCookie=async function getCookie(cname) {
     }
     return "";
   }
-
-
-
-
