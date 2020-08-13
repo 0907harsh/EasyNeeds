@@ -162,6 +162,16 @@ acceptedDisclaimer.addEventListener('click',(e)=>{
     document.querySelector('#CookieDisclaimer').style.display='none'
 })
 
+function sanitizeInput(element){
+  // console.log(element.value)
+  var str=element.value;
+  str=str.replace(/(<([^>]+)>)/ig,"");
+  // str=str.replace(/\/[a-z ]+|\/[A-Z]+|\/[^1-9]+/gim,"");
+  str=str.replace(/[(=);]/ig,"");
+  str=str.trim();
+  element.value=str;
+}
+
 function settingCookie(cname, cvalue, exdays) {
     var d = new Date();
     d.setTime(d.getTime() + (exdays*24*60*60*1000));
@@ -184,14 +194,3 @@ function gettingCookie(cname) {
     }
     return "";
   }
-
-  //santizing input
-  function sanitizeInput(element){
-    console.log(element.value)
-    var str=element.value;
-    str=str.replace(/(<([^>]+)>)/ig,"");
-    // str=str.replace(/\/[a-z ]+|\/[A-Z]+|\/[^1-9]+/gim,"");
-    str=str.replace(/[(=);]/ig,"");
-    str=str.trim();
-    element.value=str;
-}

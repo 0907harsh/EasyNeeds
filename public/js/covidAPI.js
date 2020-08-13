@@ -10,8 +10,8 @@ fetch("https://api.covid19api.com/summary", requestOptions)
      const countries = result.Countries
      document.querySelector('#covid19Global').innerHTML=`<div class="uk-width-1-2@m uk-width-1-2@s uk-width-1-1 uk-text-center"><div class="uk-card uk-card-default"><div class="uk-card-body"><h3 class="uk-card-title"><strong>Global</strong></h3><p>New Confirmed Cases : +${global.NewConfirmed}<span uk-icon="icon: arrow-up; ratio: 1"></span>,<br><span  style="color:green;">New Recovered Cases : +${global.NewRecovered}<span uk-icon="icon: arrow-up; ratio: 1"></span> </span> ,<br><span  style="color:red;">New Deaths : +${global.NewDeaths}<span uk-icon="icon: arrow-up; ratio: 1"></span> </span> <br></p><p>Total Confirmed Cases : ${global.TotalConfirmed} ,<br><span  style="color:green;"> Total Recovered : ${global.TotalRecovered} </span>,<br> Total Deaths : ${global.TotalDeaths} <br></p></div></div></div>`
     //  console.log(global)
-     count=1;
-     formatedText=`<table class="uk-table uk-table-hover">
+    var count=1;
+    var formatedText=`<table class="uk-table uk-table-hover">
                             <caption><h3>Covid-19 Tally</h3></caption>
                             <thead>
                                 <tr>
@@ -41,14 +41,14 @@ fetch("https://api.covid19api.com/summary", requestOptions)
                             </tfoot>
                         <tbody>`
      countries.forEach(function(country, index) {
-        countr=country.Country;
-        NewConfirmed=country.NewConfirmed;
-        TotalConfirmed = country.TotalConfirmed;
-        NewDeaths = country.NewDeaths;
-        TotalDeaths=country.TotalDeaths;
-        NewRecovered=country.NewRecovered;
-        TotalRecovered=country.TotalRecovered;
-        date=country.Date
+        var countr=country.Country;
+        var NewConfirmed=country.NewConfirmed;
+        var TotalConfirmed = country.TotalConfirmed;
+        var NewDeaths = country.NewDeaths;
+        var TotalDeaths=country.TotalDeaths;
+        var NewRecovered=country.NewRecovered;
+        var TotalRecovered=country.TotalRecovered;
+        var date=country.Date
         formatedText +=`<tr>
                             <td class="uk-text-center">${count}</td>
                             <td class="uk-text-center"><a href="#">${countr}</a></td>
