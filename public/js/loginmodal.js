@@ -1,6 +1,9 @@
+import {LoginButton} from './modules/loginbutton.js'
 const modalpara=document.querySelector('#modalpara')
 const modalparaSignUp=document.querySelector('#modalparaSignUp')
 
+
+LoginButton()
 async function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
     // console.log('statusChangeCallback');
     // console.log(response);                   // The current login status of the person.
@@ -142,7 +145,7 @@ document.querySelector('#SubmitDetailsLogin').addEventListener('click',async (e)
     // console.log()
 })
 
-newPasswordcount =0 
+var newPasswordcount =0 
 //SignUp
 document.querySelector('#SubmitDetailsSignUp').addEventListener('click',async (e)=>{
     e.preventDefault()
@@ -226,45 +229,8 @@ document.querySelector('#Password').addEventListener('keyup',(e)=>{
 })
 
 
-//Hiding Login/SignUp buttons
-var LoginButton=async function LoginButton() {
-    var isLoggedIn =await (await fetch('/loginstatus',{
-       method:'POST'
-    })).json()
-    // console.log(isLoggedIn)
-    if (!isLoggedIn) {
-      // console.log('Why the hell')
-      var all = document.getElementsByClassName('LoginPageButton');
-      for (var i = 0; i < all.length; i++) {
-        all[i].style.display = '';
-      }
-      all = document.getElementsByClassName('SignUpPageButton');
-      for (var i = 0; i < all.length; i++) {
-        all[i].style.display = '';
-      }
-      all = document.getElementsByClassName('MyProfilePageButton');
-      for (var i = 0; i < all.length; i++) {
-        all[i].style.display = 'none';
-      }
-    }
-    if (isLoggedIn) {
-      var all = document.getElementsByClassName('LoginPageButton');
-      for (var i = 0; i < all.length; i++) {
-        all[i].style.display = 'none';
-      }
-      all = document.getElementsByClassName('SignUpPageButton');
-      for (var i = 0; i < all.length; i++) {
-        all[i].style.display = 'none';
-      }
-      all = document.getElementsByClassName('MyProfilePageButton');
-      for (var i = 0; i < all.length; i++) {
-        all[i].style.display = '';
-      }
-    }
-  }
-  
-  LoginButton()
-  
+
+
   //Sanitizing Input
   function sanitizeInput(element){
     // console.log(element.value)
@@ -275,4 +241,3 @@ var LoginButton=async function LoginButton() {
     str=str.trim();
     element.value=str;
 }
-  

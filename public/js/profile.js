@@ -5,7 +5,11 @@ const newPassword = document.querySelector('#newPassword')
 const newuserName = document.querySelector('#Show_Name')
 const newAge = document.querySelector('#Show_Age')
 const newID = document.querySelector('#Show_ID')
+import {LoginButton} from './modules/loginbutton.js'
+import {getCookie} from './modules/getCookie.js'
 
+//Hiding Login/SignUp button
+LoginButton()
 //Forwarding to forgot PAssword Page
 newPassword.addEventListener('click',(e)=>{
   location.replace('/forgotpassword')
@@ -102,68 +106,3 @@ window.onload = (event) => {
         // console.log('Erorr')
     })  
 }
-
-//get Cookie function
-var getCookie=async function getCookie(cname) {
-    var name = cname + "=";
-    
-    const response =await fetch('/serveCookie',{
-        method:'POST'
-    })
-    const res=await response.json()
-    var decodedCookies=JSON.stringify(res.userData)
-    decodedCookies="userData=j:"+decodedCookies
-    var ca = decodedCookies.split(';');
-    decodedCookies=""
-    for (var i = 0; i < ca.length; i++) {
-      var c = ca[i];
-      while (c.charAt(0) == ' ') {
-        c = c.substring(1);
-      }
-      if (c.indexOf(name) == 0) {
-        return c.substring(name.length, c.length);
-      }
-    }
-    return "";
-  }
-
-//Hiding Login/SignUp buttons
-var LoginButton=async function LoginButton() {
-    var isLoggedIn =await (await fetch('/loginstatus',{
-       method:'POST'
-    })).json()
-    // console.log(isLoggedIn)
-    if (!isLoggedIn) {
-      // console.log('Why the hell')
-      var all = document.getElementsByClassName('LoginPageButton');
-      for (var i = 0; i < all.length; i++) {
-        all[i].style.display = '';
-      }
-      all = document.getElementsByClassName('SignUpPageButton');
-      for (var i = 0; i < all.length; i++) {
-        all[i].style.display = '';
-      }
-      all = document.getElementsByClassName('MyProfilePageButton');
-      for (var i = 0; i < all.length; i++) {
-        all[i].style.display = 'none';
-      }
-    }
-    if (isLoggedIn) {
-      var all = document.getElementsByClassName('LoginPageButton');
-      for (var i = 0; i < all.length; i++) {
-        all[i].style.display = 'none';
-      }
-      all = document.getElementsByClassName('SignUpPageButton');
-      for (var i = 0; i < all.length; i++) {
-        all[i].style.display = 'none';
-      }
-      all = document.getElementsByClassName('MyProfilePageButton');
-      for (var i = 0; i < all.length; i++) {
-        all[i].style.display = '';
-      }
-    }
-  }
-  
-  LoginButton()
-
-  
