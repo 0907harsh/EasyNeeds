@@ -22,20 +22,21 @@ weatherForm.addEventListener('submit',(e)=>{
             }
             else{
                 // console.log(data.organic_results)
-                organic_results=data.organic_results,
+                var organic_results=data.organic_results
                 // console.log(data.local_results)
-                local_results=data.local_results,
-                total_time=data.total_time,
-                ads=data.ads,
-                related_searches=data.related_searches,
-                formatedText=''
+                var local_results=data.local_results
+                var total_time=data.total_time
+                var ads=data.ads
+                var related_searches=data.related_searches
+                var formatedText=''
                 organic_results.forEach(function(og_rl, index) {
-                      title=og_rl.title;
-                      snippet=og_rl.snippet;
+                      var title=og_rl.title;
+                      var snippet=og_rl.snippet;
                       const href = og_rl.url;
                       const display_url = og_rl.displayed_url;
                       const relhref=og_rl.cached_page_url
-                      formatedText +=`<div class="uk-width-1-1 uk-text-center"><div class="uk-card uk-card-default"><div class="uk-card-body"><h4 class="uk-card-title">${display_url}<h2><a href="${href}" target="_blank">${href}</a></h2></h4><p>${snippet}</p></div></div></div>`
+                      formatedText +=`<div class="uk-width-1-1 uk-text-center">
+                                        <div class="uk-card uk-card-default"><div class="uk-card-header"><p class="uk-text-meta uk-margin-remove-bottom uk">${display_url}</p><h3 class="uk-card-title uk-margin-remove-top"><a href="${href}" target="_blank">${href} </a></h3></div> <div class="uk-card-body uk-margin-remove-top"><p>${snippet}</p></div></div></div>`
                     //   formatedText += "<div class='dish-image-div'><a " + " href='" + href + "' target='_blank'><img class='dish-image' style='inline' width='80' src='" + thumbnail + "' alt='recipe picture, link to recipe page'></a></div>";
                     //   formatedText += "<div " + "class='dish-title-div'><a href='" + href + "' target='_blank'>" + recipe.title + "</a></div>";
                     //   formatedText += "<div class='dish-ingredients-div'>Cooking Time: " + recipe.readyInMinutes + "</div>"; 

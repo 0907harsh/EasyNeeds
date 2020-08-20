@@ -15,6 +15,7 @@ const serpscratch = (query,images, callback)=>{
                 callback(response.body.error,{})
             }
             else{
+                // console.log(response.body.organic_results)
                 callback(undefined,{
                     organic_results:response.body.organic_results,
                     local_results:response.body.local_results,

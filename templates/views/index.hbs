@@ -40,6 +40,8 @@
 						</datalist>
 						<button id="submitform"><span class="uk-icon uk-margin-small-right" uk-icon="icon: search;ratio: .85"></span>Search</button>
 				</form>
+				<div id="like_button_container"></div>
+				<div id="root"></div>
 					 <a id="mapShower" class="uk-button uk-button-default" data-caption="Google Maps">Google Maps Support coming Soon</a> 
 
 				<pre id="locationpara"> </pre>
@@ -213,17 +215,38 @@
 		<link rel="stylesheet" href="/css/styles.css">
 		<script src="js/uikit/uikit.min.js"></script>
 		<script src="js/uikit/uikit-icons.min.js"></script>
-		{{!-- <script src="js/modules/myapp.js"></script> --}}
-		{{!-- <script src="js/controller/myAppController.js"></script> --}}
 		<script src="/socket.io/socket.io.js"></script>
 		<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzZBCLcIEzFBtEFCKRyWjBPu1AZYmHpU8&callback=initMap&libraries=&v=weekly" defer></script>
 		<script src="/js/sanitize.js"></script>
 		<script type="module" src="/js/app2.js"></script>
 		<script type="module" src="/js/loginmodal.js"></script>
-		{{!-- <script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script>
+		<script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script>
 		<script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin></script>
-		<script src="/js/jsx.js"></script> --}}
+		<!-- Load our React component. -->
+		<script src="/react/like-button.js"></script>
+		{{!-- <script type="module" src="/react/index.js"></script> --}}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
+		{{!-- <script src="js/modules/myapp.js"></script> --}}
+		{{!-- <script src="js/controller/myAppController.js"></script> --}}
 		{{!-- <script src="https://cdn.rawgit.com/mozilla/localForage/master/dist/localforage.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
 		<script>
