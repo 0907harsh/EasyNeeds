@@ -33,6 +33,8 @@ const userSchema=new mongoose.Schema({
             }
         }
     },
+    resetPasswordToken: String,
+    resetPasswordExpires: Date,
     age:{
         type: Number,
         default:18,
@@ -75,6 +77,17 @@ userSchema.statics.findByCredentials = async(email,password)=>{
     }
     return user
 }
+
+//available on USER
+//fetching a user by its unique email-id
+userSchema.statics.findByEMAILID = async(email)=>{
+    const user =await USER.findOne({email})
+    if(!user){
+        return true;
+    }
+    return false;
+}
+
 
 //available on USER
 //fetching a user by its unique email-id

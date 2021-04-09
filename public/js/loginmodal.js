@@ -171,8 +171,6 @@ document.querySelector('#SubmitDetailsSignUp').addEventListener('click',async (e
         }else{
             modalparaSignUp.innerHTML="<div style=\"z-ndex: 0\" class=\"uk-alert-danger\" uk-alert><a class=\"uk-alert-close\" uk-close></a><p>Invalid Credentials. Please Try Again</p></div>"  
         }
-        // console.log()
-        modalparaSignUp.innerHTML="<div class=\"uk-alert-success\" uk-alert><a class=\"uk-alert-close\" uk-close></a><p>Success.</p></div>"  
     }else if(username.length<1 || email.length<1 || age.length<1 || password.length<1){
         modalparaSignUp.innerHTML="<div class=\"uk-alert-danger\" uk-alert><a class=\"uk-alert-close\" uk-close></a><p>Please fill all the fields carefully</p></div>"  
     }else if(age<18){

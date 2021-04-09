@@ -20,6 +20,7 @@ const auth=require('./middleware/auth')
 const localforage=require('localforage')
 const {OAuth2Client} = require('google-auth-library');
 const client = new OAuth2Client(process.env.Client_ID);
+const randomBytes = require('random-bytes')
 
 const app=express()
 const server=http.createServer(app)
@@ -360,15 +361,20 @@ app.post('/recipe',(req,res)=>{
 //Signup page backend Setup
 app.post('/signup',async (req,res)=>{
     const user=new USER(req.body)
-    try{
-        await user.save()
-        // sendWelcomeEmail(user.email,user.name)
-        const token=await user.generateAuthToken()
-        sendWelcomeEmail(user.email,user.username)
-        res.clearCookie('userData',{httpOnly:true})
-        res.cookie("userData", {user,token,isLoggedIn:true},{maxAge: 900000000,httpOnly:true}); 
-        res.status(201).send({user,token})
-    }catch(e){
+    const checkmail= await USER.findByEMAILID(req.body.email)
+    if(checkmail==true){
+        console.log('user not exists')
+        try{
+            await user.save()
+            const token=await user.generateAuthToken()
+            res.clearCookie('userData',{httpOnly:true})
+            res.cookie("userData", {user,token,isLoggedIn:true},{maxAge: 900000000,httpOnly:true}); 
+            res.status(201).send({user,token})
+            // sendWelcomeEmail(user.email,user.name)
+        }catch(e){
+            res.status(400).send('error')
+        }
+    }else{
         res.cookie("userData", {isLoggedIn:false},{httpOnly:true}); 
         res.status(400).send('error')
     }
@@ -378,17 +384,12 @@ app.post('/signup',async (req,res)=>{
 app.post('/login',async(req,res)=>{
     try{
         const user= await USER.findByCredentials(req.body.email,req.body.password)
-        
         const token=await user.generateAuthToken()
         res.clearCookie('userData',{httpOnly:true})
-        // console.log(req.cookies)
-        res.cookie("userData", {user,token,isLoggedIn:true},{maxAge: 900000000,httpOnly:true});
-        
-        res.status(202).send({user,token})
-        
+        res.cookie("userData", {user,token,isLoggedIn:true},{maxAge: 900000000,httpOnly:true});     
+        res.status(202).send({user,token,result:"Successfully Logged In"})
     }catch(e){
-        res.cookie("userData", {isLoggedIn:false},{httpOnly:true}); 
-        res.status(500).send({error:'Unable to Login'})
+        res.status(500).send({result:'Unable to Login'})
     }
 })
 
@@ -541,6 +542,117 @@ app.post('/checkGoogleId_Token',async(req,res)=>{
       }
     verify().catch(console.error);  
 })
+
+app.get('/forgotpassword',(req, res) => {
+    res.render('forgotpassword')
+})
+
+app.post('/forgotpassword',(req, res) => {
+        USER.findOne({ email: req.body.email }, async (err, user) => {
+            
+            if (!user) {
+                // req.flash('error', 'No account with that email address exists.');
+                return res.render('');
+            }
+            randomBytes(18,(error, bytes) => {
+                if (error) throw error
+                var token = bytes.toString('hex');
+                user.resetPasswordToken = token;
+                user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+                user.save();    
+                const mailjet = require ('node-mailjet').connect(process.env.MAILJET_ID, process.env.MAILJET_ID_HASH)
+                const request = mailjet
+                .post("send", {'version': 'v3.1'})
+                .request({
+                    "Messages":[
+                        {
+                        "From": {
+                            "Email": "2000harshgupta@gmail.com",
+                            "Name": "Harsh"
+                        },
+                        "To": [
+                            {
+                            "Email": req.body.email,
+                            "Name": "User"
+                            }
+                        ],
+                        "Subject": "Greetings from Mailjet.",
+                        "TextPart": 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+                                    'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+                                    '<a href="http://' + req.headers.host + '/passwordreset?token=' + token + '">Forgot Password Link</a>\n\n' +
+                                    'If you did not request this, please ignore this email and your password will remain unchanged.\n',
+                        "HTMLPart": 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n. Please click on the following link, or paste this into your browser to complete the process:\n\n http://'
+                                     + req.headers.host + '/passwordreset?token=' + token + '\n\n' +
+                                    'If you did not request this, please ignore this email and your password will remain unchanged.\n',
+                        "CustomID": "AppGettingStartedTest"
+                        }
+                    ]
+                    })
+                    request.then((result) => {
+                        console.log(result.body)
+                    }).catch((err) => {
+                        console.log(err.statusCode)
+                    })
+            });
+        })
+    })
+
+    app.get('/passwordreset', function(req, res) {
+        USER.findOne({ resetPasswordToken: req.query.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+          if (!user) {
+              console.log(req.query)
+              return res.redirect('/');
+          }
+          res.render('passwordreset', {
+            user: req.user
+          });
+        });
+      });
+      
+    app.post('/passwordreset',(req, res) => {
+        USER.findOne({ resetPasswordToken: req.query.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+            // console.log(user)
+            if (!user) {
+                console.log('Password successfully changed');
+                return res.redirect('/');
+            }
+            
+                user.password = req.body.password;
+                user.resetPasswordToken = undefined;
+                user.resetPasswordExpires = undefined;
+                user.save();    
+                const mailjet = require ('node-mailjet').connect(process.env.MAILJET_ID, process.env.MAILJET_ID_HASH)
+                const request = mailjet
+                .post("send", {'version': 'v3.1'})
+                .request({
+                    "Messages":[
+                        {
+                        "From": {
+                            "Email": "2000harshgupta@gmail.com",
+                            "Name": "Harsh"
+                        },
+                        "To": [
+                            {
+                            "Email": user.email,
+                            "Name": "User"
+                            }
+                        ],
+                        "Subject": "Greetings from Mailjet.",
+                        "TextPart": 'Password Changed Successfully \n',
+                        "HTMLPart": "<h3>Password Changed Successfully \n</h3>",
+                        "CustomID": "AppGettingStartedTest"
+                        }
+                    ]
+                    })
+            request.then((result) => {
+                console.log('Mail Sent Successfully')
+            }).catch((err) => {
+                console.log(err)
+            })
+            return res.redirect('/')
+        })
+        
+    })
 
 //#######################################################
 //Post requests end here
