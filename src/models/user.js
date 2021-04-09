@@ -35,6 +35,10 @@ const userSchema=new mongoose.Schema({
     },
     resetPasswordToken: String,
     resetPasswordExpires: Date,
+    role:{
+        type:String,
+        default:"Customer"
+    },
     age:{
         type: Number,
         default:18,
