@@ -156,7 +156,7 @@ app.get('/angular',(req,res)=>{
 })
 
 //covid-update setup
-app.get('/covidData',(req,res)=>{
+app.get('/covidData',auth,(req,res)=>{
     res.render('covidAPI',{
         message:'Get Covid Updates Here',
         title:'Covid Data',
@@ -166,7 +166,7 @@ app.get('/covidData',(req,res)=>{
     })
 })
 
-app.get('/search',(req,res)=>{
+app.get('/search',auth,(req,res)=>{
     res.render('search',{
         message:'Get worldclass recipes here...',
         title:'aaa',
@@ -177,7 +177,7 @@ app.get('/search',(req,res)=>{
 })
 
 //products-page setup
-app.get('/products',(req,res)=>{
+app.get('/products',auth,(req,res)=>{
 
     if(!req.query.search){
         return res.send({
