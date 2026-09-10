@@ -1,9 +1,9 @@
-var rp = require('request-promise');
+const fetchJson = require('./fetch-json')
 var fs= require('fs')
 
 const geocode = (address, callback)=>{
     const url='https://api.mapbox.com/geocoding/v5/mapbox.places/'+address+'.json?access_token='+process.env.GEOCODE_ID+'&limit=1'
-    rp({url,json:true},(error, response)=>{
+    fetchJson(url,(error, response)=>{
         if(error){
             callback('Unable to access Location services . PLease Check Your Connection and try again',{})
         }else{

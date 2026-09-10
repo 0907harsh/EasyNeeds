@@ -1,10 +1,10 @@
-var rp = require('request-promise');
+const fetchJson = require('./fetch-json')
 var fs= require('fs')
 
 const spoonacular = (query,number, callback)=>{
     // console.log(query,number)
     const url='https://api.spoonacular.com/recipes/search?query='+query+'&number='+number+'&apiKey='+process.env.SPOONACULAR_API_KEY
-    rp({url,json:true},(error, {body}={})=>{
+    fetchJson(url,(error, {body}={})=>{
         if(error){
             callback(error,{})
         }else{

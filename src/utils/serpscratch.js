@@ -1,4 +1,4 @@
-var rp = require('request-promise');
+const fetchJson = require('./fetch-json')
 var fs= require('fs')
 var url
 const serpscratch = (query,images, callback)=>{
@@ -6,7 +6,7 @@ const serpscratch = (query,images, callback)=>{
         url='http://api.serpstack.com/search?access_key='+process.env.SEARCH_ID+'&query='+query+'&safe=1&auto_location=1'
     else
         url='http://api.serpstack.com/search?access_key='+process.env.SEARCH_ID+'&query='+query+'&images_page=12&safe=1&auto_location=1'
-    rp({url,json:true},(error, response)=>{
+    fetchJson(url,(error, response)=>{
         if(error){
             console.log('From : Serp ScrathUnable to access Search Engine . PLease Check Your Connection and try again')
             callback('Unable to access Search Engine . PLease Check Your Connection and try again',{})

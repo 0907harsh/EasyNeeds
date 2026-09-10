@@ -1,9 +1,9 @@
-var rp = require('request-promise');
+const fetchJson = require('./fetch-json')
 var fs= require('fs')
 
 const forecast = (latitude,longitude, callback)=>{
     const url='https://api.openweathermap.org/data/2.5/onecall?lat='+latitude+'&lon='+longitude+'&%20exclude=hourly,daily&appid='+process.env.SEARCH_OPENWEATHER_ID
-    rp({url,json:true},(error, {body}={})=>{
+    fetchJson(url,(error, {body}={})=>{
         if(error){
             callback('Unable to connect . Please check your network connection and try again',{})
         }else{
