@@ -21,7 +21,7 @@
     "bcryptjs": "^3.0.3",
     "body-parser": "^2.3.0",
     "bootstrap": "^5.3.8",
-    "compression": "^1.8.1",
+    "compression": "^1.8.2",
     "cookie-parser": "^1.4.7",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
