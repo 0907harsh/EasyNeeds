@@ -19,7 +19,7 @@
     "@sendgrid/mail": "^8.1.6",
     "@testing-library/user-event": "^14.6.7",
     "bcryptjs": "^3.0.3",
-    "body-parser": "^2.3.0",
+    "body-parser": "^2.4.0",
     "bootstrap": "^5.3.8",
     "compression": "^1.8.1",
     "cookie-parser": "^1.4.7",
